@@ -18,6 +18,8 @@
   <!-- Custom styles for this template -->
   <link href="css/creative.css" rel="stylesheet">
   <link href="css/styleindex.css" rel="stylesheet">
+  <!-- <link href="css/styleindex.css" rel="stylesheet"> -->
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>
     jQuery(document).ready(function( $ ) {
@@ -65,10 +67,17 @@
             <a class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal2"><br>Eres beneficiario Ingresa aquí<br><br></a>
           </div>
         </div>
-      </div>
+        
+      </div>      
     </div>
+    
+    
   </header>
-
+  <div class="container  text-right ">
+    <a href="https://wa.me/+525551012306" class="right-button-btn">
+      <i class="fa fa-whatsapp"></i> Contactanos
+    </a>
+  </div>
   <!-- Modal  Competencias-->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -378,7 +387,7 @@
 
 
 
-
+<!-- 
 <section class="bg-dark text-white">
   <div class="container text-center">
     <div class="row">
@@ -394,7 +403,7 @@
             <div class="video-container item active">
               <div class="youtube-video" id='E1-o_EO9LE0'></div>
               <div class="carousel-caption">Beneficios FESE para las empresas</div>
-            </div>
+            </div> -->
 		  <!--
           <div class="video-container item">
             <div class="youtube-video" id='HBRpB6Xd8QU'></div>
@@ -405,7 +414,7 @@
             <div class="carousel-caption">Instituto tecnológico de zitácuaro</div>
           </div>
         -->
-      </div>
+      <!-- </div>
       <div class="controls">
         <a class="left carousel-control" href="#random_number1" data-slide="prev">
          <i class="fa fa-angle-left fa-3x" ></i>
@@ -418,7 +427,7 @@
 </div>
 </div>       
 </div>
-</section>
+</section> -->
 
 
 
@@ -587,11 +596,21 @@
 
 
 
-              <h4><br><strong>LIC. KARIME BECERRA ROJAS</strong></h4>
+              <h4><br><strong>LIC. ANDREI RAMIREZ</strong></h4>
               <P></P>
-              <h5><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp; barroyo@fese.org.mx</h5>
+              
+              <h5>
+                <a href="mailto:empresarial@fese.org.mx" class="btn-contact" target="_blank">  
+                  <span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp; empresarial@fese.org.mx
+                </a>
+              </h5>
               <!--<h5><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;(55) 4626 8266 ext. 8264</h5>-->
-              <h5><span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Tenayuca 200, Santa Cruz Atoyac,Benito Juárez, 03310, <br>&nbsp;&nbsp;&nbsp;&nbsp; México D.F.</h5>
+              
+              <h5>
+                <a href="https://www.google.com.mx/maps/place/Fundaci%C3%B3n+Educaci%C3%B3n+Superior+Empresa/@19.3734491,-99.1622087,17z/data=!3m1!4b1!4m6!3m5!1s0x85d1ffa52c4affa9:0xe7505e0e613e278a!8m2!3d19.3734441!4d-99.1596338!16s%2Fg%2F11b6j9fyp5" class="btn-contact" target="_blank">
+                  <span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Tenayuca 200, Santa Cruz Atoyac,Benito Juárez, 03310, <br>&nbsp;&nbsp;&nbsp;&nbsp; México D.F.
+                </a>  
+              </h5>
 
 
 
@@ -635,11 +654,15 @@
               </form>
             </div>
           </div> 
-
         </div>       
       </div>
     </section>
 
+      <footer>
+          <h5 class="text-center bg-dark text-white" style=" height: 60px; padding-top:15px;">
+            Todos los derechos reservados - FESE 2023
+          </h5>
+      </footer>
     <script src="js/pas.js"></script>
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

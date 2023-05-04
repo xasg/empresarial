@@ -200,3 +200,33 @@ body {
 
 .confirmacion{background:#C6FFD5;border:1px solid green;}
 .negacion{background:#ffcccc;border:1px solid red;}
+
+.right-button-btn{
+  font-size: 28px;
+  border-right: 12px solid #622c5e;
+  text-decoration: none;
+  text-decoration: none;
+  transition: all ease-in-out 0.6s;
+}
+.right-button-btn:hover{
+
+  transition: all ease-in-out 0.6s;
+  padding: 12px;
+  border-radius: 12px;
+  /* background: #651717; */
+  /* background: #1b520e; */
+  background: #25D366;
+  color: #eee;
+  /* text-shadow: 1px 2px 6px #000; */
+  box-shadow: 0px -1px 12px #000;
+  text-decoration: none;
+}
+
+.btn-contact{
+  color: #eee;
+  text-decoration: none;
+}
+
+.btn-contact:hover{
+  text-decoration: none;
+}
