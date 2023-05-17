@@ -19,7 +19,7 @@
   <link href="css/creative.css" rel="stylesheet">
   <link href="css/styleindex.css" rel="stylesheet">
   <!-- <link href="css/styleindex.css" rel="stylesheet"> -->
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>
     jQuery(document).ready(function( $ ) {
@@ -46,6 +46,40 @@
             field.value = field.value.toUpperCase() 
         }   
 </script>
+
+<script>
+        function abrirWhatsApp() {
+            // Reemplaza "xxxxxxxxxxxxx" con el número de teléfono de destino
+            var numeroTelefono = "5551012306";
+            
+            // Crea el enlace para abrir WhatsApp con el número de teléfono
+            var url = "https://api.whatsapp.com/send?phone=" + numeroTelefono;
+
+            // Abre una nueva ventana o pestaña con el enlace de WhatsApp
+            window.open(url);
+        }
+    </script>
+
+<style>
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+
+            z-index: 9999;
+            background-color: green;
+            color: white;
+            padding: 12px;
+            border-radius: 40%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0px 0px 4px #000;
+        }
+    </style>
+
+
+
 </head>
 
 <body>
@@ -73,11 +107,12 @@
     
     
   </header>
-  <div class="container  text-right ">
-    <a href="https://wa.me/+525551012306" class="right-button-btn">
-      <i class="fa fa-whatsapp"></i> Contactanos
-    </a>
-  </div>
+  
+  <div class="whatsapp-button" onclick="abrirWhatsApp()">  <!--------BOTON DE WHATSAPP------------->
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    
   <!-- Modal  Competencias-->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
