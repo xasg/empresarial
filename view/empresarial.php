@@ -59,6 +59,7 @@
                             <li class=""><a class="colora" href="candidato.php" >Candidatos</a></li>
                             <li class=""><a class="colora" href="beneficiario.php" >Beneficiarios</a></li>
                             <li class=""><a class="colora" href="noaplica.php" >No aplica</a></li>
+                            <li class=""><a class="colora" href="new_vacante_admin.php" >Vacantes</a></li>
                         </ul>
                 </div>
                </div>
@@ -72,8 +73,8 @@
                   <th>RAZÓN SOCIAL</th>
                   <th>RFC</th>                  
                   <th>CONTACTO</th>
-				  <th>ACCESO</th>
-				  <th>ESTATUS</th>
+                  <th>ACCESO</th>
+                  <th>ESTATUS</th>
                   <th>VACANTES</th>
                   <th>EDITAR</th>
 				  

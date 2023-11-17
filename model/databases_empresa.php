@@ -185,6 +185,37 @@ function run_vacante($id)
   $sql ="SELECT * FROM vacante WHERE id_usuario = '{$id}'";
   return $mysqli->query($sql);
 }
+function run_vacantes()
+{
+  global $mysqli;
+  // $sql ="SELECT * FROM vacante left join empresa using (id_usuario) WHERE dt_razon_social != 'null' ";
+  $sql ="SELECT * FROM vacante left join empresa using (id_usuario) order by dt_razon_social ASC ";
+  return $mysqli->query($sql);
+}
 
+function delete_vacante($id){
+  
+  global $mysqli;
+  $sql ="DELETE FROM vacante Where id_vacante =  '{$id}' ";
+  return $mysqli->query($sql);
+}
+
+// Se agrega el runempresas
+function run_empresas()
+{
+  // global $mysqli;
+  // $sql ="SELECT * FROM empresa ORDER BY `dt_nombre` DESC";
+  //       return $mysqli->query($sql);
+  global $mysqli;
+$sql ="SELECT *  FROM empresa Where dt_nombre_comercial <> 'NULL'";
+return $result = $mysqli->query($sql);
+}
+
+function count_empresas(){
+  global $mysqli;
+$sql ="SELECT count(*) as numeralia FROM empresa Where dt_nombre_comercial <> 'NULL' ";
+ return $result = $mysqli->query($sql);
+//  return $result->fetch_assoc(); 
+}
 
 ?>
