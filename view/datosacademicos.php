@@ -95,7 +95,7 @@ $entidad=run_entidad()
     <div class="col-md-12">
       <ul class="wizard-steps">
         <li class="finalizado">
-          <a href="#"><h5>Datos</h5> <span>Personales</span></a>
+          <a href="datospersonales.php"><h5>Datos</h5> <span>Personales</span></a>
         </li>
         <li class="completed">
          <a href="#"><h5>Datos</h5> <span>Academicos</span></a>
