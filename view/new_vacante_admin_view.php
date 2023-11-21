@@ -12,12 +12,13 @@
    foreach($conteos as $num){
        $conteo = $num['numeralia'];
    }
+  //  $_REQUEST['eliminado'] = false;
   }else{
     // Si no está logueado lo redireccion a la página de login.
     header("HTTP/1.1 302 Moved Temporarily"); 
     header("Location: ../"); 
   }  
-
+  
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -39,6 +40,8 @@
       <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
       <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
       
+     
+
       <!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
       <!-- Initialize the plugin: -->
 <!-- Initialize the plugin: -->
@@ -47,6 +50,21 @@
         $('#example-getting-started').multiselect();
     });
 </script>
+<?php
+
+  if ($_REQUEST['eliminado']  ) {
+    ?>
+    <script>alert('Vacante Eliminada')</script>
+    <?php
+    
+  }
+  if ($_REQUEST['vacante'] ) {
+    ?>
+    <script>alert('Vacante Registrada')</script>
+    <?php
+    
+  }
+?>
    </head>
    <body>
 <div class="container-fluid" style="background-color: #f5f5f5">
@@ -106,56 +124,64 @@
                 </div>
                </div>
            </div>
+           
            <table id="example" class="table table-striped table-bordered" style="width:100%">
-          <thead>
-            <tr>  
-                  <th>ID</th>
-                  <th>Empresa - razon social</th>
-                  <th>Empresa - comercial</th>
-                  <th>Nombre vacante</th>
-                  <th>Carrera</th>
-                  <th>Numero de vacantes</th>                  
-                  <th>Fecha de inicio</th>
-                  <th>Fecha de término</th>
-                  <th>Apoyo ecónomico</th>
-                  <th>Fecha de registro</th>
-                  <th>Acciones</th>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Empresa - razon social</th>
+                <th>Empresa - comercial</th>
+                <th>Nombre vacante</th>
+                <th>Carrera</th>
+                <th>Numero de vacantes</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha de término</th>
+                <th>Apoyo ecónomico</th>
+                <th>Fecha de registro</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-                <?php
-                // while($vac = $vacante->fetch_assoc())
+            <?php
+            try {
+                $vacante = run_vacantes();
                 $i = 0;
-                foreach ($vacante as $key => $vac)
-                {
+                foreach ($vacante as $key => $vac) {
                     $i++;
-                ?>
-                <tr>
-                  <td><?php echo $i; ?></td>
-                  <td><?php echo $vac['dt_razon_social']; ?></td>
-                  <td><?php echo $vac['dt_nombre_comercial']; ?></td>
-                  <td><?php echo $vac['dt_nombre']; ?></td>
-                  <td><?php echo $vac['dt_carrera']; ?></td>                                      
-                  <td><?php echo $vac['dt_numero']; ?></td>
-                  <td><?php echo $vac['dt_inicio']; ?></td>
-                  <td><?php echo $vac['dt_termino']; ?></td>
-                  <td><?php echo $vac['dt_apoyo']; ?></td>
-                  <td><?php echo $vac['dt_fh_registro']; ?></td>                  
-                  <td>
-                    <?php if($vac['dt_razon_social'] == null) { ?>
-                    <form action="../controller/eliminar_vacante.php" method="POST">
-                        <!-- <label id="id_vacante" name="id_vacante"><?php echo $vac['id_vacante'];?></label> -->
-                        <input type="text" id="id_vacante" name="id_vacante" value="<?php echo $vac['id_vacante'];?>" hidden>
-                        <button type="submit" class="btn btn-danger" >Eliminar</button>
-                    </form>
-                  <?php } ?>
-                  </td>                  
-                </tr> 
-                <?php
-                  }
-                ?>               
-                </tbody> 
-        
+            ?>
+                    <tr>
+                        <td><?php echo $i; ?></td>
+                        <td><?php echo $vac['dt_razon_social']; ?></td>
+                        <td><?php echo $vac['dt_nombre_comercial']; ?></td>
+                        <td><?php echo $vac['dt_nombre']; ?></td>
+                        <td><?php echo $vac['dt_carrera']; ?></td>
+                        <td><?php echo $vac['dt_numero']; ?></td>
+                        <td><?php echo $vac['dt_inicio']; ?></td>
+                        <td><?php echo $vac['dt_termino']; ?></td>
+                        <td><?php echo $vac['dt_apoyo']; ?></td>
+                        <!-- <td><?php echo date('Y-m-d', strtotime($vac['fecha_registro_vacante'])); ?></td> -->
+                        <td><?php echo $vac['fecha_registro_vacante']; ?></td>
+                        <td>
+                            <?php //if ($vac['dt_razon_social'] == null) { ?>
+                                <form action="../controller/eliminar_vacante.php" method="POST">
+                                    <input type="text" id="id_vacante" name="id_vacante" value="<?php echo $vac['id_vacante']; ?>" hidden>
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            <!-- <?php// } ?> -->
+                            <a href="consult_vacante.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
+                                <button type="button" class="btn btn-warning" style="margin-top:10px;">
+                                    <i class='glyphicon glyphicon-pencil'></i> editar
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+            <?php
+                }
+            } catch (Exception $e) {
+                echo "Error al ejecutar la consulta: " . $e->getMessage();
+            }
+            ?>
+        </tbody>
     </table>
                   
             </div>
@@ -172,32 +198,12 @@
 
 
 <script>
-    $(document).ready(function(){
-      var date_input=$('input[name="date"]'); //our date input has the name "date"
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'yyyy-mm-dd',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
-    })
+
 </script>
 
 
 <script>
-    $(document).ready(function(){
-      var date_input=$('input[name="date2"]'); //our date input has the name "date"
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'yyyy-mm-dd',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
-    })
+
 </script>
 
 <script>

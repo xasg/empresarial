@@ -9,7 +9,7 @@ if (delete_vacante($id)) {
     
 ?>
     <script>
-       window.location="../view/new_vacante_admin.php"
+       window.location="../view/new_vacante_admin_view.php?eliminado='si'";
     </script>
 <?php
 }

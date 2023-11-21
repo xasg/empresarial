@@ -1,12 +1,11 @@
 <?php   
-//    include_once('../model/databases_empresa.php');
    include_once('../model/databases_empresa.php');
    session_start();
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['id'])){  
    $id=$_SESSION["id"];   
    $empresas = run_empresas();
- $conteos = count_empresas();
+   $conteos = count_empresas();
  foreach($conteos as $num){
      $conteo = $num['numeralia'];
  }
@@ -103,25 +102,9 @@
           </div>
           <div class="row">
                <div class="col-md-12"><br><br>
-               <!-- </div>
-                   <div class="col-md-12">
-                        <ul class="wizard-steps">
-                          <li class="finalizado">
-                            <a href="datos_empresa.php"><h5>Datos</h5> <span>Empresa</span></a>
-                          </li>
-                          <li class="finalizado">
-                             <a href="digital_empresa.php"><h5>Archivos</h5> <span>Digitales</span></a>
-                          </li>   
-                          <li class="completed">
-                             <a href="digital_empresa.php"><h5>Vacantes</h5> <span>Registradas</span></a>
-                          </li>    
-                        </ul>
-                    </div>
-              </div> -->
-
                 <div class="row">
                     
-                   <form action="../controller/update_vacante.php" method="POST">
+                   <form action="../controller/update_vacante_admin_vacantes.php" method="POST">
 
                         <div class="col-md-12">
                             <h2>Selecciona la empresa<br><br></h2>
@@ -129,14 +112,15 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                             <label for="" class="form-label">Empresas registradas >> <?php echo $conteo; ?></label>
-                                <select  class="form-control" name="hr_inicio" required>
+                                <select id="id_usuario_empresa" name="id_usuario_empresa"   class="form-control" name="hr_inicio" required>
                                     <option selected>Selecciona la empresa</option>
                                     <?php
                                     $conteos;
                                     foreach ($empresas as $key => $value) {
                                         $i++;
                                     ?>
-                                    <option> <?php echo $i.' - '.$value['dt_nombre_comercial'];?></option>
+                                    <option value=<?php echo $value['dt_nombre_comercial']; ?> > <?php echo $value['dt_nombre_comercial']?></option>
+                                    <!-- <option id="id_usuario" name="id_usuario"  > <?php echo $value['dt_nombre_comercial']?></option> -->
 
                                     <?php 
                                         
