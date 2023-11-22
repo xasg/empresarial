@@ -173,11 +173,41 @@ function update_vacante_admin($id, $nombre, $numero, $carrera, $inicio, $termino
   $mysqli->query($sql); 
 }
 
+// Se agrega el insert de la vacante desde el admin
+function insert_vacante_admin($id, $nombre, $numero, $carrera, $inicio, $termino, $hr_inicio, $hr_termino, $apoyo, $dispersion){
+  global $mysqli;
+
+
+//   $sql = "INSERT INTO vacante (id_vacante, id_usuario,dt_nombre, dt_numero,dt_carrera,dt_inicio,dt_termino,dt_hr_inicio,dt_hr_termino,dt_apoyo,dt_dispersion)
+// SELECT null, id_usuario, '{$nombre}', '{$numero}', '{$carrera}', '{$inicio}', '{$termino}', '{$hr_inicio}', '{$hr_termino}',  '{$apoyo}', '{$dispersion}'
+// FROM empresa 
+// WHERE dt_nombre_comercial = '{$id}'";
+
+// $sql="INSERT INTO vacante
+// SELECT null,id_usuario, '{$nombre}','{$numero}','{$carrera}','{$inicio}','{$termino}','{$hr_inicio}', '{$hr_termino}',null,null,'{$apoyo}', '{$dispersion}',null,null,null,null,0
+// FROM empresa 
+// WHERE dt_nombre_comercial = '{$id}'";
+
+$sql = "INSERT INTO vacante (id_vacante, id_usuario, dt_nombre, dt_numero, dt_carrera, dt_inicio, dt_termino, dt_hr_inicio, dt_hr_termino, dt_apoyo, dt_dispersion)
+VALUES (null, '{$id}', '{$nombre}', '{$numero}', '{$carrera}', '{$inicio}', '{$termino}', '{$hr_inicio}', '{$hr_termino}', '{$apoyo}', '{$dispersion}')
+";
+
+
+
+$mysqli->query($sql);
+
+
+}
 
 
 
 
-
+function run_vacante_info($id){
+  global $mysqli;
+  // $sql ="SELECT * FROM vacante left join empresa using (id_usuario) WHERE dt_razon_social != 'null' ";
+  $sql ="SELECT * FROM vacante left join empresa using (id_usuario) where id_vacante = '{$id}'";
+  return $mysqli->query($sql);
+}
 
 function run_vacante($id)
 {
@@ -186,5 +216,34 @@ function run_vacante($id)
   return $mysqli->query($sql);
 }
 
+// Se agrega la funcion para visualisar las vacantes desde el view/new_vacante_admin_view.php para ver el listado de las vacantes
+
+function run_vacantes()
+{
+  global $mysqli;
+  // $sql ="SELECT * FROM vacante left join empresa using (id_usuario) WHERE dt_razon_social != 'null' ";
+  $sql ="SELECT *,vacante.dt_fh_registro as fecha_registro_vacante FROM vacante left join empresa using (id_usuario) order by vacante.dt_fh_registro DESC ";
+  return $mysqli->query($sql);
+}
+// Se agrega la funcion para eliminar una vacante creada sin la relacion entre ninguna empresa es decir si no tiene empresa registrada y esta en null la posibilidad de eliminarla
+function delete_vacante($id){
+  global $mysqli;
+  $sql ="DELETE FROM vacante Where id_vacante =  '{$id}' ";
+  return $mysqli->query($sql);
+}
+
+// Se agrega el select list para el new_vacante_admin.php para ver el listado de las empresas registradas por nombre comercial
+function run_empresas(){
+  global $mysqli;
+  $sql ="SELECT *  FROM empresa Where dt_nombre_comercial <> 'NULL'";
+  return $result = $mysqli->query($sql);
+}
+// Se obtiene el numero total de empresas sin ambiguedad registradas
+function count_empresas(){
+  global $mysqli;
+$sql ="SELECT count(*) as numeralia FROM empresa Where dt_nombre_comercial <> 'NULL' ";
+ return $result = $mysqli->query($sql);
+//  return $result->fetch_assoc(); 
+}
 
 ?>
