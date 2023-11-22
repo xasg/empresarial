@@ -1,5 +1,9 @@
 <?php
 require_once('../controller/conec.php');
+$servername = "localhost";
+$dbname = "empresarial";
+$username = "root";
+$password = "";
 $mysqli = new mysqli($servername, $username, $password, $dbname);
 $result ='';
 if( $mysqli->connect_errno )
