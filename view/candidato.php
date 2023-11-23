@@ -55,6 +55,7 @@
                             <li class="active"><a class="colora" href="#" >Candidatos</a></li>
                             <li class=""><a class="colora" href="beneficiario.php" >Beneficiarios</a></li>
                             <li class=""><a class="colora" href="noaplica.php" >No aplica</a></li>
+                            <li class=""><a class="colora" href="new_vacante_admin.php" >Vacantes</a></li>
                         </ul>
                 </div>
                </div>
