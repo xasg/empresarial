@@ -1,7 +1,7 @@
 <?php   
-//    include_once('../model/databases_empresa.php');
-error_reporting(0);
-include_once('../model/databases_empresa.php');
+  // Desactivar toda notificación de error
+  error_reporting(0);
+   include_once('../model/databases_empresa.php');
    session_start();
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['id'])){  
@@ -173,6 +173,11 @@ include_once('../model/databases_empresa.php');
                             <a href="consult_vacante.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
                                 <button type="button" class="btn btn-warning" style="margin-top:10px;">
                                     <i class='glyphicon glyphicon-pencil'></i> editar
+                                </button>
+                            </a>
+                            <a href="consult_vacante_invite.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
+                                <button type="button" class="btn btn-primary" style="margin-top:10px;">
+                                <i class="glyphicon glyphicon-user"></i> Invitar
                                 </button>
                             </a>
                         </td>
