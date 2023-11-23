@@ -1,6 +1,7 @@
 <?php   
 //    include_once('../model/databases_empresa.php');
-   include_once('../model/databases_empresa.php');
+error_reporting(0);
+include_once('../model/databases_empresa.php');
    session_start();
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['id'])){  
@@ -51,6 +52,7 @@
     });
 </script>
 <?php
+  // $_REQUEST['eliminado'] = '';
 
   if ($_REQUEST['eliminado']  ) {
     ?>
