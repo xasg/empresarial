@@ -45,13 +45,34 @@ function delete_vacante_correo($id){
 
 function obtener_empresa($idvacante)
 {
-  // global $mysqli;
-  // $sql ="SELECT * FROM vacante  ";
-  // return $mysqli->query($sql);
-
   global $mysqli;
   $sql ="SELECT * FROM vacante left join empresa using (id_usuario) WHERE id_vacante = '{$idvacante}' ";
   return $mysqli->query($sql);
 }
 
+// Insertar candidatos por medio de csv
+
+// Busca si existe el correo
+function search_candidato($correo,$idvacante){
+  global $mysqli;
+  $sql = "SELECT correo FROM candidatos_correos WHERE correo= '{$correo}' AND id_vacante='{$idvacante}'";
+  return $mysqli->query($sql);
+}
+// Sino existe lo inserta
+
+function insert_data($nombre,$correo,$idvacante)
+{
+ global $mysqli;
+
+$sql = "INSERT INTO candidatos_correos(id,nombre,correo,notificacion,id_vacante) VALUES(null,'{$nombre}','{$correo}',0,'{$idvacante}')";
+  $mysqli->query($sql);
+}
+// Si existe se actualiza solo si tiene el id de la vacante
+
+function update_correo($nombre,$correo,$idvacante)
+{
+  $sql = "UPDATE candidatos_correos SET nombre='{$nombre}' WHERE correo='{$correo}' AND id_vacante = '{$idvacante}' ";
+
+}
+  
 ?>

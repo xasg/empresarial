@@ -34,6 +34,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/material.min.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
+    <link rel="stylesheet" type="text/css" href="../css/cssGenerales.css">
 <script type="text/javascript">
     $(document).ready(function() {
         $('#example-getting-started').multiselect();
@@ -101,9 +102,29 @@
                       <div class="col-md-12">
                         <h3>Empresa:</h3>
                         <h4 style="border-bottom:2px solid #ccc; font-size:22px;" ><?php echo $nom_comercial; ?></h4> 
+                        <hr>
                      </div>
+                     <div class="col-md-12" style=" margin-bottom:50px;">
+                      <h2>Cargar candidatos desde un archivo</h2>
+                        <form action="../controller/recibe_excel_validando.php" method="POST" enctype="multipart/form-data">
+                          <div class="row">
+                            <div class="col-sm-6 file-input text-center">
+                                <input  type="file" name="dataCliente" id="file-input" class="file-input__input"/>
+                                <label class="file-input__label" for="file-input">
+                                  <i class="zmdi zmdi-upload zmdi-hc-2x"></i>
+                                  <span>Elegir Archivo CSV(separado por comas)</span></label>
+                            </div>
+                            <div class="col-sm-6 text-center mt-2">
+                                <!-- <input type="submit" name="subir" class="btn-enviar" value="Subir Excel"/> -->
+                                <input type="number" id="idvac" name="idvac" value="<?php echo $id ?>" hidden>
+                                <input type="submit" name="subir" class="btn-lg btn-primary" value="Subir Excel"/>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
                      <br>
-                     <hr>
+
+                     <h2 style="margin-top:100px;">Cargar candidatos manualmente</h2>
                      <form action="../controller/agregar_invitacion.php" method="POST">
                         <div class="row">
                             <input type="number" id="idvac" name="idvac" value="<?php echo $id; ?>" hidden>
