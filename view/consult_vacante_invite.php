@@ -199,6 +199,7 @@ include('../model/database_emails.php');
                 <th>Cliente</th>
                 <th>Email</th>
                 <th>Estatus de Notificación</th>
+                <th>Ultimo envio</th>
                 <th>acciones</th>
             </tr>
         </thead>
@@ -220,6 +221,15 @@ include('../model/database_emails.php');
                   <?php
                   echo ($dataClientes['notificacion']) ? '<i class="zmdi zmdi-check-all zmdi-hc-2x green"></i>' : '<i class="zmdi zmdi-check zmdi-hc-2x black"></i>';
                   ?>
+                </td>
+                <td>
+                  <?php
+                   if ($dataClientes['notificacion'] == 1) {
+                     echo $dataClientes['dt_fecha']; 
+                  }else{
+                    echo "0000-00-00 00:00:00";
+                  }
+                   ?>
                 </td>
                 <td>
                     <!-- <form action="../controller/eliminar_vacante_correo.php" method="POST">
