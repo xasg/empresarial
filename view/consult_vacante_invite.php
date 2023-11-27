@@ -134,7 +134,7 @@
                             </div>
                             <div class="col-sm-6">
                             <label for="" class="form-label">correo</label>
-                            <input type="mail" class="form-control" name="correoCandidato" id="correoCandidato" aria-describedby="helpId" placeholder="" required>
+                            <input type="email" class="form-control" name="correoCandidato" id="correoCandidato" aria-describedby="helpId" placeholder="" required>
                             </div>
                             <br>
                             <div class="col-sm-3" >

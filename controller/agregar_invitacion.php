@@ -26,9 +26,9 @@
    insert_candidato($nombre,$correo,$vacante);
    }
 ?>
-    <!-- <script>
+    <script>
        window.location="../view/consult_vacante_invite.php?vac=<?php echo $vacante ?>";
-    </script> -->
+    </script>
 <?php
 
 }
