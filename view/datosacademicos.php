@@ -175,7 +175,7 @@ $entidad=run_entidad()
                            <div class="form-group">
                               <label class="control-label">habilidades transversales</label><br>
                              <select id="example-getting-started" name="habilidades[]" multiple="multiple"  required>
-                                  <option value="">SELECIONAR</option>
+                                  <option value="" disabled >SELECIONAR</option>
                                   <option value="COMUNICACIÓN,">COMUNICACIÓN</option>
                                   <option value="LIDERAZGO,">LIDERAZGO</option>
                                   <option value="TRABAJO EN EQUIPO,">TRABAJO EN EQUIPO</option>
@@ -233,8 +233,9 @@ $entidad=run_entidad()
 
 
     <div class="col-md-3 col-md-offset-9">
-      <div class="form-group"><br><br>    
-        <button type="submit" class="btn btn-block btn-primary btn-lg">Guardar</button><br><br>
+      <div class="form-group" style="display:flex; gap:10px"><br><br>    
+        <a href="datospersonales.php" class="  btn-primary btn-lg">Anterior</a>  
+        <button type="submit" class="btn  btn-block btn-primary btn-lg">Guardar</button><br><br>
       </div>
     </div>          
   </div>

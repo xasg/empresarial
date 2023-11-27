@@ -136,7 +136,8 @@ $beneficiario =acces_beneficiario($id);
                       </div>
                 </div> 
                     <div class="col-md-3 col-md-offset-9">
-                      <div class="form-group"><br><br>    
+                      <div class="form-group" style="display:flex; gap:10px"><br><br>
+                        <a href="datospersonales.php" class="  btn-primary btn-lg">Anterior</a>    
                         <button type="submit" class="btn btn-block btn-primary btn-lg">Guardar</button><br><br>
                       </div>
                     </div>           
