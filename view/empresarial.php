@@ -65,59 +65,68 @@
                </div>
           </div>
 
-  <div class="row"><br><br><br>
-      <table id="example" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                  <th>ENTIDAD</th>
-                  <th>RAZÓN SOCIAL</th>
-                  <th>RFC</th>                  
-                  <th>CONTACTO</th>
-                  <th>ACCESO</th>
-                  <th>ESTATUS</th>
-                  <th>VACANTES</th>
-                  <th>EDITAR</th>
-				  
-            </tr>
-        </thead>
-              <tbody>
-                <?php
-                while($emp = $empresa->fetch_assoc())
-                {
-                ?>
-                <tr>
-                  <td><?php echo $emp['nombre_entidad']; ?></td>
-                  <td><?php echo $emp['dt_razon_social']; ?></td>
-                  <td><?php echo $emp['dt_rfc']; ?></td>  
-                  <td><?php echo "Contacto:<br>Nombre: ".$emp['dt_nombre_contacto']."<br>correo:".$emp['dt_correo_contacto']."<br>Teléfono: ".$emp['dt_telefono_contacto']; ?></td>                  
-                  <td><?php echo "<br>correo: ".$emp['dt_correo']."<br>contraseña: ".$emp['dt_password'];?></td>   
-				  <td>
-				  <?php if( $emp['estatus']==1){ 
-				     echo "Participando";
-				   } ?>
-				  </td>
-				  <td class="text-center">
-                  <?php if($emp['dt_nombre']!=NULL){ ?>
-                    <a href="num_vacantes.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-success" ><i class='glyphicon glyphicon-search'></i> consultar</button> </a>
-                  <?php } ?>
-                  </td>
-                   <td class="text-center">
-                    <a href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
-                   </td>                                  
-                </tr> 
-                <?php
-                  }
-                ?>               
-              </tbody>         
-      </table>
+        <div class="row"><br><br><br>
+          <div class="col-md-12 m-auto">
+                      <div class="panel-heading">
+                              <ul class="nav nav-tabs">
+                                  <li class="active"><a class="colora" href="#" >Empresas</a></li>
+                                  <li ><a class="colora" href="new_empresa_admin.php" >Registrar empresa</a></li>
+                              </ul>
+                        </div>
+          </div>
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+              <thead>
+                  <tr>
+                        <th>ENTIDAD</th>
+                        <th>RAZÓN SOCIAL</th>
+                        <th>RFC</th>                  
+                        <th>CONTACTO</th>
+                        <th>ACCESO</th>
+                        <th>ESTATUS</th>
+                        <th>VACANTES</th>
+                        <th>EDITAR</th>
+                
+                  </tr>
+              </thead>
+                    <tbody>
+                      <?php
+                      while($emp = $empresa->fetch_assoc())
+                      {
+                      ?>
+                      <tr>
+                        <td><?php echo $emp['nombre_entidad']; ?></td>
+                        <td><?php echo $emp['dt_razon_social']; ?></td>
+                        <td><?php echo $emp['dt_rfc']; ?></td>  
+                        <td><?php echo "Contacto:<br>Nombre: ".$emp['dt_nombre_contacto']."<br>correo:".$emp['dt_correo_contacto']."<br>Teléfono: ".$emp['dt_telefono_contacto']; ?></td>                  
+                        <td><?php echo "<br>correo: ".$emp['dt_correo']."<br>contraseña: ".$emp['dt_password'];?></td>   
+                <td>
+                <?php if( $emp['estatus']==1){ 
+                  echo "Participando";
+                } ?>
+                </td>
+                <td class="text-center">
+                        <?php if($emp['dt_nombre']!=NULL){ ?>
+                          <a href="num_vacantes.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-success" ><i class='glyphicon glyphicon-search'></i> consultar</button> </a>
+                        <?php } ?>
+                        </td>
+                        <td class="text-center m-2">
+                          <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
+                          <a style="margin:3px;" href="../controller/valida_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-pencil'></i>validar</button></a>
+                        </td>                                  
+                      </tr> 
+                      <?php
+                        }
+                      ?>               
+                    </tbody>         
+            </table>
 
 
-  </div>
+          </div>
                     
             
 
-         </div>
-      </section>
+        </div>
+  </section>
 
 
 <script>

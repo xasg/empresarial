@@ -55,7 +55,7 @@ function obtener_empresa($idvacante)
 // Busca si existe el correo
 function search_candidato($correo,$idvacante){
   global $mysqli;
-  $sql = "SELECT correo FROM candidatos_correos WHERE correo= '{$correo}' AND id_vacante='{$idvacante}'";
+  $sql = "SELECT correo,id_vacante FROM candidatos_correos WHERE correo= '{$correo}' AND id_vacante='{$idvacante}'";
   return $mysqli->query($sql);
 }
 // Sino existe lo inserta
@@ -71,8 +71,9 @@ $sql = "INSERT INTO candidatos_correos(id,nombre,correo,notificacion,id_vacante)
 
 function update_correo($nombre,$correo,$idvacante)
 {
+  global $mysqli;
   $sql = "UPDATE candidatos_correos SET nombre='{$nombre}' WHERE correo='{$correo}' AND id_vacante = '{$idvacante}' ";
-
+  $mysqli->query($sql);
 }
-  
+
 ?>

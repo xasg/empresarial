@@ -246,4 +246,29 @@ $sql ="SELECT count(*) as numeralia FROM empresa Where dt_nombre_comercial <> 'N
 //  return $result->fetch_assoc(); 
 }
 
+function count_invitados_correo($id_vacante){
+  global $mysqli;
+  $sql = "SELECT count(*) as numeralia FROM candidatos_correos WHERE id_vacante = '{$id_vacante}'";
+  $res = $mysqli->query($sql);
+
+  if ($res) {
+    $numRows = $res->num_rows;
+
+    if ($numRows > 0) {
+      $row = $res->fetch_assoc();
+      $vacantescount = $row['numeralia'];
+    } else {
+      // No se encontraron registros para la vacante especificada
+      $vacantescount = 0;
+    }
+
+    $res->close();
+  } else {
+    // Manejar error en la ejecución de la consulta
+    $vacantescount = -1; // Puedes establecer un valor específico para indicar un error
+  }
+
+  return $vacantescount;
+}
+
 ?>
