@@ -13,6 +13,11 @@ require '../PHPMailer/src/SMTP.php';
 
 if (isset($_REQUEST['enviarform'])) {
     $vacante = isset( $_POST['idvac']) ? $_POST['idvac'] : '';
+    $empresa = obtener_empresa($vacante);
+    foreach ($empresa as $key => $value) {
+        $nom_comercial = $value['dt_nombre_comercial'];
+        $nom_vacante = $value['dt_nombre'];
+    }
     if (is_array($_REQUEST['correo'])) {
         $num_countries = count($_REQUEST['correo']);
         $columna   = 1;
@@ -46,122 +51,141 @@ if (isset($_REQUEST['enviarform'])) {
 
 <?php
         foreach ($_REQUEST['correo'] as $key => $emailCliente) {
-
+            // $nombreCandidato= $_REQUEST['nombre'];
             $cliente = $emailCliente;
+            global $mysqli;
+            $sql = "SELECT * FROM candidatos_correos Where correo = '{$cliente}'";
+            $resultadoquery = $mysqli->query($sql);
+
+            foreach ($resultadoquery as $key => $value) {
+                $nombreCandidato = $value['nombre'];
+            }
 
             $destinatario = trim($emailCliente); // Quitamos algún espacio en blanco
             $asunto       = "Correo Empresarial Fese";
             $cuerpo = '
-            <!DOCTYPE html>
-            <html lang="es">
-            <head>
-            <title>Envio de email de forma masiva - Urian Viera</title>';
-            $cuerpo .= ' 
-            <style>
-                * {
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }
-                body {
-                    font-family: "Roboto", sans-serif;
-                    font-size: 16px;
-                    font-weight: 300;
-                    color: #888;
-                    background-color: rgba(230, 225, 225, 0.5);
-                    line-height: 30px;
-                    text-align: center;
-                }
-                .contenedor {
-                    width: 80%;
-                    min-height: auto;
-                    text-align: center;
-                    margin: 0 auto;
-                    background: #ececec;
-                    border-top: 3px solid #E64A19;
-                }
-                .btnlink {
-                    padding: 15px 30px;
-                    text-align: center;
-                    background-color: #cecece;
-                    color: crimson !important;
-                    font-weight: 600;
-                    text-decoration: blue;
-                }
-                .btnlink:hover {
-                    color: #fff !important;
-                }
-                .imgBanner {
-                    max-width: 48%;
-                    margin-left: auto;
-                    margin-right: auto;
-                    display: block;
-                    padding: 0px;
-                }
-                .misection {
-                    color: #34495e;
-                    margin: 4% 10% 2%;
-                    text-align: center;
-                    font-family: sans-serif;
-                }
-                .mt-5 {
-                    margin-top: 50px;
-                }
-                .mb-5 {
-                    margin-bottom: 50px;
-                }
-            </style>
-        ';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Envio de email de forma masiva - Urian Viera</title>';
+$cuerpo .= ' 
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 16px;
+        font-weight: 300;
+        color: #888;
+        background-color: rgba(230, 225, 225, 0.5);
+        line-height: 30px;
+        text-align: center;
+    }
+    .contenedor {
+        width:100%;
+        min-height: auto;
+        text-align: center;
+        margin: 0 auto;
+        background: #ececec;
+        border-top: 3px solid #0D4D5B;
+    }
+    .btnlink {
+        padding: 15px 30px;
+        text-align: center;
+        background-color: #cecece;
+        color: crimson !important;
+        font-weight: 600;
+        text-decoration: blue;
+    }
+    .btnlink:hover {
+        color: #fff !important;
+    }
+    .imgBanner {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        padding: 0px;
+    }
+    .misection {
+        color: #34495e;
+        margin: 4% 10% 2%;
+        text-align: center;
+        font-family: sans-serif;
+    }
+    .mt-5 {
+        margin-top: 50px;
+    }
+    .mb-5 {
+        margin-bottom: 50px;
+    }
+</style>
+';
 
-            $cuerpo .= '
-            </head>
-            <body>
-                <div class="contenedor">
-                    <img class="imgBanner" src="https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/banner-correo-masivos-urian-viera.jpeg">
-                    <table style="max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 0">
-                                <img style="width:100%; padding: 0; display: block" src="https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/urian-viera-perfil.png">
-                            </td>
-                        </tr>
+$cuerpo .= '
+</head>
+<body>
+    <div class="contenedor">
+        <img class="imgBanner" src="imgs/ban.png">
+        <table style="max-width: 1400px; padding: 10px; margin:0 auto; border-collapse: collapse;">
+            <tr>
+                <td style="padding: 0; background-color: #ffffff;">
+                    <div class="misection">
+                        <h2 style="color: #0D4D5B; margin: 0 0 7px">Bienvenida practicante ' .$nom_comercial. ' - FESE </h2>
+                        <p style="margin: 2px; font-size: 18px; text-align: justify;">Un gusto saludarte, soy <b> Andrei Ramírez </b>, de la <b>Fundación Educación Superior Empresa (FESE)</b>, quienes nos encargamos de la parte administrativa y dispersión de apoyos económicos de los practicantes de ' .$nom_comercial. '.</p>
+                        <p style="margin: 5px; font-size: 18px; text-align: justify; margin-top: 45px; margin-bottom: 30px;">
+                            El responsable del área de recursos humanos me ha comentado que has iniciado tus prácticas profesionales. Por esto, requiero que me apoyes en la realización de tu registro en nuestra plataforma, tendrás que adjuntar todos los documentos mencionados, tal cual se especifica: 
+                        </p>
+                        <a href="http://empresarial.fese.mx/"  style="border-radius: 12px; box-shadow: 0 0 10px #000; background: #330867; color: #fff; padding: 20px; text-decoration: none; margin-top: 60px ;">Da clic aqui</a>
+                    
+                        <h2 style="color: #0D4D5B; margin: 0 0 7px; margin-top: 50px;">Documentación requerida</h2>
+                        <ol style="text-align: justify;">
+                            <li>CV  </li>
+                            <li>CURP</li>
+                            <li>INE ambas caras o cualquier identificación oficial con fotografía vigente.</li>  
+                            <li>Acta de Nacimiento</li>
+                            <li>Comprobante de Domicilio con Código Postal que coincida con la dirección de tu INE. </li>
+                            <li>Comprobante de estudios. Documento oficial de la institución que señale nombre del alumno, nombre de la escuela, carrera y créditos obtenidos al momento de hacer el registro.</li>
+                            <li>Reporte de vigencia seguro médico facultativo IMSS, póliza del IMSS Bienestar o póliza de seguro médico privado. (vigente durante el periodo de la práctica).</li>
+                            <li>
+                                Comprobante de Cuenta Bancaria oficial del banco que mencione: Tu nombre como titular de la cuenta, nombre del banco, tipo de cuenta (débito o ahorro, pero no de nómina) y CLABE a 18 dígitos. Éste deberá de ser emitido por un banco oficial; no MercadoPago, no Oxxo, no NU, no RappiCard, no Banco del bienestar, no cajas de ahorro o similar.</li>
+                        </ol>
+                        <p style="margin: 5px; font-size: 18px; text-align: justify; margin-top: 45px; margin-bottom: 30px;">En caso de tener dudas, revisa el siguiente tutorial</p>
+                        <a href="https://www.youtube.com/watch?v=PGSPy7U__Kc" style="border-radius: 12px; box-shadow: 0 0 10px #000; background: #330867; color: #fff; padding: 20px; text-decoration: none; margin-top: 60px ;">Ver tutorial</a>
+                    
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #ffffff;">
+                    <div class="misection">
+                        <p>Es importante que realices esto lo antes posible, ya que es uno de los pasos del proceso que tienen que realizar. El siguiente será el convenio, mismo que deberás firmar y subir a la plataforma, de lo contrario no se podrá realizar el depósito de tu apoyo económico. Si tienes alguna duda, contáctame.   
+                            <br><br><br>
+                            Muchas gracias y excelente día.     
+                        </p>
+                        <p>
+                            <b>Andrei Ramírez <br>  
+                                5527662150 </b>
+                        </p>
+                    </div>
 
-                        <tr>
-                            <td style="background-color: #ffffff;">
-                                <div class="misection">
-                                    <h2 style="color: red; margin: 0 0 7px">Hola, ' . $cliente . '</h2>
-                                    <p style="margin: 2px; font-size: 18px">te doy la Bienvenida a WebDeveloper, un canal de Desarrollo Web y Programacion. </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: #ffffff;">
-                                <div class="misection">
-                                    <h2 style="color: red; margin: 0 0 7px">Visitar Canal de Youtube</h2>
-                                    <img style="width:100%; padding: 0; display: block" src="https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/videos-youtube-urian-viera.png">
-                                </div>
+                </td>
+            </tr>
+         
+        </table>';
 
-                                <div class="mb-5 misection">
-                                    <p>&nbsp;</p>
-                                    <a href="https://www.youtube.com/channel/UCodSpPp_r_QnYIQYCjlyVGA" class="btnlink">Visitar Canal </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 0;">
-                                <img style="width:100%; padding: 0; display: block" src="https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/footer-correos-masivos-urian-viera.png">
-                            </td>
-                        </tr>
-                    </table>';
-
-            $cuerpo .= '
-            </div>
-        </body>
-    </html>';
-
+$cuerpo .= '
+</div>
+</body>
+</html>';
             // Configuración de PHPMailer
             $mail = new PHPMailer(true);
 
             try {
+                $mail->CharSet = 'UTF-8';
                 $mail->isSMTP();
                 $mail->Host       = 'mail.fese.org.mx';
                 $mail->SMTPAuth   = true;

@@ -55,7 +55,7 @@
                <div class="col-md-12">
                  <div class="panel-heading">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a class="colora" href="#" >Empresas</a></li>
+                            <li class=""><a class="colora" href="#" >Empresas</a></li>
                             <li class=""><a class="colora" href="candidato.php" >Candidatos</a></li>
                             <li class="dropdown active">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="beneficiario.php">Beneficiarios
@@ -69,6 +69,7 @@
 							</ul>
 						    </li>
                             <li class=""><a class="colora" href="noaplica.php" >No aplica</a></li>
+                            <li class=""><a class="colora" href="new_vacante_admin.php" >Vacantes</a></li>
                         </ul>
                 </div>
                </div>

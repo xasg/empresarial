@@ -52,6 +52,7 @@
     });
 </script>
 <?php
+  // $_REQUEST['eliminado'] = '';
 
   if ($_REQUEST['eliminado']  ) {
     ?>

@@ -16,8 +16,8 @@
     <link href="../css/style.css" rel="stylesheet">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
    <script src="../js/bootstrap.min.js"></script>   
    </head>
    <body>
@@ -55,6 +55,7 @@
                             <li class="active"><a class="colora" href="#" >Candidatos</a></li>
                             <li class=""><a class="colora" href="beneficiario.php" >Beneficiarios</a></li>
                             <li class=""><a class="colora" href="noaplica.php" >No aplica</a></li>
+                            <li class=""><a class="colora" href="new_vacante_admin.php" >Vacantes</a></li>
                         </ul>
                 </div>
                </div>
@@ -77,8 +78,9 @@
               <tbody>
                 <?php
                 $counter = 1;
-                while($cand = $candidato->fetch_assoc())
-                {
+                // while($cand = $candidato->fetch_assoc())
+                foreach ($candidato as $key => $cand) {
+                
                 ?>
                 <tr>
                   <td class="text-center"><?php echo $cand['id_usuario']; ?></td>
@@ -133,6 +135,7 @@
         }
     } );
 } );
+
 
 $(document).ready(function() {
     $('#example').DataTable();
