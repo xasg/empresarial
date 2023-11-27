@@ -67,6 +67,12 @@ if (isset($_REQUEST['enviarform'])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<meta charset="UTF-8">
+<title>Envio de email de forma masiva - Urian Viera</title>';
+$cuerpo = '
+<!DOCTYPE html>
+<html lang="es">
+<head>
 <title>Envio de email de forma masiva - Urian Viera</title>';
 $cuerpo .= ' 
 <style>
@@ -90,7 +96,7 @@ $cuerpo .= '
         text-align: center;
         margin: 0 auto;
         background: #ececec;
-        border-top: 3px solid #0D4D5B;
+        border-top: 8px solid #0D4D5B;
     }
     .btnlink {
         padding: 15px 30px;
@@ -129,18 +135,17 @@ $cuerpo .= '
 </head>
 <body>
     <div class="contenedor">
-        <img class="imgBanner" src="imgs/ban.png">
+        <img class="imgBanner" src="https://raw.githubusercontent.com/xasg/empresarial/dev-1/imgs/ban.png">
         <table style="max-width: 1400px; padding: 10px; margin:0 auto; border-collapse: collapse;">
             <tr>
                 <td style="padding: 0; background-color: #ffffff;">
                     <div class="misection">
                         <h2 style="color: #0D4D5B; margin: 0 0 7px">Bienvenida practicante ' .$nom_comercial. ' - FESE </h2>
-                        <p style="margin: 2px; font-size: 18px; text-align: justify;">Un gusto saludarte, soy <b> Andrei Ramírez </b>, de la <b>Fundación Educación Superior Empresa (FESE)</b>, quienes nos encargamos de la parte administrativa y dispersión de apoyos económicos de los practicantes de ' .$nom_comercial. '.</p>
+                        <p style="margin: 2px; font-size: 18px; text-align: justify;">Un gusto saludarte <b>'.$nombreCandidato.'</b>, soy <b> Andrei Ramírez </b>, de la <b>Fundación Educación Superior Empresa (FESE)</b>, quienes nos encargamos de la parte administrativa y dispersión de apoyos económicos de los practicantes de ' .$nom_comercial. '.</p>
                         <p style="margin: 5px; font-size: 18px; text-align: justify; margin-top: 45px; margin-bottom: 30px;">
                             El responsable del área de recursos humanos me ha comentado que has iniciado tus prácticas profesionales. Por esto, requiero que me apoyes en la realización de tu registro en nuestra plataforma, tendrás que adjuntar todos los documentos mencionados, tal cual se especifica: 
                         </p>
                         <a href="http://empresarial.fese.mx/"  style="border-radius: 12px; box-shadow: 0 0 10px #000; background: #330867; color: #fff; padding: 20px; text-decoration: none; margin-top: 60px ;">Da clic aqui</a>
-                    
                         <h2 style="color: #0D4D5B; margin: 0 0 7px; margin-top: 50px;">Documentación requerida</h2>
                         <ol style="text-align: justify;">
                             <li>CV  </li>
@@ -153,8 +158,12 @@ $cuerpo .= '
                             <li>
                                 Comprobante de Cuenta Bancaria oficial del banco que mencione: Tu nombre como titular de la cuenta, nombre del banco, tipo de cuenta (débito o ahorro, pero no de nómina) y CLABE a 18 dígitos. Éste deberá de ser emitido por un banco oficial; no MercadoPago, no Oxxo, no NU, no RappiCard, no Banco del bienestar, no cajas de ahorro o similar.</li>
                         </ol>
+                        
                         <p style="margin: 5px; font-size: 18px; text-align: justify; margin-top: 45px; margin-bottom: 30px;">En caso de tener dudas, revisa el siguiente tutorial</p>
                         <a href="https://www.youtube.com/watch?v=PGSPy7U__Kc" style="border-radius: 12px; box-shadow: 0 0 10px #000; background: #330867; color: #fff; padding: 20px; text-decoration: none; margin-top: 60px ;">Ver tutorial</a>
+                        <p style="margin: 5px; font-size: 18px; text-align: justify; margin-top: 45px; margin-bottom: 30px;">
+                        En la parte final del proceso, te pedirá que elijas una vacante, la tuya se llama  <b style="border-bottom:1px solid #0D4D5B">'.$nom_vacante.'</b>.  
+                        </p>
                     
                     </div>
                 </td>
@@ -198,6 +207,7 @@ $cuerpo .= '
                 $mail->addAddress($destinatario);
 
                 // Cabecera Obligatoria
+                $mail->setFrom('aramirez@fese.mx', 'EMPRESARIAL FESE.');
                 $mail->setFrom('aramirez@fese.mx', 'EMPRESARIAL FESE.');
                 $mail->isHTML(true);
                 $mail->Subject = $asunto;

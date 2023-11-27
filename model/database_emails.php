@@ -25,7 +25,7 @@ function get_cantidad($id){
 
 function actualiza_status($cliente){
     global $mysqli;
-    $query = "UPDATE candidatos_correos SET notificacion = 1  WHERE correo='{$cliente}' ";
+    $query = "UPDATE candidatos_correos SET notificacion = 1, dt_fecha=NOW()  WHERE correo='{$cliente}' ";
     $mysqli->query($query);
 }
 

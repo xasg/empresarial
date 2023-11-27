@@ -97,7 +97,7 @@ function curpValida(curp) {
                     <div class="col-md-12">
                         <ul class="wizard-steps">
                           <li class="completed">
-                            <a href="#"><h5>Datos</h5> <span>Personales</span></a>
+                            <a href="datospersonales.php"><h5>Datos</h5> <span>Personales</span></a>
                           </li>
                           <li>
                             <a href="#"><h5>Datos</h5> <span>Academicos</span></a>
@@ -162,13 +162,14 @@ function curpValida(curp) {
                 <div class="col-md-6">
                 <div class="form-group">
                   <label>Dirección (Calle y Número):</label>
-                   <input type="text" name="direccion" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_direccion']?>" pattern="[A-Za-z\# ]{1,50}" title="Proporcione una dirección correcto" required>
+                   <!-- <input type="text" name="direccion" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_direccion']?>" pattern="[A-Za-z\# ]{1,1000}" title="Proporcione una dirección correcto" required> -->
+                   <input type="text" name="direccion" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_direccion']?>" pattern="[A-Za-0-9]+" title="Proporcione una dirección correcto" required>
                 </div>
                 </div>
                 <div class="col-md-6">
                 <div class="form-group">
                   <label>Localidad, colonia o barrio:</label>
-                   <input type="text" name="colonia" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_colonia']?>"  pattern="[A-Za-z\# ]{1,50}" title="Proporcione un nombre correcto"required>
+                   <input type="text" name="colonia" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_colonia']?>"  pattern="[A-Z-a-z]" title="Proporcione un nombre correcto"required>
                 </div>
                 </div>                           
               </div>
@@ -217,7 +218,7 @@ function curpValida(curp) {
                 </div>
                 </div>
                 <div class="col-md-3 col-md-offset-9">
-                  <div class="form-group">  
+                  <div class="form-group">
                   <button type="submit" class="btn btn-block btn-primary btn-lg">Guardar</button><br><br>
                   </div>
                 </div>
