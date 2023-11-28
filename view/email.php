@@ -135,7 +135,7 @@ $cuerpo .= '
 </head>
 <body>
     <div class="contenedor">
-        <img class="imgBanner" src="https://raw.githubusercontent.com/xasg/empresarial/dev-1/imgs/ban.png">
+        <img class="imgBanner" src="https://raw.githubusercontent.com/xasg/empresarial/dev-1/imgs/BANN.png">
         <table style="max-width: 1400px; padding: 10px; margin:0 auto; border-collapse: collapse;">
             <tr>
                 <td style="padding: 0; background-color: #ffffff;">
