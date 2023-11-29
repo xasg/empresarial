@@ -67,6 +67,36 @@
     
   }
 ?>
+
+<style>
+  [data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+[data-title]:after {
+    content: attr(data-title);
+    background-color: #333;
+    color: #fff;
+    font-size: 14px;
+    font-family: Raleway;
+    position: absolute;
+    padding: 3px 20px;
+    bottom: -1.6em;
+    left: 100%;
+    white-space: nowrap;
+    box-shadow: 1px 1px 3px #222222;
+    opacity: 0;
+    border: 1px solid #111111;
+    z-index: 99999;
+    visibility: hidden;
+    border-radius: 6px;
+    
+}
+[data-title] {
+    position: relative;
+}
+</style>
    </head>
    <body>
 <div class="container-fluid" style="background-color: #f5f5f5">
@@ -145,10 +175,26 @@
         </thead>
         <tbody>
             <?php
+            // include('../model/databases_emails.php');
+            // $invites ="0";
+      
+            
             try {
                 $vacante = run_vacantes();
+                // foreach ($vacante as $key => $value) {
+                //   # code...
+                // }
+    
                 $i = 0;
                 foreach ($vacante as $key => $vac) {
+                  $vacante_ids = $vac['id_vacante']; 
+                  $numeralia = count_invitados_correo($vacante_ids);
+                  // $runinvite = 
+                  
+                  // foreach ($runinvite as $key => $val) {
+                  //   $invites = $val['conteo'];
+                  // }
+  
                     $i++;
             ?>
                     <tr>
@@ -176,7 +222,9 @@
                                 </button>
                             </a>
                             <a href="consult_vacante_invite.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
-                                <button type="button" class="btn btn-primary" style="margin-top:10px;">
+                            <?php
+                            ?>
+                                <button type="button" class="btn btn-primary" style="margin-top:10px; "  data-title="<?php echo $numeralia." Invitados"?>">
                                 <i class="glyphicon glyphicon-user"></i> Invitar
                                 </button>
                             </a>

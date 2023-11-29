@@ -72,7 +72,7 @@ LEFT JOIN usuario ON(empresa.id_usuario=usuario.id_usuario)
 LEFT JOIN vacante ON(empresa.id_usuario=vacante.id_usuario) 
 LEFT JOIN cor_digital_empresa ON(empresa.id_usuario=cor_digital_empresa.id_usuario)
 LEFT JOIN cat_entidad ON(empresa.id_cat_entidad=cat_entidad.id_cat_entidad)  
-GROUP BY empresa.id_usuario ORDER BY `dt_nombre` DESC";
+GROUP BY empresa.id_usuario ORDER BY  empresa.dt_fh_registro DESC";
         return $mysqli->query($sql);
 }
 
@@ -287,7 +287,12 @@ $sql="INSERT INTO cat_fh_actividades(id, dt_fh_inicio, dt_fh_fin) VALUES (null, 
 $mysqli->query($sql);
 }
 
-
+// validacion empresa cambiar estatus
+function update_empresa($id){
+  global $mysqli;
+  $sql = "UPDATE empresa SET tp_status = 1 WHERE id_usuario='{$id}'";
+  $mysqli->query($sql);
+}
 
 
 ?>
