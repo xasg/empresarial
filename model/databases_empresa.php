@@ -47,7 +47,12 @@ function view_empresa($id)
   return $result->fetch_assoc();
 }
 
-
+function get_limit_user(){
+  global $mysqli;
+  $sql ="SELECT * FROM `usuario` ORDER BY id_usuario desc LIMIT 1";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
 
 function crear_usuario($correo, $password)
 {
@@ -62,6 +67,13 @@ function  crear_empresa($id_user, $nombre)
 global $mysqli;
 $sql="INSERT INTO empresa(id_empresa, id_usuario, dt_razon_social) 
        VALUES (null, '{$id_user}', '{$nombre}')";
+$mysqli->query($sql);
+}
+function  crear_empresa_admin($id_user, $nombre)
+{
+global $mysqli;
+$sql="INSERT INTO empresa(id_empresa, id_usuario, dt_razon_social,dt_nombre_comercial) 
+       VALUES (null, '{$id_user}', '{$nombre}','{$nombre}')";
 $mysqli->query($sql);
 }
 

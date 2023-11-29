@@ -169,7 +169,7 @@
              <p>La contraseña debe tener minimo 6 y maximo 10 caracteres</p>
              <br><br> 
              <button type="submit" class="btn btn-default btn-lg btn-block" style="background-color:#622c5e; color: #fff">Registrar</button>
-           </form>   
+          </form>   
            <br><br>
          </div>
        </div> 

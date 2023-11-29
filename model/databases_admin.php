@@ -67,11 +67,24 @@ return $result->fetch_assoc();
 function run_empresas()
 {
   global $mysqli, $result;
+  $sql ="SELECT empresa.id_usuario, usuario.dt_password, usuario.dt_correo, `nombre_entidad`, `dt_razon_social`, dt_nombre_comercial,`dt_rfc`, `dt_nombre_contacto`, `dt_correo_contacto`,`dt_telefono_contacto`,`dt_nombre`, url_convenio, empresa.`tp_status` AS estatus FROM `empresa`
+LEFT JOIN usuario ON(empresa.id_usuario=usuario.id_usuario)
+LEFT JOIN vacante ON(empresa.id_usuario=vacante.id_usuario) 
+LEFT JOIN cor_digital_empresa ON(empresa.id_usuario=cor_digital_empresa.id_usuario)
+LEFT JOIN cat_entidad ON(empresa.id_cat_entidad=cat_entidad.id_cat_entidad) 
+Where empresa.tp_status >= 0 
+GROUP BY empresa.id_usuario ORDER BY  empresa.dt_fh_registro DESC";
+        return $mysqli->query($sql);
+}
+function run_empresas_baja()
+{
+  global $mysqli, $result;
   $sql ="SELECT empresa.id_usuario, usuario.dt_password, usuario.dt_correo, `nombre_entidad`, `dt_razon_social`,`dt_rfc`, `dt_nombre_contacto`, `dt_correo_contacto`,`dt_telefono_contacto`,`dt_nombre`, url_convenio, empresa.`tp_status` AS estatus FROM `empresa`
 LEFT JOIN usuario ON(empresa.id_usuario=usuario.id_usuario)
 LEFT JOIN vacante ON(empresa.id_usuario=vacante.id_usuario) 
 LEFT JOIN cor_digital_empresa ON(empresa.id_usuario=cor_digital_empresa.id_usuario)
-LEFT JOIN cat_entidad ON(empresa.id_cat_entidad=cat_entidad.id_cat_entidad)  
+LEFT JOIN cat_entidad ON(empresa.id_cat_entidad=cat_entidad.id_cat_entidad) 
+Where empresa.tp_status = -1
 GROUP BY empresa.id_usuario ORDER BY  empresa.dt_fh_registro DESC";
         return $mysqli->query($sql);
 }
@@ -291,6 +304,11 @@ $mysqli->query($sql);
 function update_empresa($id){
   global $mysqli;
   $sql = "UPDATE empresa SET tp_status = 1 WHERE id_usuario='{$id}'";
+  $mysqli->query($sql);
+}
+function down_empresa($id){
+  global $mysqli;
+  $sql = "UPDATE empresa SET tp_status = -1 WHERE id_usuario='{$id}'";
   $mysqli->query($sql);
 }
 

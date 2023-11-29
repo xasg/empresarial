@@ -3,7 +3,7 @@
    session_start();
    mysqli_set_charset( $mysqli, 'utf8');
    $id=$_SESSION["id"];
-   $empresa = run_empresas();
+   $empresa = run_empresas_baja();
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -65,7 +65,7 @@
                </div>
           </div>
 
-        <div class="row container"><br><br><br>
+        <div class="row"><br><br><br>
           <div class="col-md-12 m-auto">
                       <div class="panel-heading">
                               <ul class="nav nav-tabs">
@@ -74,18 +74,17 @@
                               </ul>
                         </div>
           </div>
-          <div class="panel-heading container">
+          <div class="panel-heading">
                               <ul class="nav nav-tabs">
-                                  <li class="active"><a class="colora" href="#" >Validadas</a></li>
-                                  <li ><a class="colora" href="empresarial_bajas.php" >Bajas</a></li>
+                                  <li class=""><a class="colora" href="empresarial.php" >Validadas</a></li>
+                                  <li class="active"><a class="colora" href="empresarial_bajas.php" >Bajas</a></li>
                               </ul>
                         </div>
-            <table id="example" class="table table-striped table-bordered w-50 container" style="width:100%">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
               <thead>
                   <tr>
                         <th>ENTIDAD</th>
                         <th>RAZÓN SOCIAL</th>
-                        <th>NOMBRE COMERCIAL</th>
                         <th>RFC</th>                  
                         <th>CONTACTO</th>
                         <th>ACCESO</th>
@@ -103,19 +102,13 @@
                       <tr>
                         <td><?php echo $emp['nombre_entidad']; ?></td>
                         <td><?php echo $emp['dt_razon_social']; ?></td>
-                        <td><?php echo $emp['dt_nombre_comercial']; ?></td>
                         <td><?php echo $emp['dt_rfc']; ?></td>  
                         <td><?php echo "Contacto:<br>Nombre: ".$emp['dt_nombre_contacto']."<br>correo:".$emp['dt_correo_contacto']."<br>Teléfono: ".$emp['dt_telefono_contacto']; ?></td>                  
                         <td><?php echo "<br>correo: ".$emp['dt_correo']."<br>contraseña: ".$emp['dt_password'];?></td>   
                 <td>
-                <?php if( $emp['estatus']==1){ 
-                  // echo "Participando";
-                  echo "<h2 class='btn btn-success' disabled>Participando</h2>";
-                }elseif ($emp['estatus'] == 0) {
-                  ?>
-                  <h2 class="btn btn-warning" disabled> Pendiente </h2>
-                <?php
-                }?>
+                <?php if( $emp['estatus']==-1){ 
+                  echo "Baja";
+                } ?>
                 </td>
                 <td class="text-center">
                         <?php if($emp['dt_nombre']!=NULL){ ?>
@@ -125,21 +118,12 @@
                         <td class="text-center m-2">
                           <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
                           <?php
-                          if ($emp['estatus'] == 0 ) {
+                          if ($emp['estatus'] == -1 ) {
                           ?>
                           <br>
                           <a style="margin:3px;" href="../controller/valida_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-pencil'></i>validar</button></a>
-                          <br>
-                          <a style="margin-top:3px;" href="../controller/baja_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i>Dar de baja</button></a>
-                          <?php 
-                          }elseif ($emp['estatus'] == 1 ) {
-                            ?>
-                            <br>
-                          <a style="margin-top:3px;" href="../controller/baja_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i>Dar de baja</button></a>
                           
-                            <?php
-                          }
-                          ?>
+                          <?php } ?>
                         </td>                                  
                       </tr> 
                       <?php
