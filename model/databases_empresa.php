@@ -257,6 +257,29 @@ $sql ="SELECT count(*) as numeralia FROM empresa Where dt_nombre_comercial <> 'N
  return $result = $mysqli->query($sql);
 //  return $result->fetch_assoc(); 
 }
+function count_empresas_registradas_total(){
+  global $mysqli;
+$sql ="SELECT count(*) as numeralia FROM empresa ";
+ return $result = $mysqli->query($sql);
+}
+function count_empresas_registradas_actual(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as total
+FROM empresa 
+WHERE YEAR(dt_fh_registro) =  YEAR(CURDATE())";
+
+ return $result = $mysqli->query($sql);
+}
+function count_empresas_registradas_anterior(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as total
+FROM empresa 
+WHERE YEAR(dt_fh_registro) =  YEAR(CURDATE()) - 1";
+
+ return $result = $mysqli->query($sql); ;
+}
 
 function count_invitados_correo($id_vacante){
   global $mysqli;
