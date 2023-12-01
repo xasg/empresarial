@@ -111,7 +111,7 @@
                         </div>                  
                         <div class="col-md-12">
                             <div class="mb-3">
-                            <label for="" class="form-label">Empresas registradas >> <?php echo $conteo; ?></label>
+                            <label for="" class="form-label">Empresas registradas validadas [<?php echo $conteo; ?>]</label>
                                 <select id="id_usuario_empresa" name="id_usuario_empresa"   class="form-control" name="hr_inicio" required>
                                     <option selected>Selecciona la empresa</option>
                                     <?php

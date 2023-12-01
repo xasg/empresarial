@@ -234,7 +234,7 @@ function run_vacantes()
 {
   global $mysqli;
   // $sql ="SELECT * FROM vacante left join empresa using (id_usuario) WHERE dt_razon_social != 'null' ";
-  $sql ="SELECT *,vacante.dt_fh_registro as fecha_registro_vacante FROM vacante left join empresa using (id_usuario) order by vacante.dt_fh_registro DESC ";
+  $sql ="SELECT *,vacante.dt_fh_registro as fecha_registro_vacante FROM vacante left join empresa using (id_usuario) where empresa.tp_status = 1 order by vacante.dt_fh_registro DESC ";
   return $mysqli->query($sql);
 }
 // Se agrega la funcion para eliminar una vacante creada sin la relacion entre ninguna empresa es decir si no tiene empresa registrada y esta en null la posibilidad de eliminarla
@@ -247,13 +247,13 @@ function delete_vacante($id){
 // Se agrega el select list para el new_vacante_admin.php para ver el listado de las empresas registradas por nombre comercial
 function run_empresas(){
   global $mysqli;
-  $sql ="SELECT *  FROM empresa Where dt_nombre_comercial <> 'NULL'";
+  $sql ="SELECT *  FROM empresa Where dt_nombre_comercial <> 'NULL' AND tp_status = 1 ORDER BY dt_nombre_comercial ASC";
   return $result = $mysqli->query($sql);
 }
 // Se obtiene el numero total de empresas sin ambiguedad registradas
 function count_empresas(){
   global $mysqli;
-$sql ="SELECT count(*) as numeralia FROM empresa Where dt_nombre_comercial <> 'NULL' ";
+$sql ="SELECT count(*) as numeralia FROM empresa Where dt_nombre_comercial <> 'NULL'  AND tp_status = 1";
  return $result = $mysqli->query($sql);
 //  return $result->fetch_assoc(); 
 }

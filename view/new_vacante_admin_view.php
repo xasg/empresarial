@@ -6,14 +6,12 @@
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['id'])){  
    $id=$_SESSION["id"];   
-//    $empresa = get_usuario($id);
    $vacante = run_vacantes();
    $empresas = run_empresas();
    $conteos = count_empresas();
    foreach($conteos as $num){
        $conteo = $num['numeralia'];
    }
-  //  $_REQUEST['eliminado'] = false;
   }else{
     // Si no está logueado lo redireccion a la página de login.
     header("HTTP/1.1 302 Moved Temporarily"); 
@@ -40,11 +38,7 @@
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
       <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
       <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-      
-     
-
-      <!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
-      <!-- Initialize the plugin: -->
+    
 <!-- Initialize the plugin: -->
 <script type="text/javascript">
     $(document).ready(function() {
@@ -52,8 +46,6 @@
     });
 </script>
 <?php
-  // $_REQUEST['eliminado'] = '';
-
   if ($_REQUEST['eliminado']  ) {
     ?>
     <script>alert('Vacante Eliminada')</script>
@@ -175,27 +167,13 @@
         </thead>
         <tbody>
             <?php
-            // include('../model/databases_emails.php');
-            // $invites ="0";
-      
-            
             try {
                 $vacante = run_vacantes();
-                // foreach ($vacante as $key => $value) {
-                //   # code...
-                // }
-    
                 $i = 0;
                 foreach ($vacante as $key => $vac) {
                   $vacante_ids = $vac['id_vacante']; 
                   $numeralia = count_invitados_correo($vacante_ids);
-                  // $runinvite = 
-                  
-                  // foreach ($runinvite as $key => $val) {
-                  //   $invites = $val['conteo'];
-                  // }
-  
-                    $i++;
+                  $i++;
             ?>
                     <tr>
                         <td><?php echo $i; ?></td>
@@ -250,16 +228,6 @@
 <script type="text/javascript" src="../plugins/calendar/js/jquery-1.11.3.min.js"></script>
 -->
 <script type="text/javascript" src="../plugins/calendar/js/bootstrap-datepicker.min.js"></script>
-
-
-<script>
-
-</script>
-
-
-<script>
-
-</script>
 
 <script>
   $(document).ready(function() {

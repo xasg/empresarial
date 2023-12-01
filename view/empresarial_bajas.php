@@ -20,7 +20,24 @@
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
       <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
       <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-   </head>
+      <style>
+  table{
+  table-layout: auto;
+  overflow: auto;
+  border: 1px solid;
+  margin-left: 2%;
+  max-width:500px !important;
+  }
+  table thead,
+  table th,
+  table td {
+    width: 99%;
+    max-width: 200px !important;
+    overflow: auto;
+    border: 1px solid;
+  }
+</style>
+    </head>
    <body>
 <div class="container-fluid" style="background-color: #f5f5f5">
   <nav class="navbar navbar-default">
@@ -67,24 +84,27 @@
 
         <div class="row"><br><br><br>
           <div class="col-md-12 m-auto">
-                      <div class="panel-heading">
-                              <ul class="nav nav-tabs">
-                                  <li class="active"><a class="colora" href="#" >Empresas</a></li>
-                                  <li ><a class="colora" href="new_empresa_admin.php" >Registrar empresa</a></li>
-                              </ul>
-                        </div>
+            <div class="panel-heading">
+              <ul class="nav nav-tabs">                  
+                <li class="active"><a class="colora" href="#" >Empresas</a></li>
+                <li ><a class="colora" href="new_empresa_admin.php" >Registrar empresa</a></li>
+              </ul>
+            </div>
           </div>
           <div class="panel-heading">
-                              <ul class="nav nav-tabs">
-                                  <li class=""><a class="colora" href="empresarial.php" >Validadas</a></li>
-                                  <li class="active"><a class="colora" href="empresarial_bajas.php" >Bajas</a></li>
-                              </ul>
-                        </div>
-            <table id="example" class="table table-striped table-bordered" style="width:100%">
+              <ul class="nav nav-tabs">
+              <li><a class="colora" href="empresarial.php" >Nuevas / Pendientes</a></li>
+                <li class=""><a class="colora" href="empresarial_validadas.php" >Validadas</a></li>
+                <li class="active"><a class="colora" href="empresarial_bajas.php" >Bajas</a></li>
+              </ul>
+          </div>
+          
+          <table id="example" class="table table-striped table-bordered" style="width:100%">
               <thead>
                   <tr>
                         <th>ENTIDAD</th>
                         <th>RAZÓN SOCIAL</th>
+                        <th>Nombre COMERCIAL</th>
                         <th>RFC</th>                  
                         <th>CONTACTO</th>
                         <th>ACCESO</th>
@@ -102,6 +122,7 @@
                       <tr>
                         <td><?php echo $emp['nombre_entidad']; ?></td>
                         <td><?php echo $emp['dt_razon_social']; ?></td>
+                        <td><?php echo $emp['dt_nombre_comercial']; ?></td>
                         <td><?php echo $emp['dt_rfc']; ?></td>  
                         <td><?php echo "Contacto:<br>Nombre: ".$emp['dt_nombre_contacto']."<br>correo:".$emp['dt_correo_contacto']."<br>Teléfono: ".$emp['dt_telefono_contacto']; ?></td>                  
                         <td><?php echo "<br>correo: ".$emp['dt_correo']."<br>contraseña: ".$emp['dt_password'];?></td>   
@@ -130,14 +151,8 @@
                         }
                       ?>               
                     </tbody>         
-            </table>
-
-
-          </div>
-                    
-            
-
-        </div>
+        </table>
+   
   </section>
 
 
