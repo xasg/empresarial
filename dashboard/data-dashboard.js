@@ -79,11 +79,9 @@ $(function () {
 //     }
 //   })
 
-  
-
 var $salesChart = document.getElementById('sales-chart');
 
-fetch('get_data.php')
+fetch('get_data_empresa.php')
   .then(response => response.json())
   .then(data => {
     var labels = data.labels;
@@ -173,75 +171,167 @@ fetch('get_data.php')
     });
   })
   .catch(error => console.error('Error:', error));
-
-
+  
 //   cierra empresas >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  var $visitorsChart = $('#visitors-chart')
-  // eslint-disable-next-line no-unused-vars
+var $visitorsChart = document.getElementById('visitors-chart');
+
+fetch('get_data_candidato.php')
+.then(response => response.json())
+.then(data => {
+  var labels = data.labels;
+
+  // Crear arrays de datos para Chart.js
+  var currentYearData = data.datasets[0].data;
+  var previousYearData = data.datasets[1].data;
+
+  // Crear el gráfico
   var visitorsChart = new Chart($visitorsChart, {
+    type: 'bar',
     data: {
-      labels: ['18th', '20th', '22nd', '24th', '26th', '28th', '30th'],
-      datasets: [{
-        type: 'line',
-        data: [100, 120, 170, 167, 180, 177, 160],
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        pointBorderColor: '#007bff',
-        pointBackgroundColor: '#007bff',
-        fill: false
-        // pointHoverBackgroundColor: '#007bff',
-        // pointHoverBorderColor    : '#007bff'
-      },
-      {
-        type: 'line',
-        data: [60, 80, 70, 67, 80, 77, 100],
-        backgroundColor: 'tansparent',
-        borderColor: '#ced4da',
-        pointBorderColor: '#ced4da',
-        pointBackgroundColor: '#ced4da',
-        fill: false
-        // pointHoverBackgroundColor: '#ced4da',
-        // pointHoverBorderColor    : '#ced4da'
-      }]
+      labels: labels,
+      datasets: [
+        {
+          label: 'Año Actual',
+          backgroundColor: '#622c5e',
+          borderColor: '#007bff',
+          data: currentYearData
+        },
+        {
+          label: 'Año Anterior',
+          backgroundColor: '#ced4da',
+          borderColor: '#ced4da',
+          data: previousYearData
+        }
+      ]
     },
     options: {
       maintainAspectRatio: false,
       tooltips: {
-        mode: mode,
-        intersect: intersect
+        mode: 'index',
+        intersect: true
       },
       hover: {
-        mode: mode,
-        intersect: intersect
+        mode: 'index',
+        intersect: true
       },
       legend: {
-        display: false
+        display: true
       },
       scales: {
         yAxes: [{
-          // display: false,
+          position: 'left',
           gridLines: {
             display: true,
             lineWidth: '4px',
             color: 'rgba(0, 0, 0, .2)',
             zeroLineColor: 'transparent'
           },
-          ticks: $.extend({
+          ticks: {
             beginAtZero: true,
-            suggestedMax: 200
-          }, ticksStyle)
+            callback: function (value) {
+              if (value >= 1000) {
+                value /= 1000;
+                value += 'k';
+              }
+              return '' + value;
+            }
+          }
+        }],
+        yAxes: [{
+          position: 'right',
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            beginAtZero: true,
+            callback: function (value) {
+              if (value >= 1000) {
+                value /= 1000;
+                value += 'k';
+              }
+              return '' + value;
+            }
+          }
         }],
         xAxes: [{
           display: true,
           gridLines: {
             display: false
           },
-          ticks: ticksStyle
+          ticks: {}
         }]
       }
     }
-  })
+  });
+})
+.catch(error => console.error('Error:', error));
+
+  // // var $visitorsChart = $('#visitors-chart')
+  // // eslint-disable-next-line no-unused-vars
+  // var visitorsChart = new Chart($visitorsChart, {
+  //   data: {
+  //     labels: ['18th', '20th', '22nd', '24th', '26th', '28th', '30th'],
+  //     datasets: [{
+  //       type: 'line',
+  //       data: [100, 120, 170, 167, 180, 177, 160],
+  //       backgroundColor: 'transparent',
+  //       borderColor: '#007bff',
+  //       pointBorderColor: '#007bff',
+  //       pointBackgroundColor: '#007bff',
+  //       fill: false
+  //       // pointHoverBackgroundColor: '#007bff',
+  //       // pointHoverBorderColor    : '#007bff'
+  //     },
+  //     {
+  //       type: 'line',
+  //       data: [60, 80, 70, 67, 80, 77, 100],
+  //       backgroundColor: 'tansparent',
+  //       borderColor: '#ced4da',
+  //       pointBorderColor: '#ced4da',
+  //       pointBackgroundColor: '#ced4da',
+  //       fill: false
+  //       // pointHoverBackgroundColor: '#ced4da',
+  //       // pointHoverBorderColor    : '#ced4da'
+  //     }]
+  //   },
+  //   options: {
+  //     maintainAspectRatio: false,
+  //     tooltips: {
+  //       mode: mode,
+  //       intersect: intersect
+  //     },
+  //     hover: {
+  //       mode: mode,
+  //       intersect: intersect
+  //     },
+  //     legend: {
+  //       display: false
+  //     },
+  //     scales: {
+  //       yAxes: [{
+  //         // display: false,
+  //         gridLines: {
+  //           display: true,
+  //           lineWidth: '4px',
+  //           color: 'rgba(0, 0, 0, .2)',
+  //           zeroLineColor: 'transparent'
+  //         },
+  //         ticks: $.extend({
+  //           beginAtZero: true,
+  //           suggestedMax: 200
+  //         }, ticksStyle)
+  //       }],
+  //       xAxes: [{
+  //         display: true,
+  //         gridLines: {
+  //           display: false
+  //         },
+  //         ticks: ticksStyle
+  //       }]
+  //     }
+  //   }
+  // })
 })
 
 // lgtm [js/unused-local-variable]

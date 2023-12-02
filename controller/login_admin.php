@@ -11,6 +11,7 @@ if($_POST)
  if($user['dt_password']==$password and $user['tp_usuario']==3)
  		{    
 			$_SESSION["id"]=$user['id_usuario'];
+			$_SESSION["tp_user"]=$user['tp_usuario'];
  ?>
 				<script>
 					window.location="../view/empresarial.php"

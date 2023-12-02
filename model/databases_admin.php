@@ -133,6 +133,25 @@ function num_vacantes()
         return $mysqli->query($sql);
 }
 
+function apoyo_vacantes_total(){
+  global $mysqli, $result;
+  $sql ="SELECT SUM(dt_apoyo) as apoyoTotal FROM vacante ";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+function apoyo_vacantes_actual(){
+  global $mysqli, $result;
+  $sql ="SELECT SUM(dt_apoyo) as apoyoActual FROM vacante WHERE YEAR(dt_fh_registro) = YEAR(CURDATE()) ";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+function apoyo_vacantes_anterior(){
+  global $mysqli, $result;
+  $sql ="SELECT SUM(dt_apoyo) as apoyoAnterior FROM vacante WHERE YEAR(dt_fh_registro) = YEAR(CURDATE()) - 1 ";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+
 
 function run_candidato()
 {
@@ -326,5 +345,77 @@ function down_empresa($id){
   $mysqli->query($sql);
 }
 
+
+// Se obtiene el numero total de candidatos sin ambiguedad registrados
+function count_candidatos_total(){
+  global $mysqli;
+$sql ="SELECT count(*) as numeralia FROM beneficiario ";
+$result = $mysqli->query($sql);
+ return  $result->fetch_assoc();
+}
+
+function count_candidatos_actual(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as total
+FROM beneficiario 
+WHERE YEAR(dt_fh_registro) =  YEAR(CURDATE())";
+
+$result = $mysqli->query($sql);
+return  $result->fetch_assoc();
+}
+function count_candidatos_anterior(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as total
+FROM beneficiario 
+WHERE YEAR(dt_fh_registro) =  YEAR(CURDATE()) -1;";
+
+$result = $mysqli->query($sql);
+return  $result->fetch_assoc();
+}
+
+function count_empresas_registradas_total(){
+  global $mysqli;
+$sql ="SELECT count(*) as numeralia FROM empresa ";
+$result = $mysqli->query($sql);
+return  $result->fetch_assoc();
+}
+
+
+function count_empresas_registradas_actual(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as total
+FROM empresa 
+WHERE YEAR(dt_fh_registro) =  YEAR(CURDATE())";
+
+$result = $mysqli->query($sql);
+return  $result->fetch_assoc();
+}
+
+
+function count_empresas_registradas_anterior(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as total
+FROM empresa 
+WHERE YEAR(dt_fh_registro) =  YEAR(CURDATE()) - 1";
+
+$result = $mysqli->query($sql); 
+return  $result->fetch_assoc();
+}
+
+// Validacion de empresas nuevas
+
+function count_empresas_nuevas(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as nums
+  FROM empresa WHERE tp_status = 0";
+
+$result = $mysqli->query($sql); 
+return  $result->fetch_assoc();
+}
 
 ?>

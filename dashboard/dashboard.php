@@ -1,25 +1,38 @@
 <?php
   // Desactivar toda notificación de error
+  session_start();
   error_reporting(0);
-   include_once('../model/databases_empresa.php');
-   session_start();
+   require_once('../model/databases_admin.php');
    mysqli_set_charset( $mysqli, 'utf8');
-   if(isset($_SESSION['id'])){  
+   if(isset($_SESSION['tp_user']) == 3){  
    $id=$_SESSION["id"];   
-   $vacante = run_vacantes();
-   $empresas = run_empresas();
+// Reporte Candidatos/Beneficiarios
+   $conteosCandidatos = count_candidatos_total();
+   $conteoCan = $conteosCandidatos['numeralia'];
+   $conteosActCan = count_candidatos_actual();
+   $conteosAntCan = count_candidatos_anterior();
+   $conteoActCan = $conteosActCan['total'];
+   $conteoAntCan = $conteosAntCan['total'];
+// Reporte Empresas
    $conteos = count_empresas_registradas_total();
    $conteosAct = count_empresas_registradas_actual();
    $conteosAnt = count_empresas_registradas_anterior();
-   foreach($conteos as $num){
-       $conteo = $num['numeralia'];
-   }
-   foreach($conteosAct as $num){
-       $conteoAct = $num['total'];
-   }
-   foreach($conteosAnt as $num){
-       $conteoAnt = $num['total'];
-   }
+   $conteo = $conteos['numeralia'];
+   $conteoAct = $conteosAct['total'];
+   $conteoAnt = $conteosAnt['total'];
+
+  //  Empresas nuevas, validadas bajas
+  $empNuevas = count_empresas_nuevas();
+  $empN = $empNuevas['nums'];
+
+  // Apoyos vacantes
+  $apoyosVacantes = apoyo_vacantes_total();
+  $apoyoVac = $apoyosVacantes['apoyoTotal'];
+  $apoyosVacantesAct = apoyo_vacantes_actual();
+  $apoyoVacAct = $apoyosVacantesAct['apoyoActual'];
+  $apoyosVacantesAnt = apoyo_vacantes_anterior();
+  $apoyoVacAnt = $apoyosVacantesAnt['apoyoAnterior'];
+
   }else{
     // Si no está logueado lo redireccion a la página de login.
     header("HTTP/1.1 302 Moved Temporarily"); 
@@ -866,6 +879,7 @@
     <!-- /.sidebar -->
   </aside>
 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -875,6 +889,7 @@
           <div class="col-sm-6">
             <h1 class="m-0">Dashboard v3</h1>
           </div><!-- /.col -->
+          
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -887,28 +902,116 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
+    <div class="content"  >
       <div class="container-fluid">
         <div class="row">
+        
+          <?php
+            if ($empN > 0) {
+          ?>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info" style="border-radius: 22px; box-shadow:0 1px 10px #000;">
+              <h2 class="text-center"> <b>Empresas por validar</b></h2>
+              <div class="inner">
+                <h3 class="text-center"><?= $empN;?></h3>
+
+                <p>Empresas validadas <b><?= $empN;?></b> </p>
+                <p>Empresas de baja <b><?= $empN;?></b></p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer shadow" style="border-radius: 22px; height:100px; font-size:25px ">Validar <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <?php            
+            }
+          ?>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success" style="border-radius: 22px; box-shadow:0 1px 10px #000;">
+              <div class="inner">
+                <h2 class="text-center"> <b> Apoyos Vacantes <?= date("Y"); ?></b></h2>
+                <h3> $ <?= $apoyoVacAct; ?> </h3>
+                <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
+
+                <p>Apoyos año anterior: $<b><?= number_format(round($apoyoVacAnt), 2, '.', ',') ; ?> </b></p>
+                <p>Total registrado desde 2019: $<b><?= number_format(round($apoyoVac), 2, '.', ',') ; ?> </b></p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer shadow" style="border-radius: 22px; height:100px; font-size:25px ">Ver vacantes <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning" style="border-radius: 22px; box-shadow:0 1px 10px #000;">
+              <div class="inner">
+                <h3>44</h3>
+
+                <p>User Registrations</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="#" class="small-box-footer shadow" style="border-radius: 22px; height:100px; font-size:25px ">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6" >
+            <!-- small box -->
+            <div class="small-box bg-danger" style="border-radius: 22px; box-shadow:0 1px 10px #000;">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Unique Visitors</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer shadow" style="border-radius: 22px; height:100px; font-size:25px ">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Numeralia empresas candidatos -->
           <div class="col-lg-6">
-            <div class="card">
+            <div class="card border shadow" style="border-radius: 22px;">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Online Store Visitors</h3>
+                  <h3 class="card-title">Reporte Anual de Candidatos/Beneficiarios</h3>
                   <a href="javascript:void(0);">View Report</a>
                 </div>
               </div>
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">820</span>
-                    <span>Visitors Over Time</span>
+                  <span> <span class="text-bold text-lg"><?= $conteoCan;?></span> Candidatos registrados en la base de datos</span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-right">
+                  <?php
+                        // Se calcula el porcentaje conforme al año anterior
+                        $calculoCandidatos = ($conteoActCan/$conteoCan) * 100;
+                        $porcentajeCandidatos = round($calculoCandidatos,PHP_ROUND_HALF_DOWN) - 100;
+                      if ($porcentajeCandidatos > 0) {
+                    ?>
                     <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 12.5%
+                      <i class="fas fa-arrow-up"> <?php echo "%".$porcentajeCandidatos;?></i>
+                      <span class="text-muted">Mayor al año anterior</span>
                     </span>
-                    <span class="text-muted">Since last week</span>
+                    <?php
+                      }else{
+                    ?>
+                    <span class="text-danger">
+                      <i class="fas fa-arrow-down"> <?php echo "%".$porcentajeCandidatos; ?></i>
+                    </span>
+                    <span class="text-muted">Menor al año anterior</span>
+                    <?php
+                      }
+                    ?>
                   </p>
                 </div>
                 <!-- /.d-flex -->
@@ -919,11 +1022,11 @@
 
                 <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> This Week
+                  <i class="fas fa-square " style="background: #622c5e; color: #622c5e;"></i>  Este año <span class="text-bold text-lg"><?= $conteoActCan;?></span>
                   </span>
 
                   <span>
-                    <i class="fas fa-square text-gray"></i> Last Week
+                  <i class="fas fa-square text-gray"></i>  Año anterior <span class="text-bold text-lg"><?= $conteoAntCan;?></span>
                   </span>
                 </div>
               </div>
@@ -1039,7 +1142,7 @@
           <!-- /.col-md-6 --> 
           <!-- REPORTES DE EMPRESAS  -->
           <div class="col-lg-6">
-            <div class="card">
+            <div class="card border shadow" style="border-radius: 22px;">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Reporte anual de Empresas</h3>
@@ -1050,13 +1153,13 @@
                 <div class="d-flex">
                   <p class="d-flex flex-column">
                     
-                    <span> <span class="text-bold text-lg"><?= $conteo;?></span> Empresas registradas </span>
+                    <span> <span class="text-bold text-lg"><?= $conteo;?></span> Empresas registradas en la base de datos</span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-right">
                     <?php
                         // Se calcula el porcentaje conforme al año anterior
                         $calculo = ($conteoAct/$conteoAnt) * 100;
-                        $porcentaje = $calculo - 100;
+                        $porcentaje = round($calculo,PHP_ROUND_HALF_DOWN) - 100;
                       if ($porcentaje > 0) {
                     ?>
                     <span class="text-success">
