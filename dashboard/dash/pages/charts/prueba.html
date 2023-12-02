@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bar Chart with Filters</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+  <select id="dataSelector">
+    <option value="all">Todos</option>
+    <option value="apoyoVacAnt">Apoyo Vac Anterior</option>
+    <option value="apoyoVacAct">Apoyo Vac Actual</option>
+    <!-- Agrega opciones adicionales según tus necesidades -->
+  </select>
+
+  <canvas id="barChart" width="400" height="400"></canvas>
+
+  <script>
+    var ctx = document.getElementById('barChart').getContext('2d');
+    
+    // Inicializamos los datos con valores iniciales
+    var data = {
+      labels: ["Anterior", "Actual"],
+      datasets: [{
+        data: [100, 500],
+        backgroundColor: [
+          '#cacaca',  // Color del primer segmento
+          '#622c5e', // Color del segundo segmento
+        ],
+      }]
+    };
+
+    // Opciones del gráfico
+    var options = {
+      responsive: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            callback: function(value, index, values) {
+              return '$' + value.toLocaleString();
+            }
+          }
+        }]
+      },
+      title: {
+        display: true,
+        text: 'Título del Gráfico'
+      }
+    };
+
+    // Creamos el gráfico de barras
+    var barChart = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: options
+    });
+
+    // Agregamos un evento al cambio del selector
+    $('#dataSelector').on('change', function() {
+      // Actualizamos los datos del gráfico
+      var selectedValue = $(this).val();
+      var newData = {
+        labels: ["Anterior", "Actual"],
+        datasets: [{
+          data: [100,500],
+          backgroundColor: [
+            '#cacaca',  // Color del primer segmento
+            '#622c5e', // Color del segundo segmento
+          ],
+        }]
+      };
+      
+      if (selectedValue === 'apoyoVacAnt') {
+        newData.datasets[0].data = [100, 0];
+      } else if (selectedValue === 'apoyoVacAct') {
+        newData.datasets[0].data = [0, 500];
+      } else if (selectedValue === 'all') {
+        // Mostrar ambos conjuntos de datos
+        newData.datasets[0].data = [100,500];
+      }
+
+      // Actualizamos el gráfico
+      barChart.data = newData;
+      barChart.update();
+    });
+  </script>
+</body>
+</html>

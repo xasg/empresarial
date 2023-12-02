@@ -54,6 +54,9 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- dognut chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <!--
 `body` tag options:
@@ -1139,6 +1142,7 @@
             </div>
             <!-- /.card -->
           </div>
+          
           <!-- /.col-md-6 --> 
           <!-- REPORTES DE EMPRESAS  -->
           <div class="col-lg-6">
@@ -1250,9 +1254,128 @@
               </div>
             </div>
           </div>
-
-          
           <!-- /.col-md-6 -->
+                          <!-- Donut chart -->
+          <div class="card col-lg-6 shadow"  style="border-radius: 22px;">
+            <div class="card-header">
+              <div class="d-flex justify-content-between">
+                 <h3 class="card-title">Vista General de apoyos registrados</h3>                
+                  <a href="javascript:void(0);">View Report</a>
+              </div>
+                
+            </div>
+           <div class="row">
+           <div class="card-body col-lg-7 ">
+              <select id="dataSelector" class="col-md-3" style="border-radius:22px; border:1px solid #622c5e; cursor:pointer; ">
+                <option value="all">General</option>
+                <option value="apoyoVacAnt">Apoyo Vac Anterior</option>
+                <option value="apoyoVacAct">Apoyo Vac Actual</option>
+                <!-- Agrega opciones adicionales según tus necesidades -->
+              </select>
+                <canvas id="barChartApoyo" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+            <div class="card-body col-lg-4 ">
+              <p class="ml-auto d-flex flex-column text-right">
+                    <?php
+                          // Se calcula el porcentaje conforme al año anterior
+                          $calculoApoyos = ($apoyoVacAct/$apoyoVacAnt) * 100;
+                          $porcentajeApoyos = round($calculoApoyos,PHP_ROUND_HALF_DOWN) - 100;
+                        if ($porcentajeApoyos > 0) {
+                      ?>
+                      <span class="text-success">
+                        <i class="fas fa-arrow-up"> <?php echo "%".$porcentajeApoyos;?></i>
+                        <span class="text-muted">Mayor al año anterior</span>
+                      </span>
+                      <?php
+                        }else{
+                      ?>
+                      <span class="text-danger">
+                        <i class="fas fa-arrow-down"> <?php echo "%".$porcentajeApoyos; ?></i>
+                      </span>
+                      <span class="text-muted">Menor al año anterior</span>
+                      <?php
+                        }
+                      ?>
+              </p>
+            </div>
+           </div>
+              <!-- /.card-body -->
+          </div>
+            <script>
+              var ctx = document.getElementById('barChartApoyo').getContext('2d');
+              
+              // Inicializamos los datos con valores iniciales
+              var data = {
+                labels: ["Anterior", "Actual"],
+                datasets: [{
+                  data: [<?=$apoyoVacAnt?>, <?=$apoyoVacAct?>],
+                  backgroundColor: [
+                    '#cacaca',  // Color del primer segmento
+                    '#622c5e', // Color del segundo segmento
+                    ],
+                  }]
+              };
+
+              // Opciones del gráfico
+              var options = {
+                responsive: false,
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true,
+                      callback: function(value, index, values) {
+                        return '$' + value.toLocaleString();
+                      }
+                    }
+                  }]
+                },
+                title: {
+                  display: false,
+                  text: 'Título del Gráfico'
+                }
+              };
+
+              // Creamos el gráfico de barras
+              var barChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+              });
+
+              // Agregamos un evento al cambio del selector
+              $('#dataSelector').on('change', function() {
+                // Actualizamos los datos del gráfico
+                var selectedValue = $(this).val();
+                var newData = {
+                  labels: ["Anterior", "Actual"],
+                  datasets: [{
+                    data: [<?=$apoyoVacAnt?>, <?=$apoyoVacAct?>],
+                    backgroundColor: [
+                      '#cacaca',  // Color del primer segmento
+                      '#622c5e', // Color del segundo segmento
+                    ],
+                  }]
+                };
+                
+                if (selectedValue === 'apoyoVacAnt') {
+                  newData.datasets[0].data = [<?=$apoyoVacAnt?>, 0];
+                } else if (selectedValue === 'apoyoVacAct') {
+                  newData.datasets[0].data = [0, <?=$apoyoVacAct?>];
+                } else if (selectedValue === 'all') {
+                  // Mostrar ambos conjuntos de datos
+                  newData.datasets[0].data = [<?=$apoyoVacAnt?>, <?=$apoyoVacAct?>];
+                }
+
+                // Actualizamos el gráfico
+                barChart.data = newData;
+                barChart.update();
+                });
+
+            </script>
+              <!-- ./Donut chart -->
+            <!-- /.card-body-->
+            </div>
+
         </div>
         <!-- /.row -->
       </div>
@@ -1287,11 +1410,9 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE -->
 <script src="dist/js/adminlte.js"></script>
-
 <!-- OPTIONAL SCRIPTS -->
 <script src="plugins/chart.js/Chart.js"></script>
 <!-- Tablas chartJs -->
 <script src="data-dashboard.js"></script>
-
 </body>
 </html>
