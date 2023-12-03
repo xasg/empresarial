@@ -57,6 +57,18 @@
   <!-- dognut chart -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <style>
+    .active{
+      background: #af4dac !important;
+    }
+    a:hover{
+    background: #af4dac !important;
+    color:#fafafa !important;
+    border-radius: 22px;
+    }
+    
+  </style>
 </head>
 <!--
 `body` tag options:
@@ -208,27 +220,31 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-white elevation-4" >
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="#" class="brand-link">
+      <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
+      <img src="../img/empresarial.png" alt="FESE" class="brand-image elevation-5" style="opacity: .8">
+      <span class="brand-text font-weight-light">.</span>
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <!-- <div class="sidebar" style="background:#57007B;"> -->
+    <!-- <div class="sidebar" style="background:#791a78;"> -->
+    <!-- <div class="sidebar" style="background:#410541;"> -->
+    <div class="sidebar" style="background:#410541;">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="../img/logo.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block text-white">Panel de Administrador</a>
         </div>
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
+      <!-- <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
@@ -237,7 +253,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -896,7 +912,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v3</li>
+              <li class="breadcrumb-item ">Dashboard v3</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -912,20 +928,20 @@
           <?php
             if ($empN > 0) {
           ?>
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-6" >
             <!-- small box -->
-            <div class="small-box bg-info" style="border-radius: 22px; box-shadow:0 1px 10px #000;">
-              <h2 class="text-center"> <b>Empresas por validar</b></h2>
+            <div class="small-box " style="border-radius: 22px; box-shadow:0 1px 10px #7a167a; border: 2px solid #7a167a !important; color:#7a167a;">
+              <h2 class="text-center" style="font-size:25px;"> <b>Empresas por validar</b></h2>
               <div class="inner">
                 <h3 class="text-center"><?= $empN;?></h3>
 
-                <p>Empresas validadas <b><?= $empN;?></b> </p>
-                <p>Empresas de baja <b><?= $empN;?></b></p>
+                <p>Empresas que ya se validaron <b><?= $empN;?></b> </p>
+                <p>Empresas que se dieron de baja <b><?= $empN;?></b></p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="border-radius: 22px; height:100px; font-size:25px ">Validar <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:100px; font-size:25px ">Validar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <?php            
@@ -934,49 +950,55 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success" style="border-radius: 22px; box-shadow:0 1px 10px #000;">
+            <div class="small-box " style="border-radius: 22px; box-shadow:0 1px 10px #7a167a; border: 2px solid #7a167a !important; color:#7a167a;">
               <div class="inner">
-                <h2 class="text-center"> <b> Apoyos Vacantes <?= date("Y"); ?></b></h2>
-                <h3> $ <?= $apoyoVacAct; ?> </h3>
+                <h2 class="text-center" style="font-size:25px;"> <b> Apoyos Vacantes <?= date("Y"); ?></b></h2>
+                <h3 > $ <?= $apoyoVacAct; ?> </h3>
                 <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
 
                 <p>Apoyos año anterior: $<b><?= number_format(round($apoyoVacAnt), 2, '.', ',') ; ?> </b></p>
-                <p>Total registrado desde 2019: $<b><?= number_format(round($apoyoVac), 2, '.', ',') ; ?> </b></p>
+                <p>Total desde 2019: $<b><?= number_format(round($apoyoVac), 2, '.', ',') ; ?> </b></p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="border-radius: 22px; height:100px; font-size:25px ">Ver vacantes <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:100px; font-size:25px ">Ver vacantes <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning" style="border-radius: 22px; box-shadow:0 1px 10px #000;">
+            <div class="small-box " style="border-radius: 22px; box-shadow:0 1px 10px #7a167a; border: 2px solid #7a167a !important; color:#7a167a;">
               <div class="inner">
-                <h3>44</h3>
+                <h2 class="text-center" style="font-size:25px;"> <b> Beneficiarios <?= date("Y"); ?></b></h2>
+                <h3 class="text-center">44</h3>
 
-                <p>User Registrations</p>
+                <p>Candidatos registrados <?= date("Y"); ?> : <b>12</b></p>
+                <p>Candidatos validados  : <b>12</b></p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="border-radius: 22px; height:100px; font-size:25px ">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:100px; font-size:25px ">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6" >
             <!-- small box -->
-            <div class="small-box bg-danger" style="border-radius: 22px; box-shadow:0 1px 10px #000;">
+            <div class="small-box " style="border-radius: 22px; box-shadow:0 1px 10px #7a167a; border: 2px solid #7a167a !important; color:#7a167a;">
               <div class="inner">
-                <h3>65</h3>
+              <h2 class="text-center" style="font-size:25px;"> <b> Invitaciones <?= date("Y"); ?></b></h2>
+                <h3 class="text-center">44</h3>  
+                
+                <p>Candidatos Invitados  : <b>12</b></p>
+                <p>Candidatos Registrados  : <b>12</b></p>  
 
-                <p>Unique Visitors</p>
+                <p></p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="border-radius: 22px; height:100px; font-size:25px ">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:100px; font-size:25px ">Invitaciones <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
@@ -1036,15 +1058,12 @@
             </div>
             <!-- /.card -->
 
-            <div class="card">
-              <div class="card-header border-0">
-                <h3 class="card-title">Products</h3>
+            <div class="card shadow" style="border-radius: 22px;">
+              <div class="card-header border-1">
+                <h3 class="card-title"></h3>
                 <div class="card-tools">
-                  <a href="#" class="btn btn-tool btn-sm">
+                  <a href="#" class="btn btn-sm btn-tool" title="Descargar Reporte">
                     <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-bars"></i>
                   </a>
                 </div>
               </div>
@@ -1108,10 +1127,10 @@
                         <i class="fas fa-arrow-down"></i>
                         3%
                       </small>
+                      <a href="#" class="text-muted">
                       198 Sold
                     </td>
                     <td>
-                      <a href="#" class="text-muted">
                         <i class="fas fa-search"></i>
                       </a>
                     </td>
@@ -1146,7 +1165,7 @@
           <!-- /.col-md-6 --> 
           <!-- REPORTES DE EMPRESAS  -->
           <div class="col-lg-6">
-            <div class="card border shadow" style="border-radius: 22px;">
+            <div class="card border shadow" style="border-radius: 22px; background: linear-gradient(#964094,#b75fb3,#d77ed3 30%,#ffd5ff); color:#fafafa ;">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Reporte anual de Empresas</h3>
@@ -1168,15 +1187,15 @@
                     ?>
                     <span class="text-success">
                       <i class="fas fa-arrow-up"> <?php echo "%".$porcentaje;?></i>
-                      <span class="text-muted">Mayor al año anterior</span>
+                      <span class="text-muted"  style="color:#fafafa important" >Mayor al año anterior</span>
                     </span>
                     <?php
                       }else{
                     ?>
                     <span class="text-danger">
-                      <i class="fas fa-arrow-down"> <?php echo "%".$porcentaje; ?></i>
+                      <i class="fas fa-arrow-down" > <?php echo "%".$porcentaje; ?></i>
                     </span>
-                    <span class="text-muted">Menor al año anterior</span>
+                    <span class="text-muted" style="color:#fafafa !important">Menor al año anterior</span>
                     <?php
                       }
                     ?>
@@ -1191,63 +1210,61 @@
 
                 <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
-                    <i class="fas fa-square " style="background: #622c5e; color: #622c5e;"></i>  Este año <span class="text-bold text-lg"><?= $conteoAct;?></span>
+                    <i class="fas fa-square" style="background: #622c5e; color: #622c5e;"></i> <i style="text-shadow:1px 0 4px #000 !important;"> Este año <span class="text-bold text-lg"><?= $conteoAct;?> </i></span>
                   </span>
 
                   <span>
-                    <i class="fas fa-square text-gray"></i>  Año anterior <span class="text-bold text-lg"><?= $conteoAnt;?></span>
+                    <i class="fas fa-square text-gray"></i> <i style="text-shadow:1px 0 4px #000 !important;"> Año anterior <span class="text-bold text-lg"><?= $conteoAnt;?></i></span>
                   </span>
                 </div>
               </div>
             </div>
             <!-- /.card -->
 
-            <div class="card">
-              <div class="card-header border-0">
-                <h3 class="card-title">Online Store Overview</h3>
+            <div class="card shadow" style="border-radius: 22px;">
+              <div class="card-header border-1">
+                <h3 class="card-title">Descripción general Global</h3>
                 <div class="card-tools">
-                  <a href="#" class="btn btn-sm btn-tool">
+                  <a href="#" class="btn btn-sm btn-tool" title="Descargar Reporte">
                     <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-bars"></i>
                   </a>
                 </div>
               </div>
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
                   <p class="text-success text-xl">
-                    <i class="ion ion-ios-refresh-empty"></i>
+                    <i class="ion ion-ios-people-outline"></i> <small style="font-size:18px;"> Empresas con convocatorias</small>
                   </p>
                   <p class="d-flex flex-column text-right">
                     <span class="font-weight-bold">
                       <i class="ion ion-android-arrow-up text-success"></i> 12%
                     </span>
-                    <span class="text-muted">CONVERSION RATE</span>
+                    <span class="text-muted">Empresas</span>
                   </p>
                 </div>
                 <!-- /.d-flex -->
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
                   <p class="text-warning text-xl">
-                    <i class="ion ion-ios-cart-outline"></i>
+                    <i class="ion ion-ios-people-outline"></i> <small style="font-size:18px;"> Candidatos contratados</small>
                   </p>
                   <p class="d-flex flex-column text-right">
                     <span class="font-weight-bold">
                       <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
                     </span>
-                    <span class="text-muted">SALES RATE</span>
+                    <span class="text-muted">Beneficiarios</span>
                   </p>
                 </div>
                 <!-- /.d-flex -->
                 <div class="d-flex justify-content-between align-items-center mb-0">
                   <p class="text-danger text-xl">
-                    <i class="ion ion-ios-people-outline"></i>
+                  <i class="ion ion-ios-refresh-empty"></i>
+                     <small style="font-size:18px;"> Empresas que siguen este año</small>
                   </p>
                   <p class="d-flex flex-column text-right">
                     <span class="font-weight-bold">
                       <i class="ion ion-android-arrow-down text-danger"></i> 1%
                     </span>
-                    <span class="text-muted">REGISTRATION RATE</span>
+                    <span class="text-muted">Renovaciones</span>
                   </p>
                 </div>
                 <!-- /.d-flex -->
@@ -1256,7 +1273,7 @@
           </div>
           <!-- /.col-md-6 -->
                           <!-- Donut chart -->
-          <div class="card col-lg-6 shadow"  style="border-radius: 22px;">
+          <div class="card col-lg-6 shadow"  style="border-radius: 22px; background: linear-gradient(#964094,#b75fb3,#d77ed3 30%,#ffd5ff); color:#fafafa !important;">
             <div class="card-header">
               <div class="d-flex justify-content-between">
                  <h3 class="card-title">Vista General de apoyos registrados</h3>                
@@ -1284,7 +1301,7 @@
                       ?>
                       <span class="text-success">
                         <i class="fas fa-arrow-up"> <?php echo "%".$porcentajeApoyos;?></i>
-                        <span class="text-muted">Mayor al año anterior</span>
+                        <span class="text-muted" style="color:#fafafa !important">Mayor al año anterior</span>
                       </span>
                       <?php
                         }else{
@@ -1292,7 +1309,7 @@
                       <span class="text-danger">
                         <i class="fas fa-arrow-down"> <?php echo "%".$porcentajeApoyos; ?></i>
                       </span>
-                      <span class="text-muted">Menor al año anterior</span>
+                      <span class="text-muted" style="color:#fafafa !important">Menor al año anterior</span>
                       <?php
                         }
                       ?>
