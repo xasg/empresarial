@@ -104,7 +104,7 @@ fetch('get_data_empresa.php')
           },
           {
             label: 'Año Anterior',
-            backgroundColor: '#ced4da',
+            backgroundColor: '#ccc',
             borderColor: '#ced4da',
             data: previousYearData
           }
@@ -129,7 +129,7 @@ fetch('get_data_empresa.php')
             gridLines: {
               display: true,
               lineWidth: '4px',
-              color: 'rgba(0, 0, 0, .2)',
+              color: 'rgba(0, 0, 0, .9)',
               zeroLineColor: 'transparent'
             },
             ticks: {
@@ -146,7 +146,7 @@ fetch('get_data_empresa.php')
           yAxes: [{
             position: 'right',
             gridLines: {
-              display: false
+              display: true
             },
             ticks: {
               beginAtZero: true,
@@ -199,8 +199,8 @@ fetch('get_data_candidato.php')
         },
         {
           label: 'Año Anterior',
-          backgroundColor: '#ced4da',
-          borderColor: '#ced4da',
+          backgroundColor: '#ccc',
+          borderColor: '#622c5e',
           data: previousYearData
         }
       ]
@@ -225,7 +225,7 @@ fetch('get_data_candidato.php')
             display: true,
             lineWidth: '4px',
             color: 'rgba(0, 0, 0, .2)',
-            zeroLineColor: 'transparent'
+            zeroLineColor: 'solid'
           },
           ticks: {
             beginAtZero: true,
@@ -241,7 +241,7 @@ fetch('get_data_candidato.php')
         yAxes: [{
           position: 'right',
           gridLines: {
-            display: false
+            display: true,
           },
           ticks: {
             beginAtZero: true,

@@ -13,6 +13,33 @@
    $conteosAntCan = count_candidatos_anterior();
    $conteoActCan = $conteosActCan['total'];
    $conteoAntCan = $conteosAntCan['total'];
+// Beneficiarios
+$beneficiariosActual = count_beneficiarios_actual();
+$beneficiarioA = $beneficiariosActual['numeralia'];
+$beneficiariosTotalActual = count_beneficiarios_total_actual();
+$beneficiarioTotalA = $beneficiariosTotalActual['numeralias'];
+$beneficiariosTotales = count_beneficiarios_total();
+$beneficiarioT = $beneficiariosTotales['numeralias'];  
+
+// Candidatos
+
+$candidatosRegistrados = count_candidatos_registrados();
+$registrados = $candidatosRegistrados['numeralia'];
+$candidatosRegistradosActual = count_candidatos_registrados_actual();
+$registradosActual = $candidatosRegistradosActual['numeralia'];
+$candidatosProceso = count_candidatos_enproceso();
+$registradosProceso = $candidatosProceso['numeralia'];
+$candidatosFinalizados = count_candidatos_Finalizado();
+$registradosFinalizado = $candidatosFinalizados['numeralia'];
+
+// Invitaciones
+$invitacionesTotales = count_invitaciones() ;
+$invitacion = $invitacionesTotales['numeralia'];
+$invitacionesRegistrados = count_invitaciones_registrados();
+$invitacionR = $invitacionesRegistrados['numeralia'];
+$invitacionesPendientes = count_invitaciones_pendientes();
+$invitacionP = $invitacionesPendientes['numeralia'];  
+
 // Reporte Empresas
    $conteos = count_empresas_registradas_total();
    $conteosAct = count_empresas_registradas_actual();
@@ -24,6 +51,10 @@
   //  Empresas nuevas, validadas bajas
   $empNuevas = count_empresas_nuevas();
   $empN = $empNuevas['nums'];
+  $empValidadas = count_empresas_validadas();
+  $empV = $empValidadas['nums'];
+  $empBajas = count_empresas_bajas();
+  $empB = $empBajas['nums'];
 
   // Apoyos vacantes
   $apoyosVacantes = apoyo_vacantes_total();
@@ -67,7 +98,22 @@
     color:#fafafa !important;
     border-radius: 22px;
     }
-    
+
+    .tablas-estilos{
+      border-radius: 22px;  border: 4px solid #964094 !important;
+      /* background: linear-gradient(#964094 -10%,#fafafa ); color:#fafafa; */
+      background: #f8f9fa;
+      box-shadow: -1px 2px 7px #964094 !important;
+      transition: all .3s;
+    }
+    .tablas-estilos:hover,.tablas-estilos-datos:hover{
+      /* border: 1px solid #964094 !important; */
+      box-shadow: -7px 7px 4px #964094, -2px 5px 30px #964094 !important;
+    }
+    .tablas-estilos-datos{
+      border-radius: 22px;  border: 4px solid #964094 !important;  color:#964094; box-shadow: -1px 2px 7px #964094 !important;
+      transition:all .3s;
+    }
   </style>
 </head>
 <!--
@@ -89,17 +135,17 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="index3.html" class="nav-link">Inicio</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li> -->
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
         </a>
@@ -118,18 +164,18 @@
             </div>
           </form>
         </div>
-      </li>
+      </li> -->
 
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        <!-- <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        </a> -->
+        <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
-            <div class="media">
+            <!-- <div class="media">
               <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
@@ -139,13 +185,13 @@
                 <p class="text-sm">Call me whenever you can...</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
-            </div>
+            </div> -->
             <!-- Message End -->
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <!-- <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item"> -->
             <!-- Message Start -->
-            <div class="media">
+            <!-- <div class="media">
               <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
@@ -155,13 +201,13 @@
                 <p class="text-sm">I got your message bro</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
-            </div>
+            </div> -->
             <!-- Message End -->
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <!-- <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item"> -->
             <!-- Message Start -->
-            <div class="media">
+            <!-- <div class="media">
               <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
@@ -171,18 +217,25 @@
                 <p class="text-sm">The subject goes here</p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
-            </div>
+            </div> -->
             <!-- Message End -->
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
+          <!-- <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a> -->
+        <!-- </div> -->
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
+          <?php
+          if ($empN) {
+            
+          ?>
           <span class="badge badge-warning navbar-badge">15</span>
+          <?php
+          }
+          ?>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">15 Notifications</span>
@@ -210,17 +263,33 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+        <i class="fas fa-user"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">Usuario</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-cog mr-2"></i> Configuración
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+          <i class="fa fa-sign-out" aria-hidden="true"></i> Salir
+          </a>
+          
+      </li>
+      <!-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
-      </li>
+      </li> -->
     </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-white elevation-4" >
+  <aside class="main-sidebar sidebar-black elevation-4" style="min-height:100vh; " >
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
@@ -232,7 +301,7 @@
     <!-- <div class="sidebar" style="background:#57007B;"> -->
     <!-- <div class="sidebar" style="background:#791a78;"> -->
     <!-- <div class="sidebar" style="background:#410541;"> -->
-    <div class="sidebar" style="background:#410541;">
+    <div class="sidebar" style="background:#410541; " >
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
@@ -257,7 +326,7 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" style="min-height:160vh">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
@@ -265,31 +334,10 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
@@ -297,600 +345,222 @@
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
-          </li>
+          </li> -->
+          <!-- Empresas -->
+          <!-- <li class="nav-item">
+            <a href="pages/widgets.html" class="nav-link">
+              <i class="nav-icon fa fa-building "></i>
+              <p>
+                Empresas
+                
+                <span class="right badge badge-danger"><?php echo $empN;?></span>
+              </p>
+            </a>
+          </li> -->
+
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+            <i class="nav-icon fa fa-building "></i>
               <p>
-                Layout Options
+                Empresas
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+                
+                <span class="badge badge-info right">4</span>
+                <?php
+                // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
+                  if ($empN > 0) {
+                ?>
+                <span class="badge badge badge-danger"><?php echo $empN;?></span>
+                <?php
+                  # code...
+                  }
+                ?>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="pages/layout/top-nav.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation</p>
+                  <p>Registrar Empresa</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation + Sidebar</p>
+                  <p>
+                    Nuevas/Pendientes
+                  <?php
+                  // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
+                    if ($empN > 0) {
+                  ?>
+                  <span class="badge badge badge-danger"><?php echo $empN;?></span>
+                  <?php
+                    # code...
+                    }
+                  ?>
+                  </p>
+                </a>
+              </li>
+              <!-- Nav Validadas -->
+              <li class="nav-item">
+                <a href="pages/layout/boxed.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Validadas <span class="badge badge-info right"><?php echo $empV; ?></span></p>
+                </a>
+              </li>
+              <!-- Nav Bajas -->
+              <li class="nav-item">
+                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bajas <span class="badge badge-info right"><?php echo $empB; ?></span></p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-user "></i>
+              <p>
+                Candidatos
+                <i class="fas fa-angle-left right"></i>
+                
+                <span class="badge badge-info right">2</span>
+                <?php
+                // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
+                  if ($registradosActual > 0) {
+                ?>
+                <span class="badge badge badge-danger"><?php echo $registradosActual;?></span>
+                <?php
+                  # code...
+                  }
+                ?>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/layout/top-nav.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Solo Registro
+                    <?php
+                      if ($registrados > 0) {
+                    ?>
+                    <span class="badge badge badge-danger"><?php echo $registrados;?></span>
+                    <?php
+                      }
+                    ?>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    En proceso
+                  <?php
+                  // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
+                    if ($registradosProceso > 0) {
+                  ?>
+                  <span class="badge badge-warning right"><?php echo $registradosProceso; ?></span>
+                  <?php
+                    # code...
+                    }
+                  ?>
+                  </p>
+                </a>
+              </li>
+              <!-- Nav Validadas -->
+              <li class="nav-item">
+                <a href="pages/layout/boxed.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Finalizado o por seleccionar vacante <span class="badge badge-success right"><?php echo $registradosFinalizado; ?></span></p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-user "><sub><i class="fa fa-check-circle" aria-hidden="true"></i></sub></i>
+              <p>
+                Beneficiarios
+                <i class="fas fa-angle-left right"></i>
+                
+                <span class="badge badge-info right">2</span>
+                <?php
+                // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
+                  if ($empN > 0) {
+                ?>
+                <span class="badge badge badge-danger"><?php echo $empN;?></span>
+                <?php
+                  # code...
+                  }
+                ?>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/layout/top-nav.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    2023
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    2022
+                  </p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="pages/layout/boxed.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Boxed</p>
+                  <p>
+                    2021
+                  </p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="pages/layout/fixed-sidebar.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Sidebar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar-custom.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Sidebar <small>+ Custom Area</small></p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Navbar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-footer.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Footer</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Collapsed Sidebar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Charts
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/uplot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>uPlot</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
-                UI Elements
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/UI/general.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/icons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Icons</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/buttons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Buttons</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/sliders.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Sliders</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/modals.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Modals & Alerts</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/navbar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Navbar & Tabs</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/timeline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Timeline</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/ribbons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ribbons</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Forms
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Editors</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/validation.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Validation</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Tables
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Simple Tables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>jsGrid</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-header">EXAMPLES</li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>
-                Calendar
-                <span class="badge badge-info right">2</span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-              <p>
-                Gallery
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/kanban.html" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Kanban Board
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Mailbox
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inbox</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Compose</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/read-mail.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Read</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/examples/invoice.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Invoice</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/profile.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/e-commerce.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>E-commerce</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/projects.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Projects</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/project-add.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Project Add</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/project-edit.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Project Edit</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/project-detail.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Project Detail</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/contacts.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Contacts</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/faq.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>FAQ</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/contact-us.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Contact us</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-plus-square"></i>
-              <p>
-                Extras
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
                   <p>
-                    Login & Register v1
-                    <i class="fas fa-angle-left right"></i>
+                    2020 
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="pages/examples/login.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Login v1</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="pages/examples/register.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Register v1</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="pages/examples/forgot-password.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Forgot Password v1</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="pages/examples/recover-password.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Recover Password v1</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
-                    Login & Register v2
-                    <i class="fas fa-angle-left right"></i>
+                    2019 
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="pages/examples/login-v2.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Login v2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="pages/examples/register-v2.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Register v2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="pages/examples/forgot-password-v2.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Forgot Password v2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="pages/examples/recover-password-v2.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Recover Password v2</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
-              <li class="nav-item">
-                <a href="pages/examples/lockscreen.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lockscreen</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Legacy User Menu</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/language-menu.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Language Menu</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/404.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Error 404</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/500.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Error 500</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/pace.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pace</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/examples/blank.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Blank Page</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="starter.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Starter Page</p>
-                </a>
-              </li>
+
             </ul>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-search"></i>
+            <i class="nav-icon fa fa-user "><sub><i class="fa fa-times-circle" aria-hidden="true"></i></sub></i>
               <p>
-                Search
-                <i class="fas fa-angle-left right"></i>
+                No Aplica
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/search/simple.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Simple Search</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/search/enhanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Enhanced</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-header">MISCELLANEOUS</li>
-          <li class="nav-item">
-            <a href="iframe.html" class="nav-link">
-              <i class="nav-icon fas fa-ellipsis-h"></i>
-              <p>Tabbed IFrame Plugin</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.1/" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
-              <p>Documentation</p>
-            </a>
-          </li>
-          <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-circle nav-icon"></i>
-              <p>Level 1</p>
-            </a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
+            <i class="nav-icon fa fa-briefcase"></i>
               <p>
-                Level 1
-                <i class="right fas fa-angle-left"></i>
+               Vacantes
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Level 2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Level 2
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Level 3</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Level 3</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Level 3</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Level 2</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-circle nav-icon"></i>
-              <p>Level 1</p>
-            </a>
-          </li>
-          <li class="nav-header">LABELS</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-danger"></i>
-              <p class="text">Important</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-warning"></i>
-              <p>Warning</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-info"></i>
-              <p>Informational</p>
-            </a>
-          </li>
+
+          
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -934,9 +604,10 @@
               <h2 class="text-center" style="font-size:25px;"> <b>Empresas por validar</b></h2>
               <div class="inner">
                 <h3 class="text-center"><?= $empN;?></h3>
+                <!-- <h3 class="text-center"><?= $empN;?> <small><span class="right badge badge-danger" style="font-size:15px;">New</span></small></h3> -->
 
-                <p>Empresas que ya se validaron <b><?= $empN;?></b> </p>
-                <p>Empresas que se dieron de baja <b><?= $empN;?></b></p>
+                <p>Empresas que ya se validaron <b><?= $empV;?></b> </p>
+                <p>Empresas que se dieron de baja <b><?= $empB;?></b></p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -971,10 +642,10 @@
             <div class="small-box " style="border-radius: 22px; box-shadow:0 1px 10px #7a167a; border: 2px solid #7a167a !important; color:#7a167a;">
               <div class="inner">
                 <h2 class="text-center" style="font-size:25px;"> <b> Beneficiarios <?= date("Y"); ?></b></h2>
-                <h3 class="text-center">44</h3>
+                <h3 class="text-center"><?php echo $beneficiarioA;?></h3>
 
-                <p>Candidatos registrados <?= date("Y"); ?> : <b>12</b></p>
-                <p>Candidatos validados  : <b>12</b></p>
+                <p>Candidatos registrados <?= date("Y"); ?> : <b><?php echo $beneficiarioTotalA;?></b></p>
+                <p>Beneficiarios validados <?= date("Y") - 1; ?>  : <b><?php echo $beneficiarioT;?></b></p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -988,10 +659,10 @@
             <div class="small-box " style="border-radius: 22px; box-shadow:0 1px 10px #7a167a; border: 2px solid #7a167a !important; color:#7a167a;">
               <div class="inner">
               <h2 class="text-center" style="font-size:25px;"> <b> Invitaciones <?= date("Y"); ?></b></h2>
-                <h3 class="text-center">44</h3>  
+                <h3 class="text-center"><?php echo $invitacion;?></h3>  
                 
-                <p>Candidatos Invitados  : <b>12</b></p>
-                <p>Candidatos Registrados  : <b>12</b></p>  
+                <p>Candidatos para invitar  : <b><?php echo $invitacionP;?></b></p>
+                <p>Candidatos Invitados que se registraron  : <b><?php echo $invitacionR; ?></b></p>  
 
                 <p></p>
               </div>
@@ -1004,17 +675,20 @@
 
           <!-- Numeralia empresas candidatos -->
           <div class="col-lg-6">
-            <div class="card border shadow" style="border-radius: 22px;">
+            <div class="card border shadow tablas-estilos" >
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Reporte Anual de Candidatos/Beneficiarios</h3>
-                  <a href="javascript:void(0);">View Report</a>
+                  <!-- <a class="text-white" href="javascript:void(0);">Descargar Reporte</a> -->
+                  <a href="#" class="btn btn-sm btn-tool" title="Descargar Reporte">
+                    <i class="fas fa-download"></i>
+                  </a>
                 </div>
               </div>
               <div class="card-body">
                 <div class="d-flex">
                   <p class="d-flex flex-column">
-                  <span> <span class="text-bold text-lg"><?= $conteoCan;?></span> Candidatos registrados en la base de datos</span>
+                  <span> <span class="text-bold text-lg"><?= $conteoCan;?></span> Candidatos/Beneficiarios registrados en la base de datos</span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-right">
                   <?php
@@ -1025,15 +699,15 @@
                     ?>
                     <span class="text-success">
                       <i class="fas fa-arrow-up"> <?php echo "%".$porcentajeCandidatos;?></i>
-                      <span class="text-muted">Mayor al año anterior</span>
+                      <span class="text-muted" style="color:#fafafa !important">Mayor al año anterior</span>
                     </span>
                     <?php
                       }else{
                     ?>
                     <span class="text-danger">
-                      <i class="fas fa-arrow-down"> <?php echo "%".$porcentajeCandidatos; ?></i>
+                      <i class="fas fa-arrow-down " > <?php echo "%".$porcentajeCandidatos; ?></i>
                     </span>
-                    <span class="text-muted">Menor al año anterior</span>
+                    <span class="text-muted" style="color:#fafafa !important">Menor al año anterior</span>
                     <?php
                       }
                     ?>
@@ -1047,18 +721,18 @@
 
                 <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
-                  <i class="fas fa-square " style="background: #622c5e; color: #622c5e;"></i>  Este año <span class="text-bold text-lg"><?= $conteoActCan;?></span>
+                  <i class="fas fa-square " style="background: #622c5e; color: #622c5e;"></i><i style="text-shadow:1px 0 4px #000 !important;">  Este año <span class="text-bold text-lg"><?= $conteoActCan;?></i></span>
                   </span>
 
                   <span>
-                  <i class="fas fa-square text-gray"></i>  Año anterior <span class="text-bold text-lg"><?= $conteoAntCan;?></span>
+                  <i class="fas fa-square text-gray"></i> <i style="text-shadow:1px 0 4px #000 !important;"> Año anterior <span class="text-bold text-lg"><?= $conteoAntCan;?> </i></span>
                   </span>
                 </div>
               </div>
             </div>
             <!-- /.card -->
 
-            <div class="card shadow" style="border-radius: 22px;">
+            <div class="card shadow tablas-estilos-datos">
               <div class="card-header border-1">
                 <h3 class="card-title"></h3>
                 <div class="card-tools">
@@ -1165,11 +839,14 @@
           <!-- /.col-md-6 --> 
           <!-- REPORTES DE EMPRESAS  -->
           <div class="col-lg-6">
-            <div class="card border shadow" style="border-radius: 22px; background: linear-gradient(#964094,#b75fb3,#d77ed3 30%,#ffd5ff); color:#fafafa ;">
+            <div class="card border shadow tablas-estilos" >
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Reporte anual de Empresas</h3>
-                  <a href="javascript:void(0);">View Report</a>
+                  <!-- <a href="javascript:void(0);">View Report</a> -->
+                  <a href="#" class="btn btn-sm btn-tool" title="Descargar Reporte">
+                    <i class="fas fa-download"></i>
+                  </a>
                 </div>
               </div>
               <div class="card-body">
@@ -1187,7 +864,7 @@
                     ?>
                     <span class="text-success">
                       <i class="fas fa-arrow-up"> <?php echo "%".$porcentaje;?></i>
-                      <span class="text-muted"  style="color:#fafafa important" >Mayor al año anterior</span>
+                      <span class="text-muted"  style="color:#fafafa !important" >Mayor al año anterior</span>
                     </span>
                     <?php
                       }else{
@@ -1221,7 +898,7 @@
             </div>
             <!-- /.card -->
 
-            <div class="card shadow" style="border-radius: 22px;">
+            <div class="card shadow tablas-estilos-datos" >
               <div class="card-header border-1">
                 <h3 class="card-title">Descripción general Global</h3>
                 <div class="card-tools">
@@ -1245,7 +922,7 @@
                 <!-- /.d-flex -->
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
                   <p class="text-warning text-xl">
-                    <i class="ion ion-ios-people-outline"></i> <small style="font-size:18px;"> Candidatos contratados</small>
+                    <i class="ion ion-ios-people-outline"></i> <small style="font-size:18px;"> Candidatos beneficiados</small>
                   </p>
                   <p class="d-flex flex-column text-right">
                     <span class="font-weight-bold">
@@ -1273,11 +950,14 @@
           </div>
           <!-- /.col-md-6 -->
                           <!-- Donut chart -->
-          <div class="card col-lg-6 shadow"  style="border-radius: 22px; background: linear-gradient(#964094,#b75fb3,#d77ed3 30%,#ffd5ff); color:#fafafa !important;">
+          <div class="card col-lg-6 shadow tablas-estilos"  >
             <div class="card-header">
               <div class="d-flex justify-content-between">
                  <h3 class="card-title">Vista General de apoyos registrados</h3>                
-                  <a href="javascript:void(0);">View Report</a>
+                  <!-- <a href="javascript:void(0);">View Report</a> -->
+                  <a href="#" class="btn btn-sm btn-tool" title="Descargar Reporte">
+                    <i class="fas fa-download"></i>
+                  </a>
               </div>
                 
             </div>
@@ -1327,9 +1007,10 @@
                 datasets: [{
                   data: [<?=$apoyoVacAnt?>, <?=$apoyoVacAct?>],
                   backgroundColor: [
-                    '#cacaca',  // Color del primer segmento
+                    '#fff',  // Color del primer segmento
                     '#622c5e', // Color del segundo segmento
                     ],
+                    
                   }]
               };
 
@@ -1347,8 +1028,9 @@
                   }]
                 },
                 title: {
-                  display: false,
-                  text: 'Título del Gráfico'
+                  display: true,
+                  text: 'Título del Gráfico',
+
                 }
               };
 
@@ -1368,7 +1050,7 @@
                   datasets: [{
                     data: [<?=$apoyoVacAnt?>, <?=$apoyoVacAct?>],
                     backgroundColor: [
-                      '#cacaca',  // Color del primer segmento
+                      '#fff',  // Color del primer segmento
                       '#622c5e', // Color del segundo segmento
                     ],
                   }]

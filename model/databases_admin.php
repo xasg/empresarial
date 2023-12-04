@@ -349,17 +349,112 @@ function down_empresa($id){
 // Se obtiene el numero total de candidatos sin ambiguedad registrados
 function count_candidatos_total(){
   global $mysqli;
-$sql ="SELECT count(*) as numeralia FROM beneficiario ";
+$sql ="SELECT COUNT(*) as numeralia 
+FROM estatus
+LEFT JOIN beneficiario USING(id_usuario)
+LEFT join usuario USING(id_usuario)
+WHERE usuario.tp_usuario = 2 ";
 $result = $mysqli->query($sql);
  return  $result->fetch_assoc();
 }
 
+// Obtener los candidatos registrados que aun no terminan su registro
+function count_candidatos_registrados(){
+  global $mysqli;
+$sql ="SELECT COUNT(*) as numeralia 
+FROM estatus
+LEFT JOIN beneficiario USING(id_usuario)
+LEFT join usuario USING(id_usuario)
+WHERE usuario.tp_usuario = 2 AND tp_estatus is null";
+$result = $mysqli->query($sql);
+ return  $result->fetch_assoc();
+}
+function count_candidatos_enproceso(){
+  global $mysqli;
+$sql ="SELECT COUNT(*) as numeralia 
+FROM estatus
+LEFT JOIN beneficiario USING(id_usuario)
+LEFT join usuario USING(id_usuario)
+WHERE usuario.tp_usuario = 2 AND tp_estatus BETWEEN 1 AND 3";
+$result = $mysqli->query($sql);
+ return  $result->fetch_assoc();
+}
+function count_candidatos_Finalizado(){
+  global $mysqli;
+$sql ="SELECT COUNT(*) as numeralia 
+FROM estatus
+LEFT JOIN beneficiario USING(id_usuario)
+LEFT join usuario USING(id_usuario)
+WHERE usuario.tp_usuario = 2 AND tp_estatus = 4";
+$result = $mysqli->query($sql);
+ return  $result->fetch_assoc();
+}
+function count_candidatos_registrados_actual(){
+  global $mysqli;
+$sql ="SELECT COUNT(*) as numeralia 
+FROM estatus
+LEFT JOIN beneficiario USING(id_usuario)
+LEFT join usuario USING(id_usuario)
+WHERE usuario.tp_usuario = 2 AND tp_estatus is null AND YEAR(beneficiario.dt_fh_registro) = YEAR(CURDATE())";
+$result = $mysqli->query($sql);
+ return  $result->fetch_assoc();
+}
+
+ function count_beneficiarios_actual(){
+  global $mysqli;
+$sql ="SELECT count(*) as numeralia FROM `beneficiario` where tp_status_beneficiario = 1 AND YEAR(dt_fh_registro) = YEAR(CURDATE()) ";
+$result = $mysqli->query($sql);
+ return  $result->fetch_assoc();
+}
+
+function count_beneficiarios_total_actual(){
+  global $mysqli;
+$sql ="SELECT count(*) as numeralias FROM `beneficiario`  where YEAR(dt_fh_registro) = YEAR(CURDATE()) ";
+$result = $mysqli->query($sql);
+ return  $result->fetch_assoc();
+}
+function count_beneficiarios_total(){
+  global $mysqli;
+$sql ="SELECT count(*) as numeralias FROM `beneficiario` where tp_status_beneficiario = 1 AND YEAR(dt_fh_registro) = YEAR(CURDATE())-1 ";
+$result = $mysqli->query($sql);
+ return  $result->fetch_assoc();
+}
+// Invitaciones por correo
+function count_invitaciones(){
+global $mysqli;
+$sql="SELECT count(*) as numeralia FROM `candidatos_correos` where notificacion = 1 AND YEAR(dt_fecha) = YEAR(CURDATE()) ";
+$result = $mysqli->query($sql);
+return  $result->fetch_assoc();
+}
+function count_invitaciones_pendientes(){
+global $mysqli;
+$sql="SELECT count(*) as numeralia FROM `candidatos_correos` where notificacion = 0";
+$result = $mysqli->query($sql);
+return  $result->fetch_assoc();
+}
+function count_invitaciones_registrados(){
+global $mysqli;
+$sql="SELECT count(*) as numeralia FROM `candidatos_correos`LEFT JOIN usuario ON(dt_correo = correo) WHERE usuario.tp_usuario = 2";
+$result = $mysqli->query($sql);
+return  $result->fetch_assoc();
+}
+// da la numearlia de todos los candidatos del año en curso
 function count_candidatos_actual(){
   global $mysqli;
   $sql = "SELECT 
   COUNT(*) as total
 FROM beneficiario 
 WHERE YEAR(dt_fh_registro) =  YEAR(CURDATE())";
+
+$result = $mysqli->query($sql);
+return  $result->fetch_assoc();
+}
+function count_candidatos_nuevos(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as total
+FROM beneficiario 
+WHERE YEAR(dt_fh_registro) =  YEAR(CURDATE()) AND ";
 
 $result = $mysqli->query($sql);
 return  $result->fetch_assoc();
@@ -413,6 +508,24 @@ function count_empresas_nuevas(){
   $sql = "SELECT 
   COUNT(*) as nums
   FROM empresa WHERE tp_status = 0";
+
+$result = $mysqli->query($sql); 
+return  $result->fetch_assoc();
+}
+function count_empresas_validadas(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as nums
+  FROM empresa WHERE tp_status = 1";
+
+$result = $mysqli->query($sql); 
+return  $result->fetch_assoc();
+}
+function count_empresas_bajas(){
+  global $mysqli;
+  $sql = "SELECT 
+  COUNT(*) as nums
+  FROM empresa WHERE tp_status = -1";
 
 $result = $mysqli->query($sql); 
 return  $result->fetch_assoc();
