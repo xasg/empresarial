@@ -574,7 +574,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
     <div class="content"  >
       <div class="container-fluid">
             <div class="row">
-            <iframe src="../view/new_empresa_admin.php" width="100%" style="min-height:100vh;" frameborder="0"></iframe>
+            <iframe src="../view/new_empresa_admin_dashboard.php" width="100%" style="min-height:100vh;" frameborder="0"></iframe>
             </div>
         <!-- /.row -->
       </div>
