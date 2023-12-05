@@ -305,7 +305,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="../img/logo.png" class="img-circle elevation-2" alt="User Image">
+          <img src="../img/logo.png" class="elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block text-white">Panel de Administrador</a>
@@ -379,13 +379,13 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="registrar_empresas.php" class="nav-link">
+                <a href="./view/registrar_empresa.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Registrar Empresa</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="view/empresas_nuevas_pendientes.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Nuevas/Pendientes
@@ -403,14 +403,14 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </li>
               <!-- Nav Validadas -->
               <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
+                <a href="view/validadas.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Validadas <span class="badge badge-info right"><?php echo $empV; ?></span></p>
                 </a>
               </li>
               <!-- Nav Bajas -->
               <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
+                <a href="view/bajas.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Bajas <span class="badge badge-info right"><?php echo $empB; ?></span></p>
                 </a>
@@ -612,7 +612,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:100px; font-size:25px ">Validar <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Validar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <?php            
@@ -633,7 +633,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:100px; font-size:25px ">Ver vacantes <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Ver vacantes <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -650,7 +650,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:100px; font-size:25px ">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Ver beneficiarios<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -669,7 +669,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:100px; font-size:25px ">Invitaciones <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Invitaciones <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
