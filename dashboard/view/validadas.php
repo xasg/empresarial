@@ -508,7 +508,7 @@
     <!-- /.content-header -->
     <div class="container-fluid shadow m-auto"  >
 
-    <table id="example" class="table table-striped table-bordered" style="margin: 50px auto;">
+    <table id="example" class="table table-striped table-bordered" style="margin: 50px auto; font-size:15px !important">
         <thead>
             <tr>
             <th>Entidad</th>

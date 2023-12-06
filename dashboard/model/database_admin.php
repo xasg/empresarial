@@ -1,5 +1,5 @@
 <?php
-require_once('../../controller/conec.php');
+require_once('../controller/conec.php');
 $mysqli = new mysqli($servername, $username, $password, $dbname);
 $result ='';
 if( $mysqli->connect_errno )
@@ -529,6 +529,38 @@ function count_empresas_bajas(){
 
 $result = $mysqli->query($sql); 
 return  $result->fetch_assoc();
+}
+// Consulta convocatorias
+
+function count_convocatorias_totales(){
+global $mysqli;
+
+$sql = "SELECT count(*) as totales FROM vacante where tp_status = 1 ";
+$result = $mysqli->query($sql);
+return $result->fetch_assoc();
+}
+function count_convocatorias_actuales(){
+global $mysqli;
+
+$sql = "SELECT count(*) as totales FROM vacante where tp_status = 1 AND YEAR(dt_fh_registro) = YEAR(CURDATE())";
+$result = $mysqli->query($sql);
+return $result->fetch_assoc();
+}
+
+function count_beneficiados_actuales(){
+global $mysqli;
+
+$sql = "SELECT count(*) as totales FROM beneficiario where tp_status_beneficiario = 1 ";
+$result = $mysqli->query($sql);
+return $result->fetch_assoc();
+}
+
+function valida_vacante(){
+global $mysqli;
+
+$sql = "SELECT * FROM `vacante` LEFT JOIN empresa USING(id_usuario)  where vacante.tp_status = 0 AND empresa.tp_status = 1  ORDER BY id_vacante DESC LIMIT 4 ";
+$result = $mysqli->query($sql);
+return $result;
 }
 
 ?>

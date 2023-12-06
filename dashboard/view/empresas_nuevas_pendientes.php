@@ -250,7 +250,7 @@
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar" style="background:#410541; " >
+    <div class="sidebar" style="background:#410541;" >
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
@@ -508,83 +508,79 @@
     <!-- /.content-header -->
     <div class="container-fluid shadow m-auto"  >
 
-    <table id="example" class="table table-striped table-bordered" style="margin: 50px auto;">
-        <thead>
-            <tr>
-            <th>Entidad</th>
-                                  <th>Razon social</th>
-                                  <th>Nom comercial</th>
-                                  <th>RFC</th>                  
-                                  <th>Contacto</th>
-                                  <th>Acceso</th>
-                                  <th>Estatus</th>
-                                  <th>Vacantes</th>
-                                  <th>Editar</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-                              while($emp = $empresa->fetch_assoc())
-                              {
-                              ?>
-                              <tr>
-                                <td><?php echo $emp['nombre_entidad']; ?></td>
-                                <td ><?php echo $emp['dt_razon_social']; ?></td>
-                                <td><?php
-                                 if ($emp['dt_nombre_comercial'] != NULL) {
-                                   echo $emp['dt_nombre_comercial']; 
-                                }else {
-                                  echo " Sin registro";
-                                }
-                                  
-                                   ?>
-                                 </td>
-                                <td><?php echo $emp['dt_rfc']; ?></td>  
-                                <td><?php echo "Contacto:<br>Nombre: ".$emp['dt_nombre_contacto']."<br>correo:".$emp['dt_correo_contacto']."<br>Teléfono: ".$emp['dt_telefono_contacto']; ?></td>                  
-                                <td><?php echo "<br>correo: ".$emp['dt_correo']."<br>contraseña: ".$emp['dt_password'];?></td>   
-                                <td>
-                                  <?php if( $emp['estatus']==1){ 
-                                    // echo "Participando";
-                                    echo "<h2 class='btn btn-success' disabled>Participando</h2>";
-                                  }elseif ($emp['estatus'] == 0) {
+      <table id="example" class="table table-striped table-bordered" style="margin: 50px auto; font-size:15px !important">
+          <thead>
+              <tr >
+                    <th >Entidad</th>
+                                    <th>Razon social</th>
+                                    <th>Nom comercial</th>
+                                    <th>RFC</th>                  
+                                    <th>Contacto</th>
+                                    <th>Acceso</th>
+                                    <th>Estatus</th>
+                                    <th>Vacantes</th>
+                                    <th>Editar</th>
+              </tr>
+            </thead>
+            <tbody>
+            <?php
+                                while($emp = $empresa->fetch_assoc())
+                                {
+                                ?>
+                                <tr>
+                                  <td><?php echo $emp['nombre_entidad']; ?></td>
+                                  <td ><?php echo $emp['dt_razon_social']; ?></td>
+                                  <td><?php
+                                  if ($emp['dt_nombre_comercial'] != NULL) {
+                                    echo $emp['dt_nombre_comercial']; 
+                                  }else {
+                                    echo " Sin registro";
+                                  }
+                                    
                                     ?>
-                                    <h2 class="btn btn-warning" disabled> Pendiente </h2>
-                                  <?php
-                                  }?>
-                                </td>
-                                <td class="text-center">
-                                  <?php if($emp['dt_nombre']!=NULL){ ?>
-                                    <a href="num_vacantes.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-success" ><i class='glyphicon glyphicon-search'></i> consultar</button> </a>
-                                  <?php } ?>
-                                </td>
-                                <td class="text-center m-2">
-                                  <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
-                                  <?php
-                                  if ($emp['estatus'] == 0 ) {
-                                  ?>
-                                  <a style="margin:3px;" href="../controller/valida_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-pencil'></i>validar</button></a>
-                                  
-                                  <a style="margin-top:3px;" href="../controller/baja_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i>Dar de baja</button></a>
-                                    <?php 
-                                      }elseif ($emp['estatus'] == 1 ) {
-                                    ?>
-                                    <a style="margin-top:3px;" href="../controller/baja_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i>Dar de baja</button></a>
+                                  </td>
+                                  <td><?php echo $emp['dt_rfc']; ?></td>  
+                                  <td><?php echo "Contacto:<br>Nombre: ".$emp['dt_nombre_contacto']."<br>correo:".$emp['dt_correo_contacto']."<br>Teléfono: ".$emp['dt_telefono_contacto']; ?></td>                  
+                                  <td><?php echo "<br>correo: ".$emp['dt_correo']."<br>contraseña: ".$emp['dt_password'];?></td>   
+                                  <td>
+                                    <?php if( $emp['estatus']==1){ 
+                                      // echo "Participando";
+                                      echo "<h2 class='btn btn-success' disabled>Participando</h2>";
+                                    }elseif ($emp['estatus'] == 0) {
+                                      ?>
+                                      <h2 class="btn btn-warning" disabled> Pendiente </h2>
                                     <?php
-                                    }
-                                  ?>
-                                </td>                                  
-                              </tr> 
-                              <?php
-                                }
-                              ?>  
-        </tbody>
-        
-    </table>
-                
-    
+                                    }?>
+                                  </td>
+                                  <td class="text-center" >
+                                    <?php if($emp['dt_nombre']!=NULL){ ?>
+                                      <a href="num_vacantes.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-success" ><i class='glyphicon glyphicon-search'></i> consultar</button> </a>
+                                    <?php } ?>
+                                  </td>
+                                  <td class="text-center ">
+                                    <a style="" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
+                                    <?php
+                                    if ($emp['estatus'] == 0 ) {
+                                    ?>
+                                    <a style="" href="../controller/valida_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-pencil'></i>validar</button></a>
+                                    
+                                    <a style="" href="../controller/baja_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i>Dar de baja</button></a>
+                                      <?php 
+                                        }elseif ($emp['estatus'] == 1 ) {
+                                      ?>
+                                      <a style="" href="../controller/baja_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" style="font-size:12px !important;" ><i class='glyphicon glyphicon-pencil'></i>Dar de baja</button></a>
+                                      <?php
+                                      }
+                                    ?>
+                                  </td>                                  
+                                </tr> 
+                                <?php
+                                  }
+                                ?>  
+          </tbody>
+          
+      </table>
         <!-- <iframe class="shadow border"  src="../../view/empresarial_dashboard.php"  width="100%" style=" min-height:150vh; border-radius:22px; box-shadow: 0 0 100px #ccc !important; " frameborder="0"></iframe> -->
-    
-    
     </div>
     <!-- Main content -->
     <!-- /.content -->

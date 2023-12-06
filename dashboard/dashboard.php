@@ -2,7 +2,7 @@
   // Desactivar toda notificación de error
   session_start();
   error_reporting(0);
-   require_once('../model/databases_admin.php');
+   require_once('./model/database_admin.php');
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['tp_user']) == 3){  
    $id=$_SESSION["id"];   
@@ -63,6 +63,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
   $apoyoVacAct = $apoyosVacantesAct['apoyoActual'];
   $apoyosVacantesAnt = apoyo_vacantes_anterior();
   $apoyoVacAnt = $apoyosVacantesAnt['apoyoAnterior'];
+
 
   }else{
     // Si no está logueado lo redireccion a la página de login.
@@ -610,7 +611,8 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 <p>Empresas que se dieron de baja <b><?= $empB;?></b></p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="fa fa-building" aria-hidden="true"><sub><small><i class="fa fa-check-circle" aria-hidden="true"></i></small></sub></i>
+                <!-- <i class="ion ion-bag"></i> -->
               </div>
               <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Validar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -699,7 +701,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                     ?>
                     <span class="text-success">
                       <i class="fas fa-arrow-up"> <?php echo "%".$porcentajeCandidatos;?></i>
-                      <span class="text-muted" style="color:#fafafa !important">Mayor al año anterior</span>
+                      <span class="text-muted" >Mayor al año anterior</span>
                     </span>
                     <?php
                       }else{
@@ -707,7 +709,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                     <span class="text-danger">
                       <i class="fas fa-arrow-down " > <?php echo "%".$porcentajeCandidatos; ?></i>
                     </span>
-                    <span class="text-muted" style="color:#fafafa !important">Menor al año anterior</span>
+                    <span class="text-muted" >Menor al año anterior</span>
                     <?php
                       }
                     ?>
@@ -734,7 +736,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
 
             <div class="card shadow tablas-estilos-datos">
               <div class="card-header border-1">
-                <h3 class="card-title"></h3>
+                <h3 class="card-title">Vacantes sin validar</h3>
                 <div class="card-tools">
                   <a href="#" class="btn btn-sm btn-tool" title="Descargar Reporte">
                     <i class="fas fa-download"></i>
@@ -745,90 +747,45 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Product</th>
+                    <th>Empresa</th>
                     <th>Price</th>
                     <th>Sales</th>
                     <th>More</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Some Product
-                    </td>
-                    <td>$13 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      12,000 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      <small class="text-warning mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        0.5%
-                      </small>
-                      123,234 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      <small class="text-danger mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        3%
-                      </small>
-                      <a href="#" class="text-muted">
-                      198 Sold
-                    </td>
-                    <td>
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Perfect Item
-                      <span class="badge bg-danger">NEW</span>
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        63%
-                      </small>
-                      87 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
+                  <?php
+$validaVacantes = valida_vacante();
+
+// Verificamos que $validaVacantes sea un array
+// if (is_array($validaVacantes)) {
+    foreach ($validaVacantes as $validaVacante) {
+        ?>
+        <tr>
+            <td>
+                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                <?php echo $validaVacante['dt_nombre_comercial']; ?>
+            </td>
+            <td><?php echo $validaVacante['dt_nombre']; ?></td>
+            <!-- Agrega aquí los demás campos de validaVacante que necesites mostrar -->
+            <td>
+                <small class="text-success mr-1">
+                    <i class="fas fa-arrow-up"></i>
+                    12%
+                </small>
+                12,000 Sold
+            </td>
+            <td>
+                <a href="#" class="text-muted">
+                    <i class="fas fa-search"></i>
+                </a>
+            </td>
+        </tr>
+        <?php
+    }
+// }
+?>
+
                   </tbody>
                 </table>
               </div>
@@ -856,6 +813,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                     <span> <span class="text-bold text-lg"><?= $conteo;?></span> Empresas registradas en la base de datos</span>
                   </p>
                   <p class="ml-auto d-flex flex-column text-right">
+
                     <?php
                         // Se calcula el porcentaje conforme al año anterior
                         $calculo = ($conteoAct/$conteoAnt) * 100;
@@ -864,7 +822,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                     ?>
                     <span class="text-success">
                       <i class="fas fa-arrow-up"> <?php echo "%".$porcentaje;?></i>
-                      <span class="text-muted"  style="color:#fafafa !important" >Mayor al año anterior</span>
+                      <span class="text-muted"  >Mayor al año anterior</span>
                     </span>
                     <?php
                       }else{
@@ -872,7 +830,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                     <span class="text-danger">
                       <i class="fas fa-arrow-down" > <?php echo "%".$porcentaje; ?></i>
                     </span>
-                    <span class="text-muted" style="color:#fafafa !important">Menor al año anterior</span>
+                    <span class="text-muted">Menor al año anterior</span>
                     <?php
                       }
                     ?>
@@ -884,7 +842,6 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 <div class="position-relative mb-4">
                   <canvas id="sales-chart" height="200"></canvas>
                 </div>
-
                 <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
                     <i class="fas fa-square" style="background: #622c5e; color: #622c5e;"></i> <i style="text-shadow:1px 0 4px #000 !important;"> Este año <span class="text-bold text-lg"><?= $conteoAct;?> </i></span>
@@ -897,7 +854,16 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </div>
             </div>
             <!-- /.card -->
-
+            
+              <?php 
+                          // Vacantes                    
+                          $vacantesTotalesActivas = count_convocatorias_totales(); 
+                          $vacanteActiva = $vacantesTotalesActivas['totales'];  
+                          $vacantesTotalesActualesActivas = count_convocatorias_actuales(); 
+                          $vacanteActualActiva = $vacantesTotalesActualesActivas['totales'];  
+                          $BeneficiariosActualesTotales = count_beneficiados_actuales();
+                          $beneficiadoActual = $BeneficiariosActualesTotales['totales'];
+              ?>
             <div class="card shadow tablas-estilos-datos" >
               <div class="card-header border-1">
                 <h3 class="card-title">Descripción general Global</h3>
@@ -910,13 +876,13 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
                   <p class="text-success text-xl">
-                    <i class="ion ion-ios-people-outline"></i> <small style="font-size:18px;"> Empresas con convocatorias</small>
-                  </p>
+                    <i class="ion ion-ios-people-outline"></i> <small style="font-size:18px;"> Empresas con convocatorias</small>                  </p>
                   <p class="d-flex flex-column text-right">
                     <span class="font-weight-bold">
                       <i class="ion ion-android-arrow-up text-success"></i> 12%
                     </span>
-                    <span class="text-muted">Empresas</span>
+                    <span class="text-muted">Convocatorias abiertas actuales <b><?php echo $vacanteActualActiva; ?></b> </span>
+                    <span class="text-muted">Convocatorias abiertas Totales <b><?php echo $vacanteActiva; ?></b></span>
                   </p>
                 </div>
                 <!-- /.d-flex -->
@@ -928,7 +894,8 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                     <span class="font-weight-bold">
                       <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
                     </span>
-                    <span class="text-muted">Beneficiarios</span>
+                    <span class="text-muted">Beneficiarios <b><?php echo $beneficiadoActual;?></b></span>
+                    <!-- <span class="text-muted">Beneficiarios</span> -->
                   </p>
                 </div>
                 <!-- /.d-flex -->
@@ -962,14 +929,14 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 
             </div>
            <div class="row">
-           <div class="card-body col-lg-7 ">
-              <select id="dataSelector" class="col-md-3" style="border-radius:22px; border:1px solid #622c5e; cursor:pointer; ">
+           <div class="card-body col-sm-12 col-lg-7 m-auto  ">
+              <select id="dataSelector" class="col-md-6" style="border-radius:22px; border:1px solid #622c5e; cursor:pointer; ">
                 <option value="all">General</option>
                 <option value="apoyoVacAnt">Apoyo Vac Anterior</option>
                 <option value="apoyoVacAct">Apoyo Vac Actual</option>
                 <!-- Agrega opciones adicionales según tus necesidades -->
               </select>
-                <canvas id="barChartApoyo" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <canvas id="barChartApoyo" style=" height: 250px; max-height: 350px; max-width: 100%; width:500px; margin:auto;"></canvas>
             </div>
             <div class="card-body col-lg-4 ">
               <p class="ml-auto d-flex flex-column text-right">
@@ -981,7 +948,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                       ?>
                       <span class="text-success">
                         <i class="fas fa-arrow-up"> <?php echo "%".$porcentajeApoyos;?></i>
-                        <span class="text-muted" style="color:#fafafa !important">Mayor al año anterior</span>
+                        <span class="text-muted" >Mayor al año anterior</span>
                       </span>
                       <?php
                         }else{
@@ -989,12 +956,22 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                       <span class="text-danger">
                         <i class="fas fa-arrow-down"> <?php echo "%".$porcentajeApoyos; ?></i>
                       </span>
-                      <span class="text-muted" style="color:#fafafa !important">Menor al año anterior</span>
+                      <span class="text-muted" >Menor al año anterior</span>
                       <?php
                         }
                       ?>
               </p>
+              <div class="row col-lg-12 d-flex flex-row m-auto">
+                  <span class="col-md-12 m-auto text-center">
+                  <i class="fas fa-square " style="background: #622c5e; color: #622c5e;"></i><i style="text-shadow:1px 0 4px #000 !important;">  Este año <span class="text-bold text-lg">$<?= number_format(round($apoyoVacAnt), 2, '.', ',') ;?></i></span>
+                  </span>
+
+                  <span  class="col-md-12 m-auto text-center">
+                  <i class="fas fa-square text-gray"></i> <i style="text-shadow:1px 0 4px #000 !important;"> Año anterior <span class="text-bold text-lg">$<?= number_format(round($apoyoVacAct), 2, '.', ',');?> </i></span>
+                  </span>
+                </div>
             </div>
+            
            </div>
               <!-- /.card-body -->
           </div>
@@ -1007,7 +984,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 datasets: [{
                   data: [<?=$apoyoVacAnt?>, <?=$apoyoVacAct?>],
                   backgroundColor: [
-                    '#fff',  // Color del primer segmento
+                    '#ccc',  // Color del primer segmento
                     '#622c5e', // Color del segundo segmento
                     ],
                     
@@ -1050,7 +1027,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                   datasets: [{
                     data: [<?=$apoyoVacAnt?>, <?=$apoyoVacAct?>],
                     backgroundColor: [
-                      '#fff',  // Color del primer segmento
+                      '#ccc',  // Color del primer segmento
                       '#622c5e', // Color del segundo segmento
                     ],
                   }]
