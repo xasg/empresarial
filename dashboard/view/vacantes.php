@@ -255,7 +255,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
           </li>
          
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link  active">
+            <a href="#" class="nav-link ">
             <i class="nav-icon fa fa-building "></i>
               <p>
                 Empresas
@@ -275,7 +275,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="registrar_empresa.php" class="nav-link active">
+                <a href="registrar_empresa.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Registrar Empresa</p>
                 </a>
@@ -446,14 +446,44 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item menu-open">
             <a href="#" class="nav-link">
             <i class="nav-icon fa fa-briefcase"></i>
               <p>
-               Vacantes
+                Vacantes
+                <i class="fas fa-angle-left right"></i>
+                
+                <span class="badge badge-info right">2</span>
+                <?php
+                // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
+                  if ($empN > 0) {
+                ?>
+                <span class="badge badge badge-danger"><?php echo $empN;?></span>
+                <?php
+                  # code...
+                  }
+                ?>
               </p>
             </a>
-          </li>         
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/layout/top-nav.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Registrar Vacante
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Ver vacantes
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -499,16 +529,16 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                   <div class="row m-auto">
                       <div class="col-md-12">
                           <ul class="wizard-steps">
-                              <li class="completed"><a><h5 class="text-center m-auto">Datos <span>Empresa</span></h5></a></li>
+                              <li class="completed"><a><h5 class="text-center m-auto">Datos <span>Vacante</span></h5></a></li>
                               <li><p style="color: #fafafa; margin: auto !important;">Ingresar datos</p></li>
                           </ul>
                       </div>
 
-                      <!-- Formulario de registro  -->
-                      <form action="../controller/new_empresa_admin_dashboard.php" method="POST" class="container m-auto">
-                          <div class="container text-center">
-                            <br>
-                            <h2 style="border-bottom:3px solid #6E2463;">Registro de la empresa</h2><br> 
+                      <!-- Formulario de registro de vacante  -->
+
+                        <form action="../controller/update_vacante_admin_vacantes.php" method="POST" class="container m-auto">
+                            <div class="container text-center">
+                            <h2 style="border-bottom:3px solid #6E2463;">Registro de la Vacante</h2><br> 
                               <div class="row container">
                                 <img class="col-md-2" style="width: 70px !important; "  src="../imgs/bot-fese.svg">
                                 <p class="text-justify col-md-8">
@@ -520,25 +550,195 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                                     Ademas el <b>password</b> para todas las empresas registradas desde este panel sera <b>Fese2023</b></small>
                                 </p>
                               </div>
+                            </div>
+                            <div class="row container text-center">
+                                <div class="col-md-12">
+                                    <h2>Selecciona la empresa<br><br></h2>
+                                </div>                  
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                    <label for="" class="form-label">Empresas registradas validadas [<?php echo $conteo; ?>]</label>
+                                        <select id="id_usuario_empresa" name="id_usuario_empresa"   class="form-control" name="hr_inicio" required>
+                                            <option selected>Selecciona la empresa</option>
+                                            <?php
+                                            $conteos;
+                                            foreach ($empresas as $key => $value) {
+                                                $i++;
+                                            ?>
+                                            <option value=<?php echo $value['dt_nombre_comercial']; ?> > <?php echo $value['dt_nombre_comercial']?></option>
+                                            <!-- <option id="id_usuario" name="id_usuario"  > <?php echo $value['dt_nombre_comercial']?></option> -->
 
-                              <div class="col-md-5 m-auto">
-                                  <div class="form-group">
-                                      <!-- Street 1 --><br>
-                                      <label class="control-label">Nombre comercial:</label>
-                                      <input type="text" class="form-control" name="nombre" value="" pattern="[A-Za-z\. ]{1,50}" title="Proporcione un nombre correcto" onChange="conMayusculas(this)" required>
-                                  </div>
-                              </div>
+                                            <?php 
+                                                
+                                                
+                                            }
+                                            ?>
+                                        </select>
+                                        
+                                    </div>
+                                </div>                  
 
-                              <div class="col-md-4 col-md-offset-3 m-auto">
-                                  <br><br>
-                                  <div class="form-group">
-                                      <!-- Submit Button -->
-                                      <input type="hidden" name="id" value="<?php echo $id; ?>" />
-                                      <button type="submit" class="btn btn-block btn-primary " style="background: #6E2463;">Crear Empresa</button><br><br>
-                                  </div>
-                              </div>
-                          </div>                                           
-                      </form>
+
+                                <div class="col-md-12">
+                                    <h2>Datos de la Vacante<br><br></h2>
+                                </div>                  
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <!-- Full Name -->
+                                        <label class="control-label">Nombre de la Vacante:</label>
+                                        <input type="text" class="form-control" name="nombre" onChange="conMayusculas(this)" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <!-- Street 1 -->
+                                        <label class="control-label">Número de vacantes</label>
+                                        <input type="text" class="form-control" name="numero" onChange="conMayusculas(this)" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <!-- Street 1 -->
+                                        <label class="control-label">Carrera</label>
+                                        <input type="text" class="form-control" name="carrera" onChange="conMayusculas(this)" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <!-- City-->
+                                        <label class="control-label">Fecha de inicio</label>
+                                        <input class="form-control" id="date" name="date" placeholder="yyyy-dd-mm" type="text" required/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <!-- Street 1 -->
+                                        <label class="control-label">Fecha de término </label>
+                                        <input class="form-control" id="date2" name="date2" placeholder="yyyy-dd-mm" type="text" required/>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <!-- City-->
+                                        <label class="control-label">Hora de inicio de actividades</label>
+                                        <select class="form-control" name="hr_inicio" required>
+                                                <option value="">Selecionar</option>
+                                                <option value="07:00">7:00</option>
+                                                <option value="07:30">7:30</option>
+                                                <option value="08:00">8:00</option>
+                                                <option value="08:30">8:30</option>
+                                                <option value="09:00">9:00</option>
+                                                <option value="09:30">9:30</option>
+                                                <option value="10:00">10:00</option>
+                                                <option value="10:30">10:30</option>
+                                                <option value="11:00">11:00</option>
+                                                <option value="11:30">11:30</option>
+                                                <option value="12:00">12:00</option>
+                                                <option value="12:30">12:30</option>
+                                                <option value="13:00">13:00</option>
+                                                <option value="13:30">13:30</option>
+                                                <option value="14:00">14:00</option>
+                                                <option value="14:30">14:30</option>
+                                                <option value="15:00">15:00</option>
+                                                <option value="15:30">15:30</option>
+                                                <option value="16:00">16:00</option>
+                                                <option value="16:30">16:30</option>
+                                                <option value="17:00">17:00</option>
+                                                <option value="17:30">17:30</option>
+                                                <option value="18:00">18:00</option>
+                                                <option value="18:30">18:30</option>
+                                                <option value="19:00">19:00</option>
+                                                <option value="19:30">19:30</option>
+                                                <option value="20:00">20:00</option>
+                                                <option value="20:30">20:30</option>
+                                                <option value="21:00">21:00</option>
+                                                <option value="21:30">21:30</option>
+                                                <option value="22:00">22:00</option>
+                                                <option value="22:30">22:30</option>
+                                                <option value="23:00">23:00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <!-- Street 1 -->
+                                        <label class="control-label">Hora de fin de actividades</label>
+                                        <select class="form-control" name="hr_termino" required>
+                                                <option value="">Selecionar</option>
+                                                <option value="07:00">7:00</option>
+                                                <option value="07:30">7:30</option>
+                                                <option value="08:00">8:00</option>
+                                                <option value="08:30">8:30</option>
+                                                <option value="09:00">9:00</option>
+                                                <option value="09:30">9:30</option>
+                                                <option value="10:00">10:00</option>
+                                                <option value="10:30">10:30</option>
+                                                <option value="11:00">11:00</option>
+                                                <option value="11:30">11:30</option>
+                                                <option value="12:00">12:00</option>
+                                                <option value="12:30">12:30</option>
+                                                <option value="13:00">13:00</option>
+                                                <option value="13:30">13:30</option>
+                                                <option value="14:00">14:00</option>
+                                                <option value="14:30">14:30</option>
+                                                <option value="15:00">15:00</option>
+                                                <option value="15:30">15:30</option>
+                                                <option value="16:00">16:00</option>
+                                                <option value="16:30">16:30</option>
+                                                <option value="17:00">17:00</option>
+                                                <option value="17:30">17:30</option>
+                                                <option value="18:00">18:00</option>
+                                                <option value="18:30">18:30</option>
+                                                <option value="19:00">19:00</option>
+                                                <option value="19:30">19:30</option>
+                                                <option value="20:00">20:00</option>
+                                                <option value="20:30">20:30</option>
+                                                <option value="21:00">21:00</option>
+                                                <option value="21:30">21:30</option>
+                                                <option value="22:00">22:00</option>
+                                                <option value="22:30">22:30</option>
+                                                <option value="23:00">23:00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- Street 1 -->
+                                    <label class="control-label">Apoyo ecónomico</label>
+                                    <input type="text" class="form-control" name="apoyo"  onChange="conMayusculas(this)" required>
+                                </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                <div class="form-group">
+                                    <!-- Street 1 -->
+                                    <label class="control-label">Dispersión al beneficiario</label>
+                                    <select class="form-control" name="dispersion" required>
+                                        <option value="">SELECCIONAR</option>
+                                        <option value="QUINCENAL">QUINCENAL</option>
+                                        <option value="MENSUAL">MENSUAL</option>
+                                    </select>
+                                </div>
+                                </div>  
+                                
+                                <div class="col-md-6 col-md-offset-3">
+                                <div class="form-group"><br><br>    
+                                <button type="submit" class="btn btn-block btn-primary " style="background: #6E2463;">Crear Vacante</button><br><br>
+                                </div>
+                                </div>
+                            </div>
+
+                            
+                        </form>
                   </div>
               </section>
           </main>

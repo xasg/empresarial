@@ -1,5 +1,6 @@
 <?php
 require_once('../controller/conec.php');
+// require_once('./../controller/conec.php');
 $mysqli = new mysqli($servername, $username, $password, $dbname);
 $result ='';
 if( $mysqli->connect_errno )
@@ -558,9 +559,32 @@ return $result->fetch_assoc();
 function valida_vacante(){
 global $mysqli;
 
-$sql = "SELECT * FROM `vacante` LEFT JOIN empresa USING(id_usuario)  where vacante.tp_status = 0 AND empresa.tp_status = 1  ORDER BY id_vacante DESC LIMIT 4 ";
+$sql = "SELECT *   FROM vacante LEFT JOIN empresa USING(id_usuario)  
+WHERE vacante.dt_fh_registro IS NOT NULL
+AND YEAR(vacante.dt_fh_registro) = YEAR(CURDATE())
+AND vacante.tp_status = 1
+AND empresa.tp_status = 1  
+ORDER BY id_vacante DESC LIMIT 4";
 $result = $mysqli->query($sql);
 return $result;
 }
+
+function count_empresas_vac_actuales(){
+  global $mysqli;
+  $sql = "SELECT count(id_empresa) as registros FROM `empresa`
+  LEFT JOIN vacante USING (id_usuario)
+  where vacante.tp_status = 1 AND YEAR(vacante.dt_fh_registro) = YEAR(CURDATE())";
+  $result=$mysqli->query($sql);
+  return $result->fetch_assoc();
+  }
+
+  // function empresas_vacantes_actuales(){
+  //  global $mysqli;
+  //  $sql = "SELECT count(id_empresa) as registros FROM `empresa`
+  // LEFT JOIN vacante USING (id_usuario)
+  // where vacante.tp_status = 1 AND YEAR(vacante.dt_fh_registro) = YEAR(CURDATE())"
+  
+  // }
+
 
 ?>

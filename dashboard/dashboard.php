@@ -2,7 +2,7 @@
   // Desactivar toda notificación de error
   session_start();
   error_reporting(0);
-   require_once('./model/database_admin.php');
+   require_once('model/database_admin.php');
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['tp_user']) == 3){  
    $id=$_SESSION["id"];   
@@ -129,7 +129,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light" >
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -290,7 +290,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-black elevation-4" style="min-height:100vh; " >
+  <aside class="main-sidebar sidebar-black elevation-4" style="min-height:100vh; position:fixed;" >
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
@@ -555,9 +555,31 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             <a href="#" class="nav-link">
             <i class="nav-icon fa fa-briefcase"></i>
               <p>
-               Vacantes
+                Vacantes
+                <i class="fas fa-angle-left right"></i>
+                
+                <span class="badge badge-info right">2</span>
+          
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="view/vacantes.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Registrar Vacante
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Ver vacantes
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           
@@ -651,6 +673,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
+                <i class="fa fa-address-book-o" aria-hidden="true"></i>
               </div>
               <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Ver beneficiarios<i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -669,7 +692,8 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 <p></p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <!-- <i class="ion ion-pie-graph"></i> -->
+                <i class="fa fa-address-book" aria-hidden="true"></i>
               </div>
               <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Invitaciones <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -744,50 +768,55 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 </div>
               </div>
               <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
-                  <thead>
+              <table class="table table-striped table-valign-middle">
+                <thead>
                   <tr>
                     <th>Empresa</th>
-                    <th>Price</th>
-                    <th>Sales</th>
-                    <th>More</th>
+                    <th>Nombre de la vacante</th>
+                    <th>Apoyo</th>
+                    <th>#Vac</th>
+                    <th>Accion</th>
                   </tr>
-                  </thead>
-                  <tbody>
+                </thead>
+                <tbody>
                   <?php
-$validaVacantes = valida_vacante();
-
-// Verificamos que $validaVacantes sea un array
-// if (is_array($validaVacantes)) {
-    foreach ($validaVacantes as $validaVacante) {
-        ?>
-        <tr>
-            <td>
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                <?php echo $validaVacante['dt_nombre_comercial']; ?>
-            </td>
-            <td><?php echo $validaVacante['dt_nombre']; ?></td>
-            <!-- Agrega aquí los demás campos de validaVacante que necesites mostrar -->
-            <td>
-                <small class="text-success mr-1">
-                    <i class="fas fa-arrow-up"></i>
-                    12%
-                </small>
-                12,000 Sold
-            </td>
-            <td>
-                <a href="#" class="text-muted">
-                    <i class="fas fa-search"></i>
-                </a>
-            </td>
-        </tr>
-        <?php
-    }
-// }
-?>
-
-                  </tbody>
-                </table>
+                  $validaVacantes = valida_vacante();
+                  if (mysqli_num_rows($validaVacantes) > 0) {
+                    foreach ($validaVacantes as $validaVacante) {
+                  ?>
+                      <tr>
+                        <td>
+                          <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                          <?php echo $validaVacante['dt_nombre_comercial']; ?>
+                        </td>
+                        <td style="width:190px;"><?php echo $validaVacante['dt_nombre']; ?></td>
+                        <!-- Agrega aquí los demás campos de validaVacante que necesites mostrar -->
+                        <td>
+                          <p>
+                            <?php echo "$" . number_format($validaVacante['dt_apoyo'], 2, '.', ','); ?>
+                          </p>
+                        </td>
+                        <td>
+                          <?php
+                          echo "#" . $validaVacante['dt_numero'];
+                          ?>
+                        </td>
+                        <td>
+                          <a href="#" class="text-muted">
+                            <i class="fas fa-search"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    <?php
+                    }
+                  } else {
+                    ?>
+                    <tr>
+                      <td colspan="5"><h3>Sin registros nuevos</h3></td>
+                    </tr>
+                  <?php } ?>
+                </tbody>
+              </table>
               </div>
             </div>
             <!-- /.card -->
@@ -856,6 +885,10 @@ $validaVacantes = valida_vacante();
             <!-- /.card -->
             
               <?php 
+                          // Empresas con vacantes
+                          $empresasConVacantes = count_empresas_vac_actuales();
+                          $empresaVacante = $empresasConVacantes['registros'];
+
                           // Vacantes                    
                           $vacantesTotalesActivas = count_convocatorias_totales(); 
                           $vacanteActiva = $vacantesTotalesActivas['totales'];  
@@ -881,8 +914,9 @@ $validaVacantes = valida_vacante();
                     <span class="font-weight-bold">
                       <i class="ion ion-android-arrow-up text-success"></i> 12%
                     </span>
-                    <span class="text-muted">Convocatorias abiertas actuales <b><?php echo $vacanteActualActiva; ?></b> </span>
-                    <span class="text-muted">Convocatorias abiertas Totales <b><?php echo $vacanteActiva; ?></b></span>
+                    <span class="text-muted">Empresas Con convocatorias 2023 : <b><?php echo $empresaVacante; ?></b> </span>
+                    <span class="text-muted">Convocatorias abiertas actuales : <b><?php echo $vacanteActualActiva; ?></b> </span>
+                    <span class="text-muted">Convocatorias abiertas Totales : <b><?php echo $vacanteActiva; ?></b></span>
                   </p>
                 </div>
                 <!-- /.d-flex -->
@@ -1069,10 +1103,8 @@ $validaVacantes = valida_vacante();
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0
+      <b>Version</b> 1.1.0
     </div>
   </footer>
 </div>
