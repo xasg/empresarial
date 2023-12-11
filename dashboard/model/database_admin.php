@@ -77,6 +77,68 @@ Where empresa.tp_status = 1
 GROUP BY empresa.id_usuario ORDER BY  empresa.dt_fh_registro DESC";
         return $mysqli->query($sql);
 }
+
+// Se agrega el select list para el new_vacante_admin.php para ver el listado de las empresas registradas por nombre comercial
+function run_empresas_vacante(){
+  global $mysqli;
+  $sql ="SELECT * FROM empresa Where tp_status = 1 ORDER BY dt_nombre_comercial ";
+  
+  return $result = $mysqli->query($sql);
+}
+// Se obtiene el numero total de empresas sin ambiguedad registradas
+function count_empresas_vacantes(){
+  global $mysqli;
+  $sql ="SELECT count(*) as numeralia FROM empresa Where tp_status = 1;";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc(); 
+}
+
+// Se agrega la funcion para visualisar las vacantes desde el view/new_vacante_admin_view.php para ver el listado de las vacantes
+
+function run_vacantes()
+{
+  global $mysqli;
+  // $sql ="SELECT * FROM vacante left join empresa using (id_usuario) WHERE dt_razon_social != 'null' ";
+  $sql ="SELECT *,vacante.dt_fh_registro as fecha_registro_vacante FROM vacante left join empresa using (id_usuario) where empresa.tp_status = 1 order by vacante.dt_fh_registro DESC ";
+  return $mysqli->query($sql);
+}
+
+// Se obtiene el numero total de empresas sin ambiguedad registradas
+function count_empresas(){
+  global $mysqli;
+$sql ="SELECT count(*) as numeralia FROM empresa Where dt_nombre_comercial <> 'NULL'  AND tp_status = 1";
+ return $result = $mysqli->query($sql);
+//  return $result->fetch_assoc(); 
+}
+
+
+
+function count_invitados_correo($id_vacante){
+  global $mysqli;
+  $sql = "SELECT count(*) as numeralia FROM candidatos_correos WHERE id_vacante = '{$id_vacante}'";
+  $res = $mysqli->query($sql);
+
+  if ($res) {
+    $numRows = $res->num_rows;
+
+    if ($numRows > 0) {
+      $row = $res->fetch_assoc();
+      $vacantescount = $row['numeralia'];
+    } else {
+      // No se encontraron registros para la vacante especificada
+      $vacantescount = 0;
+    }
+
+    $res->close();
+  } else {
+    // Manejar error en la ejecución de la consulta
+    $vacantescount = -1; // Puedes establecer un valor específico para indicar un error
+  }
+
+  return $vacantescount;
+}
+
+
 function run_empresas_baja()
 {
   global $mysqli, $result;
@@ -450,6 +512,7 @@ WHERE YEAR(dt_fh_registro) =  YEAR(CURDATE())";
 $result = $mysqli->query($sql);
 return  $result->fetch_assoc();
 }
+
 function count_candidatos_nuevos(){
   global $mysqli;
   $sql = "SELECT 
@@ -548,12 +611,27 @@ $result = $mysqli->query($sql);
 return $result->fetch_assoc();
 }
 
-function count_beneficiados_actuales(){
-global $mysqli;
+function count_beneficiados_totales(){
+  global $mysqli;
 
-$sql = "SELECT count(*) as totales FROM beneficiario where tp_status_beneficiario = 1 ";
-$result = $mysqli->query($sql);
-return $result->fetch_assoc();
+  $sql = "SELECT count(*) as totales FROM beneficiario where tp_status_beneficiario = 1 ";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+
+function count_beneficiados_anterior(){
+  global $mysqli;
+
+  $sql = "SELECT count(*) as totales FROM beneficiario where tp_status_beneficiario = 1 and YEAR(dt_fh_registro) = YEAR(CURDATE()) -1 ";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+function count_beneficiados_actuales(){
+  global $mysqli;
+
+  $sql = "SELECT count(*) as totales FROM beneficiario where tp_status_beneficiario = 1  AND YEAR(dt_fh_registro) = YEAR(CURDATE())";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
 }
 
 function valida_vacante(){
@@ -562,6 +640,7 @@ global $mysqli;
 $sql = "SELECT *   FROM vacante LEFT JOIN empresa USING(id_usuario)  
 WHERE vacante.dt_fh_registro IS NOT NULL
 AND YEAR(vacante.dt_fh_registro) = YEAR(CURDATE())
+AND MONTH(vacante.dt_fh_registro) = MONTH(CURDATE())
 AND vacante.tp_status = 1
 AND empresa.tp_status = 1  
 ORDER BY id_vacante DESC LIMIT 4";
@@ -585,6 +664,15 @@ function count_empresas_vac_actuales(){
   // where vacante.tp_status = 1 AND YEAR(vacante.dt_fh_registro) = YEAR(CURDATE())"
   
   // }
+
+  // Se agrega el insert de la vacante desde el admin
+function insert_vacante_admin($id, $nombre, $numero, $carrera, $inicio, $termino, $hr_inicio, $hr_termino, $apoyo, $dispersion){
+  global $mysqli;
+  $sql = "INSERT INTO vacante (id_usuario, dt_nombre, dt_numero, dt_carrera, dt_inicio, dt_termino, dt_hr_inicio, dt_hr_termino, dt_apoyo, dt_dispersion)
+  VALUES ('{$id}','{$nombre}', '{$numero}', '{$carrera}', '{$inicio}', '{$termino}', '{$hr_inicio}', '{$hr_termino}', '{$apoyo}', '{$dispersion}')
+  ";
+  $mysqli->query($sql);
+}
 
 
 ?>

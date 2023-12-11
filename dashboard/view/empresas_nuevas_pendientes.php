@@ -135,13 +135,13 @@
   table th,
   table td {
     width: 99%;
-    max-width: 200px !important;
+    max-width: 120px !important;
     overflow: auto;
     border: 1px solid;
   }
 
   table th{
-    height: 50px !important;
+    height: 20px !important;
   }
 </style>
 

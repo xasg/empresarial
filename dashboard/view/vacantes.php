@@ -9,10 +9,13 @@
    if(isset($_SESSION['tp_user']) == 3){  
    $id=$_SESSION["id"];   
 
-   $empresa = get_usuario($id);
-   $usuario = view_empresa($id);
-   $result = run_entidad();
-   $giro = run_giro();
+  //  $empresa = get_usuario($id);
+  //  $usuario = view_empresa($id);
+  //  $result = run_entidad();
+  //  $giro = run_giro();
+  // $id=$_SESSION["id"];   
+  $empresas = run_empresas_vacante();
+
 
 // Reporte Candidatos/Beneficiarios
    $conteosCandidatos = count_candidatos_total();
@@ -125,7 +128,15 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       border-radius: 22px;  border: 4px solid #964094 !important;  color:#964094; box-shadow: -1px 2px 7px #964094 !important;
       transition:all .3s;
     }
+    
+    
   </style>
+  
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#example-getting-started').multiselect();
+    });
+  </script>
 </head>
 <!--
 `body` tag options:
@@ -254,7 +265,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
           </li>
          
-          <li class="nav-item menu-open">
+          <li class="nav-item">
             <a href="#" class="nav-link ">
             <i class="nav-icon fa fa-building "></i>
               <p>
@@ -446,6 +457,10 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </p>
             </a>
           </li>
+          <?php
+          $vacantesActuales = count_empresas_vac_actuales();
+          $actuales = $vacantesActuales['registros'];
+          ?>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link">
             <i class="nav-icon fa fa-briefcase"></i>
@@ -456,9 +471,9 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 <span class="badge badge-info right">2</span>
                 <?php
                 // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
-                  if ($empN > 0) {
+                  if ($actuales > 0) {
                 ?>
-                <span class="badge badge badge-danger"><?php echo $empN;?></span>
+                <span class="badge badge badge-danger"><?php echo $actuales;?></span>
                 <?php
                   # code...
                   }
@@ -467,7 +482,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link active">
+                <a href="vacantes.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Registrar Vacante
@@ -475,7 +490,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="vacantes_actuales.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Ver vacantes
@@ -543,34 +558,40 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                                 <img class="col-md-2" style="width: 70px !important; "  src="../imgs/bot-fese.svg">
                                 <p class="text-justify col-md-8">
                                   <b> Nota:</b>
-                                    <small>El nombre que se proporcione se registrara en la base de datos tanto como <b>razon social</b> como <b>nombre comercial</b>, esto sera de forma temporal ademas se registra con el correo iniciando por empresa seguido del <b>id</b> de la empresa registrada en la base de datos <b>@fese.mx</b> ejemplo:
+                                    <small>La vacante se registra seleccionando primero la <b>Empresa</b> con <b>nombre comercial</b>, y se rellenan los campos mostrados se podra validar la vacante creada en ver vacantes 
                                     <br>
-                                    <b>empresa1707@fese.mx</b>
-                                    <br>
-                                    Ademas el <b>password</b> para todas las empresas registradas desde este panel sera <b>Fese2023</b></small>
-                                </p>
+                                      Si aparece la leyenda <b> No ha registrado nombre combercial  </b> se registrara la vacante pero solo con razon social
+                                  </p>
                               </div>
                             </div>
+                             <?php
+                                $empresasVacantes = count_empresas_vacantes();
+                                $conteoVacantes = $empresasVacantes['numeralia'];
+                              ?>
                             <div class="row container text-center">
                                 <div class="col-md-12">
                                     <h2>Selecciona la empresa<br><br></h2>
                                 </div>                  
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                    <label for="" class="form-label">Empresas registradas validadas [<?php echo $conteo; ?>]</label>
+                                    <label for="" class="form-label">Empresas registradas validadas [<?php echo $conteoVacantes; ?>]</label>
                                         <select id="id_usuario_empresa" name="id_usuario_empresa"   class="form-control" name="hr_inicio" required>
                                             <option selected>Selecciona la empresa</option>
                                             <?php
-                                            $conteos;
-                                            foreach ($empresas as $key => $value) {
-                                                $i++;
+                                            // $conteos;
+                                            foreach ($empresas as $value) {
+                                                // $i++;
                                             ?>
-                                            <option value=<?php echo $value['dt_nombre_comercial']; ?> > <?php echo $value['dt_nombre_comercial']?></option>
-                                            <!-- <option id="id_usuario" name="id_usuario"  > <?php echo $value['dt_nombre_comercial']?></option> -->
-
+                                              <?php
+                                                if (  $value['dt_nombre_comercial'] != null) {
+                                              ?>
+                                                <option value=<?php echo $value['id_usuario'];?> ><?php echo $value['dt_nombre_comercial'];?></option>
+                                              <?php  
+                                                }else{
+                                              ?>
+                                                <option value=<?php echo $value['id_usuario']; ?> ><?php echo $value['dt_razon_social'];?></option>
                                             <?php 
-                                                
-                                                
+                                              } 
                                             }
                                             ?>
                                         </select>
@@ -779,5 +800,38 @@ $invitacionP = $invitacionesPendientes['numeralia'];
 <script src="../plugins/chart.js/Chart.js"></script>
 <!-- Tablas chartJs -->
 <script src="../data-dashboard.js"></script>
+
+<script type="text/javascript" src="../../plugins/calendar/js/bootstrap-datepicker.min.js"></script>
+<!-- <script type="text/javascript" src="../plugins/daterangepicker/daterangepicker.js"></script> -->
+
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'yyyy-mm-dd',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
+
+
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date2"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'yyyy-mm-dd',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
+
 </body>
 </html>

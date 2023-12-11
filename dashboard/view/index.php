@@ -2,7 +2,7 @@
   // Desactivar toda notificación de error
   session_start();
   error_reporting(0);
-   require_once('model/database_admin.php');
+   require_once('../model/database_admin.php');
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['tp_user']) == 3){  
    $id=$_SESSION["id"];   
@@ -81,11 +81,11 @@ $invitacionP = $invitacionesPendientes['numeralia'];
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- dognut chart -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -294,7 +294,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-      <img src="../img/empresarial.png" alt="FESE" class="brand-image elevation-5" style="opacity: .8">
+      <img src="../../img/empresarial.png" alt="FESE" class="brand-image elevation-5" style="opacity: .8">
       <span class="brand-text font-weight-light">.</span>
     </a>
 
@@ -306,7 +306,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="../img/logo.png" class="elevation-2" alt="User Image">
+          <img src="../../img/logo.png" class="elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block text-white">Panel de Administrador</a>
@@ -380,13 +380,13 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./view/registrar_empresa.php" class="nav-link">
+                <a href="registrar_empresa.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Registrar Empresa</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="view/empresas_nuevas_pendientes.php" class="nav-link">
+                <a href="empresas_nuevas_pendientes.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Nuevas/Pendientes
@@ -404,14 +404,14 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </li>
               <!-- Nav Validadas -->
               <li class="nav-item">
-                <a href="view/validadas.php" class="nav-link">
+                <a href="validadas.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Validadas <span class="badge badge-info right"><?php echo $empV; ?></span></p>
                 </a>
               </li>
               <!-- Nav Bajas -->
               <li class="nav-item">
-                <a href="view/bajas.php" class="nav-link">
+                <a href="bajas.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Bajas <span class="badge badge-info right"><?php echo $empB; ?></span></p>
                 </a>
@@ -551,6 +551,11 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </p>
             </a>
           </li>
+          <?php
+               // Empresas con vacantes
+               $empresasConVacantes = count_empresas_vac_actuales();
+               $empresaVacante = $empresasConVacantes['registros'];
+          ?>
           <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="nav-icon fa fa-briefcase"></i>
@@ -559,12 +564,20 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 <i class="fas fa-angle-left right"></i>
                 
                 <span class="badge badge-info right">2</span>
-          
+                <?php
+                // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
+                  if ($empresaVacante > 0) {
+                ?>
+                <span class="badge badge badge-danger"><?php echo $empresaVacante;?></span>
+                <?php
+                  # code...
+                  }
+                ?>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="view/vacantes.php" class="nav-link ">
+                <a href="vacantes.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Registrar Vacante
@@ -572,7 +585,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="vacantes_actuales.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Ver vacantes
@@ -636,7 +649,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 <i class="fa fa-building" aria-hidden="true"><sub><small><i class="fa fa-check-circle" aria-hidden="true"></i></small></sub></i>
                 <!-- <i class="ion ion-bag"></i> -->
               </div>
-              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Validar <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="empresas_nuevas_pendientes.php" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Validar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <?php            
@@ -648,7 +661,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             <div class="small-box " style="border-radius: 22px; box-shadow:0 1px 10px #7a167a; border: 2px solid #7a167a !important; color:#7a167a;">
               <div class="inner">
                 <h2 class="text-center" style="font-size:25px;"> <b> Apoyos Vacantes <?= date("Y"); ?></b></h2>
-                <h3 > $ <?= $apoyoVacAct; ?> </h3>
+                <h3 > $ <?= number_format(round($apoyoVacAct), 2, '.', ',')  ; ?> </h3>
                 <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
 
                 <p>Apoyos año anterior: $<b><?= number_format(round($apoyoVacAnt), 2, '.', ',') ; ?> </b></p>
@@ -657,7 +670,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Ver vacantes <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="vacantes_actuales.php" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Ver vacantes <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -719,7 +732,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                   <p class="ml-auto d-flex flex-column text-right">
                   <?php
                         // Se calcula el porcentaje conforme al año anterior
-                        $calculoCandidatos = ($conteoActCan/$conteoCan) * 100;
+                        $calculoCandidatos = ($conteoActCan/$conteoAntCan) * 100;
                         $porcentajeCandidatos = round($calculoCandidatos,PHP_ROUND_HALF_DOWN) - 100;
                       if ($porcentajeCandidatos > 0) {
                     ?>
@@ -760,7 +773,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
 
             <div class="card shadow tablas-estilos-datos">
               <div class="card-header border-1">
-                <h3 class="card-title">Vacantes sin validar</h3>
+                <h3 class="card-title">Vacantes Registradas este mes</h3>
                 <div class="card-tools">
                   <a href="#" class="btn btn-sm btn-tool" title="Descargar Reporte">
                     <i class="fas fa-download"></i>
@@ -786,7 +799,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                   ?>
                       <tr>
                         <td>
-                          <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                          <img src="../dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
                           <?php echo $validaVacante['dt_nombre_comercial']; ?>
                         </td>
                         <td style="width:190px;"><?php echo $validaVacante['dt_nombre']; ?></td>
@@ -885,18 +898,20 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             <!-- /.card -->
             
               <?php 
-                          // Empresas con vacantes
-                          $empresasConVacantes = count_empresas_vac_actuales();
-                          $empresaVacante = $empresasConVacantes['registros'];
+                     
 
                           // Vacantes                    
                           $vacantesTotalesActivas = count_convocatorias_totales(); 
                           $vacanteActiva = $vacantesTotalesActivas['totales'];  
                           $vacantesTotalesActualesActivas = count_convocatorias_actuales(); 
                           $vacanteActualActiva = $vacantesTotalesActualesActivas['totales'];  
-                          $BeneficiariosActualesTotales = count_beneficiados_actuales();
-                          $beneficiadoActual = $BeneficiariosActualesTotales['totales'];
-              ?>
+                          $BeneficiariosActualesTotales = count_beneficiados_totales();
+                          $BeneficiariosActuales = count_beneficiados_actuales();
+                          $BeneficiariosAnterior = count_beneficiados_anterior();
+                          $beneficiadoTotal = $BeneficiariosActualesTotales['totales'];
+                          $beneficiadoActual = $BeneficiariosActuales['totales'];
+                          $beneficiadoAnterior = $BeneficiariosAnterior['totales'];
+              ?>      
             <div class="card shadow tablas-estilos-datos" >
               <div class="card-header border-1">
                 <h3 class="card-title">Descripción general Global</h3>
@@ -912,11 +927,11 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                     <i class="ion ion-ios-people-outline"></i> <small style="font-size:18px;"> Empresas con convocatorias</small>                  </p>
                   <p class="d-flex flex-column text-right">
                     <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-up text-success"></i> 12%
+                      <!-- <i class="ion ion-android-arrow-up text-success"></i> 12% -->
                     </span>
                     <span class="text-muted">Empresas Con convocatorias 2023 : <b><?php echo $empresaVacante; ?></b> </span>
-                    <span class="text-muted">Convocatorias abiertas actuales : <b><?php echo $vacanteActualActiva; ?></b> </span>
-                    <span class="text-muted">Convocatorias abiertas Totales : <b><?php echo $vacanteActiva; ?></b></span>
+                    <span class="text-muted">Vacantes activas <?php echo date('Y');?> : <b><?php echo $vacanteActualActiva; ?></b> </span>
+                    <span class="text-muted">Vacantes abiertas Totales : <b><?php echo $vacanteActiva; ?></b></span>
                   </p>
                 </div>
                 <!-- /.d-flex -->
@@ -926,9 +941,11 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                   </p>
                   <p class="d-flex flex-column text-right">
                     <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
+                      <!-- <i class="ion ion-android-arrow-up text-warning"></i> 0.8% -->
                     </span>
-                    <span class="text-muted">Beneficiarios <b><?php echo $beneficiadoActual;?></b></span>
+                    <span class="text-muted">Beneficiarios <?php echo date("Y");?> <b><?php echo $beneficiadoActual;?></b></span>
+                    <span class="text-muted">Beneficiarios <?php echo date("Y")-1;?> <b><?php echo $beneficiadoAnterior;?></b></span>
+                    <span class="text-muted">Beneficiarios totales<b><?php echo $beneficiadoTotal;?></b></span>
                     <!-- <span class="text-muted">Beneficiarios</span> -->
                   </p>
                 </div>
@@ -940,9 +957,13 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                   </p>
                   <p class="d-flex flex-column text-right">
                     <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-down text-danger"></i> 1%
+                      <!-- <i class="ion ion-android-arrow-down text-danger"></i> 1% -->
                     </span>
-                    <span class="text-muted">Renovaciones</span>
+                    <span class="text-muted">
+                      <b>
+                        <?php echo $empV; ?>
+                      </b> Empresas siguen con nosotros
+                    </span>
                   </p>
                 </div>
                 <!-- /.d-flex -->
@@ -997,11 +1018,11 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </p>
               <div class="row col-lg-12 d-flex flex-row m-auto">
                   <span class="col-md-12 m-auto text-center">
-                  <i class="fas fa-square " style="background: #622c5e; color: #622c5e;"></i><i style="text-shadow:1px 0 4px #000 !important;">  Este año <span class="text-bold text-lg">$<?= number_format(round($apoyoVacAnt), 2, '.', ',') ;?></i></span>
+                  <i class="fas fa-square " style="background: #622c5e; color: #622c5e;"></i><i style="text-shadow:1px 0 4px #000 !important;">  Este año <span class="text-bold text-lg">$<?= number_format(round($apoyoVacAct), 2, '.', ',') ;?></i></span>
                   </span>
 
                   <span  class="col-md-12 m-auto text-center">
-                  <i class="fas fa-square text-gray"></i> <i style="text-shadow:1px 0 4px #000 !important;"> Año anterior <span class="text-bold text-lg">$<?= number_format(round($apoyoVacAct), 2, '.', ',');?> </i></span>
+                  <i class="fas fa-square text-gray"></i> <i style="text-shadow:1px 0 4px #000 !important;"> Año anterior <span class="text-bold text-lg">$<?= number_format(round($apoyoVacAnt), 2, '.', ',');?> </i></span>
                   </span>
                 </div>
             </div>
@@ -1113,13 +1134,13 @@ $invitacionP = $invitacionesPendientes['numeralia'];
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.js"></script>
+<script src="../plugins/jquery/jquery.js"></script>
 <!-- Bootstrap -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE -->
-<script src="dist/js/adminlte.js"></script>
+<script src="../dist/js/adminlte.js"></script>
 <!-- OPTIONAL SCRIPTS -->
-<script src="plugins/chart.js/Chart.js"></script>
+<script src="../plugins/chart.js/Chart.js"></script>
 <!-- Tablas chartJs -->
 <script src="data-dashboard.js"></script>
 </body>
