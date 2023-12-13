@@ -8,14 +8,13 @@
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['tp_user']) == 3){  
    $id=$_SESSION["id"];   
-
-  //  $empresa = get_usuario($id);
-  //  $usuario = view_empresa($id);
-  //  $result = run_entidad();
-  //  $giro = run_giro();
-  // $id=$_SESSION["id"];   
-  $empresas = run_empresas_vacante();
-
+  
+   $vacante = run_vacantes();
+   $empresas = run_empresas_vacante();
+   $conteos = count_empresas();
+   foreach($conteos as $num){
+       $conteo = $num['numeralia'];
+   }
 
 // Reporte Candidatos/Beneficiarios
    $conteosCandidatos = count_candidatos_total();
@@ -129,7 +128,31 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       transition:all .3s;
     }
     
+    table{
+  table-layout: auto;
+  overflow: auto;
+  border: 1px solid;
+  margin-left: 2%;
+  max-width:500px !important;
+  }
+  table thead,
+  table th,
+  table td {
+    width: 99%;
+    max-width: 120px !important;
+    overflow: auto;
+    border: 1px solid;
+  }
+
+  table th{
+    height: 20px !important;
+  }
+
+  /* .btn-success{
+    font-size:14px !important;
+    padding:2px;
     
+  } */
   </style>
   
   <script type="text/javascript">
@@ -482,7 +505,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="vacantes.php" class="nav-link active">
+                <a href="vacantes.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Registrar Vacante
@@ -490,15 +513,25 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 </a>
               </li>
               <li class="nav-item">
-                <a href="vacantes_actuales.php" class="nav-link">
+                <a href="vacantes_actuales.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Ver vacantes
                   </p>
                 </a>
+                  <ol>
+                    <li class="nav-item">
+                      <a href="vacantes.php" class="nav-link active">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Editar
+                        </p>
+                      </a>
+                    </li>
+                  </ol>
               </li>
               <li class="nav-item">
-                <a href="vacantes_actuales.php" class="nav-link">
+                <a href="vacantes_actuales.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Invitaciones
@@ -522,13 +555,13 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Registro de Vacantes</h1>
+            <h1 class="m-0">Vacantes Actuales</h1>
           </div><!-- /.col -->
           
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-              <li class="breadcrumb-item ">Registrar Vacantes</li>
+              <li class="breadcrumb-item ">Vacantes</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -541,235 +574,83 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       <div class="container-fluid">
         <div class="row">
           <!-- Nav con imagen del logo de fese -->
-          <div class="container-fluid" style="background-color: #f5f5f5">
+          <div class="col-lg-12 container-fluid" style="background-color: #f5f5f5">
               <nav class="navbar navbar-default">
-                  <a class="navbar-brand" href="index.php" ><img src="../../img/empresarial.png" alt="Dispute Bills" style="width:200px;"> 
+                  <a class="navbar-brand" href="index.php" ><img src="../../img/empresarial.png" alt="Dispute Bills" style="width:200px;"></a>
               </nav>
           </div>      
           <!-- Contenedor principal Main del Fromulario -->
-          <main class="container">
-              <section class="border shadow m-auto" style="border-radius:22px;">
-                  <div class="row m-auto">
-                      <div class="col-md-12">
-                          <ul class="wizard-steps">
-                              <li class="completed"><a><h5 class="text-center m-auto">Datos <span>Vacante</span></h5></a></li>
-                              <li><p style="color: #fafafa; margin: auto !important;">Ingresar datos</p></li>
-                          </ul>
-                      </div>
-
-                      <!-- Formulario de registro de vacante  -->
-
-                        <form action="../controller/update_vacante_admin_vacantes.php" method="POST" class="container m-auto">
-                            <div class="container text-center">
-                            <h2 style="border-bottom:3px solid #6E2463;">Registro de la Vacante</h2><br> 
-                              <div class="row container">
-                                <img class="col-md-2" style="width: 70px !important; "  src="../imgs/bot-fese.svg">
-                                <p class="text-justify col-md-8">
-                                  <b> Nota:</b>
-                                    <small>La vacante se registra seleccionando primero la <b>Empresa</b> con <b>nombre comercial</b>, y se rellenan los campos mostrados se podra validar la vacante creada en ver vacantes 
-                                    <br>
-                                      Si aparece la leyenda <b> No ha registrado nombre combercial  </b> se registrara la vacante pero solo con razon social
-                                  </p>
-                              </div>
-                            </div>
-                             <?php
-                                $empresasVacantes = count_empresas_vacantes();
-                                $conteoVacantes = $empresasVacantes['numeralia'];
-                              ?>
-                            <div class="row container text-center">
-                                <div class="col-md-12">
-                                    <h2>Selecciona la empresa<br><br></h2>
-                                </div>                  
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                    <label for="" class="form-label">Empresas registradas validadas [<?php echo $conteoVacantes; ?>]</label>
-                                        <select id="id_usuario_empresa" name="id_usuario_empresa"   class="form-control" name="hr_inicio" required>
-                                            <option selected>Selecciona la empresa</option>
-                                            <?php
-                                            // $conteos;
-                                            foreach ($empresas as $value) {
-                                                $i++;
-                                            ?>
-                                              <?php
-                                                if (  $value['dt_nombre_comercial'] != null) {
-                                              ?>
-                                                <option value=<?php echo $value['id_usuario'];?> ><?php echo $i." - ".$value['dt_nombre_comercial'];?></option>
-                                              <?php  
-                                                }else{
-                                              ?>
-                                                <option value=<?php echo $value['id_usuario']; ?> ><?php echo $i." - ".$value['dt_razon_social'];?></option>
-                                            <?php 
-                                              } 
-                                            }
-                                            ?>
-                                        </select>
-                                        
-                                    </div>
-                                </div>                  
-
-
-                                <div class="col-md-12">
-                                    <h2>Datos de la Vacante<br><br></h2>
-                                </div>                  
-
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <!-- Full Name -->
-                                        <label class="control-label">Nombre de la Vacante:</label>
-                                        <input type="text" class="form-control" name="nombre" onChange="conMayusculas(this)" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <!-- Street 1 -->
-                                        <label class="control-label">Número de vacantes</label>
-                                        <input type="text" class="form-control" name="numero" onChange="conMayusculas(this)" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <!-- Street 1 -->
-                                        <label class="control-label">Carrera</label>
-                                        <input type="text" class="form-control" name="carrera" onChange="conMayusculas(this)" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <!-- City-->
-                                        <label class="control-label">Fecha de inicio</label>
-                                        <input class="form-control" id="date" name="date" placeholder="yyyy-dd-mm" type="text" required/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <!-- Street 1 -->
-                                        <label class="control-label">Fecha de término </label>
-                                        <input class="form-control" id="date2" name="date2" placeholder="yyyy-dd-mm" type="text" required/>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <!-- City-->
-                                        <label class="control-label">Hora de inicio de actividades</label>
-                                        <select class="form-control" name="hr_inicio" required>
-                                                <option value="">Selecionar</option>
-                                                <option value="07:00">7:00</option>
-                                                <option value="07:30">7:30</option>
-                                                <option value="08:00">8:00</option>
-                                                <option value="08:30">8:30</option>
-                                                <option value="09:00">9:00</option>
-                                                <option value="09:30">9:30</option>
-                                                <option value="10:00">10:00</option>
-                                                <option value="10:30">10:30</option>
-                                                <option value="11:00">11:00</option>
-                                                <option value="11:30">11:30</option>
-                                                <option value="12:00">12:00</option>
-                                                <option value="12:30">12:30</option>
-                                                <option value="13:00">13:00</option>
-                                                <option value="13:30">13:30</option>
-                                                <option value="14:00">14:00</option>
-                                                <option value="14:30">14:30</option>
-                                                <option value="15:00">15:00</option>
-                                                <option value="15:30">15:30</option>
-                                                <option value="16:00">16:00</option>
-                                                <option value="16:30">16:30</option>
-                                                <option value="17:00">17:00</option>
-                                                <option value="17:30">17:30</option>
-                                                <option value="18:00">18:00</option>
-                                                <option value="18:30">18:30</option>
-                                                <option value="19:00">19:00</option>
-                                                <option value="19:30">19:30</option>
-                                                <option value="20:00">20:00</option>
-                                                <option value="20:30">20:30</option>
-                                                <option value="21:00">21:00</option>
-                                                <option value="21:30">21:30</option>
-                                                <option value="22:00">22:00</option>
-                                                <option value="22:30">22:30</option>
-                                                <option value="23:00">23:00</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <!-- Street 1 -->
-                                        <label class="control-label">Hora de fin de actividades</label>
-                                        <select class="form-control" name="hr_termino" required>
-                                                <option value="">Selecionar</option>
-                                                <option value="07:00">7:00</option>
-                                                <option value="07:30">7:30</option>
-                                                <option value="08:00">8:00</option>
-                                                <option value="08:30">8:30</option>
-                                                <option value="09:00">9:00</option>
-                                                <option value="09:30">9:30</option>
-                                                <option value="10:00">10:00</option>
-                                                <option value="10:30">10:30</option>
-                                                <option value="11:00">11:00</option>
-                                                <option value="11:30">11:30</option>
-                                                <option value="12:00">12:00</option>
-                                                <option value="12:30">12:30</option>
-                                                <option value="13:00">13:00</option>
-                                                <option value="13:30">13:30</option>
-                                                <option value="14:00">14:00</option>
-                                                <option value="14:30">14:30</option>
-                                                <option value="15:00">15:00</option>
-                                                <option value="15:30">15:30</option>
-                                                <option value="16:00">16:00</option>
-                                                <option value="16:30">16:30</option>
-                                                <option value="17:00">17:00</option>
-                                                <option value="17:30">17:30</option>
-                                                <option value="18:00">18:00</option>
-                                                <option value="18:30">18:30</option>
-                                                <option value="19:00">19:00</option>
-                                                <option value="19:30">19:30</option>
-                                                <option value="20:00">20:00</option>
-                                                <option value="20:30">20:30</option>
-                                                <option value="21:00">21:00</option>
-                                                <option value="21:30">21:30</option>
-                                                <option value="22:00">22:00</option>
-                                                <option value="22:30">22:30</option>
-                                                <option value="23:00">23:00</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- Street 1 -->
-                                    <label class="control-label">Apoyo ecónomico</label>
-                                    <input type="text" class="form-control" name="apoyo"  onChange="conMayusculas(this)" required>
-                                </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                <div class="form-group">
-                                    <!-- Street 1 -->
-                                    <label class="control-label">Dispersión al beneficiario</label>
-                                    <select class="form-control" name="dispersion" required>
-                                        <option value="">SELECCIONAR</option>
-                                        <option value="QUINCENAL">QUINCENAL</option>
-                                        <option value="MENSUAL">MENSUAL</option>
-                                    </select>
-                                </div>
-                                </div>  
-                                
-                                <div class="col-md-6 col-md-offset-3">
-                                <div class="form-group"><br><br>    
-                                <button type="submit" class="btn btn-block btn-primary " style="background: #6E2463;">Crear Vacante</button><br><br>
-                                </div>
-                                </div>
-                            </div>
-
-                            
-                        </form>
-                  </div>
-              </section>
+          <main class="col-lg-12 container">
+            <section>
+                <table id="example" class="table table-striped table-bordered" style="margin: 50px auto; font-size:15px !important">
+                <!-- <table id="example" class="table table-striped table-bordered" style="width:100%"> -->
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Empresa - razon social</th>
+                            <th>Empresa - comercial</th>
+                            <th>Nombre vacante</th>
+                            <th>Carrera</th>
+                            <th>Numero de vacantes</th>
+                            <th>Fecha de inicio</th>
+                            <th>Fecha de término</th>
+                            <th>Apoyo ecónomico</th>
+                            <th>Fecha de registro</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        try {
+                            $vacante = run_vacantes();
+                            $i = 0;
+                            foreach ($vacante as $key => $vac) {
+                            $vacante_ids = $vac['id_vacante']; 
+                            $numeralia = count_invitados_correo($vacante_ids);
+                            $i++;
+                        ?>
+                                <tr>
+                                    <td><?php echo $i; ?></td>
+                                    <td><?php echo $vac['dt_razon_social']; ?></td>
+                                    <td><?php echo $vac['dt_nombre_comercial']; ?></td>
+                                    <td><?php echo $vac['dt_nombre']; ?></td>
+                                    <td><?php echo $vac['dt_carrera']; ?></td>
+                                    <td><?php echo $vac['dt_numero']; ?></td>
+                                    <td><?php echo $vac['dt_inicio']; ?></td>
+                                    <td><?php echo $vac['dt_termino']; ?></td>
+                                    <td><?php echo $vac['dt_apoyo']; ?></td>
+                                    <!-- <td><?php echo date('Y-m-d', strtotime($vac['fecha_registro_vacante'])); ?></td> -->
+                                    <td><?php echo $vac['fecha_registro_vacante']; ?></td>
+                                    <td>
+                                        <?php //if ($vac['dt_razon_social'] == null) { ?>
+                                            <form action="../controller/eliminar_vacante.php" method="POST">
+                                                <input type="text" id="id_vacante" name="id_vacante" value="<?php echo $vac['id_vacante']; ?>" hidden>
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
+                                        <!-- <?php// } ?> -->
+                                        <a href="consult_vacante.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
+                                            <button type="button" class="btn btn-warning" style="margin-top:10px;">
+                                                <i class='glyphicon glyphicon-pencil'></i> editar
+                                            </button>
+                                        </a>
+                                        <a href="consult_vacante_invite.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
+                                        <?php
+                                        ?>
+                                            <button type="button" class="btn btn-primary" style="margin-top:10px; "  data-title="<?php echo $numeralia." Invitados"?>">
+                                            <i class="glyphicon glyphicon-user"></i> Invitar
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                        <?php
+                            }
+                        } catch (Exception $e) {
+                            echo "Error al ejecutar la consulta: " . $e->getMessage();
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </section>
           </main>
         </div>
         <!-- /.row -->
@@ -841,5 +722,23 @@ $invitacionP = $invitacionesPendientes['numeralia'];
     })
 </script>
 
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable( {
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        }
+    } );
+} );
+
+
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
 </body>
 </html>

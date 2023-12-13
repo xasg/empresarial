@@ -465,14 +465,57 @@
               </p>
             </a>
           </li>
+          <?php
+               // Empresas con vacantes
+               $empresasConVacantes = count_empresas_vac_actuales();
+               $empresaVacante = $empresasConVacantes['registros'];
+          ?>
           <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="nav-icon fa fa-briefcase"></i>
               <p>
-               Vacantes
+                Vacantes
+                <i class="fas fa-angle-left right"></i>
+                
+                <span class="badge badge-info right">2</span>
+                <?php
+                // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
+                  if ($empresaVacante > 0) {
+                ?>
+                <span class="badge badge badge-danger"><?php echo $empresaVacante;?></span>
+                <?php
+                  # code...
+                  }
+                ?>
               </p>
             </a>
-          </li>         
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="vacantes.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Registrar Vacante
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="vacantes_actuales.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Ver vacantes
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="vacantes_actuales.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Invitaciones
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>       
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

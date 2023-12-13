@@ -155,7 +155,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../dashboard.php" class="nav-link">Inicio</a>
+        <a href="index.php" class="nav-link">Inicio</a>
       </li>
     </ul>
 
@@ -238,7 +238,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
           <img src="../../img/logo.png" class="elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="../dashboard.php" class="d-block text-white">Panel de Administrador</a>
+          <a href="index.php" class="d-block text-white">Panel de Administrador</a>
         </div>
       </div>
  
@@ -246,7 +246,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" style="min-height:160vh">
           <li class="nav-item menu-open">
-            <a href="../dashboard.php" class="nav-link">
+            <a href="index.php" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -446,14 +446,57 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </p>
             </a>
           </li>
+          <?php
+               // Empresas con vacantes
+               $empresasConVacantes = count_empresas_vac_actuales();
+               $empresaVacante = $empresasConVacantes['registros'];
+          ?>
           <li class="nav-item">
             <a href="#" class="nav-link">
             <i class="nav-icon fa fa-briefcase"></i>
               <p>
-               Vacantes
+                Vacantes
+                <i class="fas fa-angle-left right"></i>
+                
+                <span class="badge badge-info right">2</span>
+                <?php
+                // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
+                  if ($empresaVacante > 0) {
+                ?>
+                <span class="badge badge badge-danger"><?php echo $empresaVacante;?></span>
+                <?php
+                  # code...
+                  }
+                ?>
               </p>
             </a>
-          </li>         
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="vacantes.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Registrar Vacante
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="vacantes_actuales.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Ver vacantes
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="vacantes_actuales.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Invitaciones
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>       
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -490,7 +533,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
           <!-- Nav con imagen del logo de fese -->
           <div class="container-fluid" style="background-color: #f5f5f5">
               <nav class="navbar navbar-default">
-                  <a class="navbar-brand" href="../dashboard.php" ><img src="../../img/empresarial.png" alt="Dispute Bills" style="width:200px;"> 
+                  <a class="navbar-brand" href="index.php" ><img src="../../img/empresarial.png" alt="Dispute Bills" style="width:200px;"> 
               </nav>
           </div>      
           <!-- Contenedor principal Main del Fromulario -->
