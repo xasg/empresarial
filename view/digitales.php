@@ -4,6 +4,8 @@
    session_start();
    $id=$_SESSION["id"];
    $beneficiario =acces_beneficiario($id);
+
+   
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,7 +18,18 @@
      <link href="../css/bootstrap.css" rel="stylesheet">
      <link href="../css/style.css" rel="stylesheet">
       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-   </head>
+    
+
+
+
+
+    
+
+
+
+   
+   
+    </head>
    <body>
 <div class="container-fluid" style="background-color: #f5f5f5">
   <nav class="navbar navbar-default">

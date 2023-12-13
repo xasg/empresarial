@@ -5,6 +5,7 @@ session_start();
 $id=$_SESSION["id"];
 $beneficiario =acces_beneficiario($id);
 $entidad=run_entidad()
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -60,7 +61,7 @@ $entidad=run_entidad()
         }   
     </script>
 </head>
-<body>
+<body <?php update_avance_registro_20($id);     ?>>     <!---MANDO A LLAMAR MI FUNCION PARA ACTUALIZAR LOS DATOS DEL AVANCE DEL USUARIO ---->
   <div class="container-fluid" style="background-color: #f5f5f5">
     <nav class="navbar navbar-default">
       <div class="container">

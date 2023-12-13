@@ -122,10 +122,46 @@ function update_datoscomplementarios($id, $idioma, $nivel)
 
 function update_estatus($id, $estatus)
 {
+  // el tp_estatus al páracer nos permite llevar un avance para los beneficiarios  en donde los valores son los siguintes
+  // 1: es cuando se cargan los datos acade
+  // 2: es cuando se cargan los datos del idioma
+  // 3: es cuando se cargan los datos 
+  // 4: es cuando se cargan los documentos del aspirante (cv, curp, acta de nacimiento, comprobante de domicilio, identificacion ¿, comprobante de estudios, seguro, comp de cuenta y numero de cuenta )
   global $mysqli;
   $sql = "UPDATE estatus SET tp_estatus = '{$estatus}' WHERE id_usuario ='{$id}' ";
   $mysqli->query($sql); 
 }
+
+function update_avance_registro_20($id)  // esta funcion se usa para actualizar el avance del registro al 20 %  
+{
+  global $mysqli;
+$sql1 = "
+SELECT *
+FROM `beneficiario`
+WHERE 
+  id_usuario = '{$id}' AND
+  id_cat_entidad IS NOT NULL AND id_cat_entidad != '' AND
+  dt_nombres IS NOT NULL AND dt_nombres != '' AND
+  dt_apaterno IS NOT NULL AND dt_apaterno != '' AND
+  dt_amaterno IS NOT NULL AND dt_amaterno != '' AND
+  dt_curp IS NOT NULL AND dt_curp != '' AND
+  dt_telefono IS NOT NULL AND dt_telefono != '' AND
+  dt_direccion IS NOT NULL AND dt_direccion != '' AND
+  dt_colonia IS NOT NULL AND dt_colonia != '' AND
+  dt_municipio IS NOT NULL AND dt_municipio != '' AND
+  dt_cp IS NOT NULL AND dt_cp != '';
+";
+$result = $mysqli->query($sql1);
+if ($result && $result->num_rows > 0) 
+{
+    $sql = "UPDATE beneficiario SET `dt_avance_registro` = '20' WHERE `id_usuario` ='{$id}'";
+    $mysqli->query($sql);
+}
+
+  
+}
+
+
 
 
 function update_valida($id, $valida)
@@ -143,6 +179,14 @@ function insert_relacion($id, $empresa, $vacante)
 global $mysqli;
 $sql="INSERT INTO rel_beneficiario_vacante(id_rel_beneficiario_vacante, id_usuario, id_empresa, id_vacante) VALUES (null, '{$id}', '{$empresa}', '{$vacante}')";
 $mysqli->query($sql);
+}
+
+function delate_insert_relacion($id)   // LA CREACION DE ESTA FUNCION ES CUANDO EL BENIFICIARIO  OPRIMA EL BOTON DE EDITAR REGISTRO, YA QUE TIENE QUE ELIMINARSE EL
+{                                      // REGISTRO DE LA EMPRESA QUE EL BENIFICIARIO ELIGIO PARA QUE SE REDIRECCIONE A LA PARTE DONDE TIENE QUE ESCOJER LA EMPRESA Y NO LE SALGA LA VENTANA DEL MENSAJE QUE SE SE ESTA VALIDANDO SU INFORMACION 
+  global $mysqli;
+  $sql = "DELETE FROM rel_beneficiario_vacante 
+          WHERE `rel_beneficiario_vacante`.`id_rel_beneficiario_vacante` = $id ";
+  $mysqli->query($sql);
 }
 
 

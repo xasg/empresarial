@@ -72,16 +72,16 @@
                     <div class="col-md-12">
                         <ul class="wizard-steps">
                           <li class="finalizado">
-                            <a href="#"><h5>Datos</h5> <span>Personales<?php echo $id; ?></span></a>
+                            <a href="datospersonales.php"><h5>Datos</h5> <span>Personales<?php /**echo $id;*/ ?></span></a>
                           </li>
                           <li class="finalizado">
-                             <a href="#"><h5>Datos</h5> <span>Academicos</span></a>
+                             <a href="datosacademicos.php"><h5>Datos</h5> <span>Academicos</span></a>
                           </li>
                           <li class="finalizado">
-                            <a href="#"><h5>Datos</h5> <span>Complementarios</span></a>
+                            <a href="datoscomplementarios.php"><h5>Datos</h5> <span>Complementarios</span></a>
                           </li>            
                           <li class="finalizado">
-                            <a href="#"><h5>Archivos</h5> <span>Digitales</span></a>
+                            <a href="digitales.php"><h5>Archivos</h5> <span>Digitales</span></a>
                           </li>     
                            <li class="completed">
                             <a href="#"><h5>Seleccionar</h5> <span>Vacante</span></a>
@@ -166,7 +166,11 @@
       <div class="container">
             <div class="row">
                <div class="col-md-8 col-md-offset-2">
-                <h3><br><br><br>Gracias por completar tu registro, tu documentación está en proceso de validación mantente al pendiente de tu correo electrónico para saber si fuiste aceptado o si se requiere más información. </h3>
+                <h3><br><br><br>Gracias por completar tu registro, tu documentación está en proceso de validación. Mantente al pendiente de tu correo electrónico 
+                para la firma del convenio o por si se reqVacantesuiere algún dato adicional. </h3>
+
+                <h3 class = "Texto-primario">Si deseas corregir algun dato de tu registro da clic en el boton "Editar Registro"
+                <br><br><a href = "digitales.php" ><button type="button" class="btn btn-primary" onclick="redireccionar()">Editar Registro</button></a>
                </div>       
 
   <?php } else { ?>      
@@ -581,6 +585,13 @@ function bs_input_file() {
 $(function() {
   bs_input_file();
 });
+
+function redireccionar() 
+{
+  cambiar_   
+  window.location.href = 'digitales.php';
+}
+
 </script>
 </body>
 </html>
