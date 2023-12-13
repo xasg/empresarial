@@ -27,13 +27,13 @@
       <!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
       <!-- Initialize the plugin: -->
 <!-- Initialize the plugin: -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-    <link rel="icon" type="image/png" href="imgs/logo-mywebsite-urian-viera.svg">
+    <!-- <link rel="icon" type="image/png" href="imgs/logo-mywebsite-urian-viera.svg"> -->
 
-    <link rel="stylesheet" type="text/css" href="css/material.min.css">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/material.min.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css"> -->
     <link rel="stylesheet" type="text/css" href="../css/cssGenerales.css">
 <script type="text/javascript">
     $(document).ready(function() {
