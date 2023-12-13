@@ -147,12 +147,45 @@ $invitacionP = $invitacionesPendientes['numeralia'];
   table th{
     height: 20px !important;
   }
+  table tr td{
+    height: 170px !important;
+  }
 
   /* .btn-success{
     font-size:14px !important;
     padding:2px;
     
   } */
+
+  [data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+    /* position: absolute; */
+}
+[data-title]:after {
+    content: attr(data-title);
+    background-color: #333;
+    color: #fff;
+    font-size: 14px;
+    font-family: Raleway;
+    position: absolute;
+    padding: 3px 20px;
+    bottom: -1.6em;
+    left: 100%;
+    white-space: nowrap;
+    box-shadow: 1px 1px 3px #222222;
+    opacity: 0;
+    border: 1px solid #111111;
+    z-index: 99999;
+    visibility: hidden;
+    border-radius: 6px;
+    
+}
+[data-title] {
+    /* position: fixed; */
+    position: absolute;
+}
   </style>
   
   <script type="text/javascript">
@@ -618,15 +651,16 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                                             </form>
                                         <!-- <?php// } ?> -->
-                                        <a href="consult_vacante.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
+                                        <a href="editar_vacante.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
                                             <button type="button" class="btn btn-warning" style="margin-top:10px;">
                                                 <i class='glyphicon glyphicon-pencil'></i> editar
                                             </button>
                                         </a>
-                                        <a href="consult_vacante_invite.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
+                                        <a href="invitar_vacante.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
                                         <?php
                                         ?>
-                                            <button type="button" class="btn btn-primary" style="margin-top:10px; "  data-title="<?php echo $numeralia." Invitados"?>">
+                                        <br>
+                                            <button type="button" class="btn btn-primary" style="margin-top:10px; background: #6E2463;"  data-title="<?php echo $numeralia." Invitados"?>">
                                             <i class="glyphicon glyphicon-user"></i> Invitar
                                             </button>
                                         </a>

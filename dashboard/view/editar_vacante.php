@@ -7,8 +7,17 @@
 //    require_once('../model/databases_admin.php');
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['tp_user']) == 3){  
-   $id=$_SESSION["id"];   
-  
+
+//    $id=$_SESSION["id"];   
+    
+   $id=$_GET['vac'];
+   $vac = run_vacanteinfo($id);
+   $nom = run_vacante_info($id);
+   $nom_comercial = "nom";
+   foreach ($nom as $key => $value) {
+      $nom_comercial = $value['dt_nombre_comercial'];
+   }
+
    $vacante = run_vacantes();
    $empresas = run_empresas_vacante();
    $conteos = count_empresas();
@@ -580,77 +589,163 @@ $invitacionP = $invitacionesPendientes['numeralia'];
               </nav>
           </div>      
           <!-- Contenedor principal Main del Fromulario -->
-          <main class="col-lg-12 container">
-            <section>
-                <table id="example" class="table table-striped table-bordered" style="margin: 50px auto; font-size:15px !important">
-                <!-- <table id="example" class="table table-striped table-bordered" style="width:100%"> -->
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Empresa - razon social</th>
-                            <th>Empresa - comercial</th>
-                            <th>Nombre vacante</th>
-                            <th>Carrera</th>
-                            <th>Numero de vacantes</th>
-                            <th>Fecha de inicio</th>
-                            <th>Fecha de término</th>
-                            <th>Apoyo ecónomico</th>
-                            <th>Fecha de registro</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        try {
-                            $vacante = run_vacantes();
-                            $i = 0;
-                            foreach ($vacante as $key => $vac) {
-                            $vacante_ids = $vac['id_vacante']; 
-                            $numeralia = count_invitados_correo($vacante_ids);
-                            $i++;
-                        ?>
-                                <tr>
-                                    <td><?php echo $i; ?></td>
-                                    <td><?php echo $vac['dt_razon_social']; ?></td>
-                                    <td><?php echo $vac['dt_nombre_comercial']; ?></td>
-                                    <td><?php echo $vac['dt_nombre']; ?></td>
-                                    <td><?php echo $vac['dt_carrera']; ?></td>
-                                    <td><?php echo $vac['dt_numero']; ?></td>
-                                    <td><?php echo $vac['dt_inicio']; ?></td>
-                                    <td><?php echo $vac['dt_termino']; ?></td>
-                                    <td><?php echo $vac['dt_apoyo']; ?></td>
-                                    <!-- <td><?php echo date('Y-m-d', strtotime($vac['fecha_registro_vacante'])); ?></td> -->
-                                    <td><?php echo $vac['fecha_registro_vacante']; ?></td>
-                                    <td>
-                                        <?php //if ($vac['dt_razon_social'] == null) { ?>
-                                            <form action="../controller/eliminar_vacante.php" method="POST">
-                                                <input type="text" id="id_vacante" name="id_vacante" value="<?php echo $vac['id_vacante']; ?>" hidden>
-                                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                                            </form>
-                                        <!-- <?php// } ?> -->
-                                        <a href="consult_vacante.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
-                                            <button type="button" class="btn btn-warning" style="margin-top:10px;">
-                                                <i class='glyphicon glyphicon-pencil'></i> editar
-                                            </button>
-                                        </a>
-                                        <a href="consult_vacante_invite.php?vac=<?php echo $vac['id_vacante']; ?>" class="colora">
-                                        <?php
-                                        ?>
-                                            <button type="button" class="btn btn-primary" style="margin-top:10px; "  data-title="<?php echo $numeralia." Invitados"?>">
-                                            <i class="glyphicon glyphicon-user"></i> Invitar
-                                            </button>
-                                        </a>
-                                    </td>
-                                </tr>
-                        <?php
-                            }
-                        } catch (Exception $e) {
-                            echo "Error al ejecutar la consulta: " . $e->getMessage();
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </section>
+          <main class="container">
+          <section class="border shadow  m-auto" style="border-radius:22px;">
+                  <div class="row m-auto">
+                      <div class="col-md-12">
+                          <ul class="wizard-steps mt-5">
+                              <li class="completed"><a><h5 class="text-center ">Datos <span>Vacante</span></h5></a></li>
+                              <li><p class="text-center mt-2" style="color: #fafafa;">Editar datos</p></li>
+                          </ul>
+                      </div>
+
+                      <!-- Formulario de registro  -->
+                    <form action="../controller/update_vacante_admin.php" method="POST" class="row container m-auto">
+                        <div class="col-md-12">
+                            <h2>Datos de la Vacante<br><br></h2>
+                        </div>                  
+
+                        <div class="col-md-12">
+                            <h3>Empresa:</h3>
+                            <h4 style="border-bottom:2px solid #ccc; font-size:22px;" ><?php echo $nom_comercial; ?></h4> 
+                        </div>
+
+                            <div class="col-md-12">
+                            <div class="form-group">
+                                <!-- Full Name -->
+                            <label class="control-label">Nombre de la Vacante:</label>
+                            <input type="text" name="nombre" class="form-control" value="<?php echo $vac['dt_nombre']?>" >
+                            </div>
+                            </div>
+
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                <!-- Street 1 -->
+                                <label class="control-label">Número de vacantes</label>
+                                <input type="text" name="numero" class="form-control" value="<?php echo $vac['dt_numero']?>">
+                            </div>
+                            </div>
+
+                            <div class="col-md-8">
+                            <div class="form-group">
+                                <!-- Street 1 -->
+                                <label class="control-label">Carrera</label>
+                                <input type="text" name="carrera" class="form-control" value="<?php echo $vac['dt_carrera']?>">
+                            </div>
+                            </div>
+                            <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- City-->
+                                <label class="control-label">Fecha de inicio</label>
+                                <input type="text" name="inicio" class="form-control" value="<?php echo $vac['dt_inicio']?>">
+                            </div>
+                            </div>
+
+                            <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- Street 1 -->
+                                <label class="control-label">Fecha de término </label>
+                                <input type="text" name="termino" class="form-control" value="<?php echo $vac['dt_termino']?>">
+                            </div>
+                            </div>
+
+                            <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- City-->
+                                <label class="control-label">Hora de inicio de actividades</label>
+                                <input type="text" name="hr_inicio" class="form-control" value="<?php echo $vac['dt_hr_inicio']?>">
+                            </div>
+                            </div>
+
+                            <div class="col-md-3">
+                            <div class="form-group">
+                                <!-- Street 1 -->
+                                <label class="control-label">Hora de fin de actividades</label>
+                                    <input type="text" name="hr_termino" class="form-control" value="<?php echo $vac['dt_hr_termino']?>">
+                            </div>
+                            </div>
+
+
+
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Street 1 -->
+                                <label class="control-label">Actividades a realizar</label>
+                                <textarea type="text" name="actividad" class="form-control" rows="4"><?php echo $vac['dt_actividades'];?></textarea>
+                            </div>
+                            </div>
+
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Street 1 -->
+                                <label class="control-label">Área de la Empresa</label>
+                                <input type="text" name="area" class="form-control" value="<?php echo $vac['dt_area']?>">                              
+                            </div>
+                            </div>                        
+                            
+
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Street 1 -->
+                                <label class="control-label">Apoyo ecónomico menusal </label>
+                                <input type="text" name="apoyo" class="form-control" value="<?php echo $vac['dt_apoyo']?>">
+                            </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Street 1 -->
+                                <label class="control-label">Dispersión al beneficiario</label>
+                                <input type="text" name="dispersion" class="form-control" value="<?php echo $vac['dt_dispersion']?>">
+                            </div>
+                            </div>  
+
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Competencias</label><br>
+                                <input type="text" class="form-control" name="competencia" value="<?php echo $vac['dt_competencias']?>">
+                            </div>
+                            </div>  
+
+                                            
+                            <!-- <div class="col-md-12"><h3><br><strong>DIRECCIÓN</strong></h3></div>-->
+                            <div class="col-md-12">
+                            <div class="form-group">
+                                <!-- Zip Code-->
+                                <label class="control-label">Descripción adicional</label>                              
+                                <textarea type="text" class="form-control" name="descripcion" rows="4"><?php echo $vac['dt_descripcion']?></textarea>
+                            </div>
+                            </div>
+
+                        <div class="col-md-12">
+                            <h2><br>Tutor Empresarial<br><br></h2>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Zip Code-->
+                                <label class="control-label">Nombre Completo</label>
+                                <input type="text" class="form-control" name="tutor" value="<?php echo $vac['dt_tutor']?>">
+                            </div>
+                            </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Zip Code-->
+                                <label class="control-label">Puesto</label>
+                                <input type="text" class="form-control" name="cargo" value="<?php echo $vac['dt_cargo']?>">
+                            </div>
+                            </div>
+                            
+                        <div class="col-md-4 col-md-offset-3 m-auto">
+                            <div class="form-group"><br><br>
+                                <input type="hidden" name="id" value="<?php echo $id; ?>" />    
+                                <button type="submit" class="btn btn-block btn-primary" style="background: #6E2463;">Guardar</button><br><br>
+                            </div>
+                            </div>
+                    </form>
+                  </div>
+              </section>
           </main>
         </div>
         <!-- /.row -->

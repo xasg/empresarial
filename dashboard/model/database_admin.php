@@ -673,6 +673,21 @@ function insert_vacante_admin($id, $nombre, $numero, $carrera, $inicio, $termino
   ";
   $mysqli->query($sql);
 }
+// Funciones Vacantes Editar
 
+function run_vacanteinfo($id)
+{
+  global $mysqli, $result;
+  $sql ="SELECT * FROM vacante WHERE id_vacante='{$id}'";
+ $result = $mysqli->query($sql);
+return $result->fetch_assoc();
+}
+
+function run_vacante_info($id){
+  global $mysqli;
+  // $sql ="SELECT * FROM vacante left join empresa using (id_usuario) WHERE dt_razon_social != 'null' ";
+  $sql ="SELECT * FROM vacante left join empresa using (id_usuario) where id_vacante = '{$id}'";
+  return $mysqli->query($sql);
+}
 
 ?>
