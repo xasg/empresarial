@@ -533,7 +533,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                       <a href="vacantes.php" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
                         <p>
-                          Editar
+                          Invitar
                         </p>
                       </a>
                     </li>
