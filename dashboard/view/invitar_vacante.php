@@ -110,7 +110,11 @@ $invitacionP = $invitacionesPendientes['numeralia'];
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
      <link href="../../css/style.css" rel="stylesheet"> 
-
+     <link rel="stylesheet" type="text/css" href="../css/cssGenerales.css">
+  <!-- Demas estilos -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
   <style>
     .active{
       background: #af4dac !important;
@@ -148,7 +152,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
   table th,
   table td {
     width: 99%;
-    max-width: 120px !important;
+    max-width: 200px !important;
     overflow: auto;
     border: 1px solid;
   }
@@ -157,11 +161,9 @@ $invitacionP = $invitacionesPendientes['numeralia'];
     height: 20px !important;
   }
 
-  /* .btn-success{
-    font-size:14px !important;
-    padding:2px;
-    
-  } */
+  .btn-primary{
+    background: #6E2463 !important;
+  }
   </style>
   
   <script type="text/javascript">
@@ -564,13 +566,13 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Vacantes Actuales</h1>
+            <h1 class="m-0">Invitar Vacantes</h1>
           </div><!-- /.col -->
           
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-              <li class="breadcrumb-item ">Vacantes</li>
+              <li class="breadcrumb-item ">Invitar Vacantes</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -590,209 +592,166 @@ $invitacionP = $invitacionesPendientes['numeralia'];
           </div>      
           <!-- Contenedor principal Main del Fromulario -->
           <main class="container">
-          <section class="border shadow  m-auto" style="border-radius:22px;">
-                  <div class="row m-auto">
-                      <div class="col-md-12">
-                          <ul class="wizard-steps mt-5">
-                              <li class="completed"><a><h5 class="text-center ">Datos <span>Vacante</span></h5></a></li>
-                              <li><p class="text-center mt-2" style="color: #fafafa;">Editar datos</p></li>
-                          </ul>
-                      </div>
-
-                      <!-- Formulario de registro  -->
-
-                      <section>
-         <div class="container">
-
-         <div class="row"><br><br><br>
-               <div class="col-md-12">
-                 <div class="panel-heading">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a class="colora" href="empresarial.php" >Empresas</a></li>
-                            <!-- <li class=""><a class="colora" href="candidato.php" >Candidatos</a></li>
-                            <li class=""><a class="colora" href="beneficiario.php" >Beneficiarios</a></li> -->
-                            <li class=""><a class="colora" href="new_vacante_admin_view.php" >vacantes</a></li>
-                        </ul>
+            <section class="border shadow  m-auto" style="border-radius:22px; margin-bottom:100px !important;">
+              <div class="row m-auto">
+                <div class="col-md-12">
+                  <ul class="wizard-steps mt-5">
+                    <li class="completed"><a><h5 class="text-center ">Invitar a <span>Vacante</span></h5></a></li>
+                    <li><p class="text-center mt-2" style="color: #fafafa;">Editar datos</p></li>
+                  </ul>
                 </div>
-               </div>
-          </div>
-
-                <div class="row">
-                   <!-- <form action="" method="POST"> -->
-                      <div class="col-md-12">
+                <!-- Formulario de registro  -->
+                <section>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-12">
                         <h2>Datos de la Vacante<br><br></h2>
                       </div>                  
-
-                      <div class="col-md-12">
+                      <div class="col-lg-12">
                         <h3>Empresa:</h3>
                         <h4 style="border-bottom:2px solid #ccc; font-size:22px;" ><?php echo $nom_comercial; ?></h4> 
                         <hr>
-                     </div>
-                     <div class="col-md-12" style=" margin-bottom:50px;">
-                      <h2>Cargar candidatos desde un archivo</h2>
-                        <form action="../controller/recibe_excel_validando.php" method="POST" enctype="multipart/form-data">
-                          <div class="row">
-                            <div class="col-sm-6 file-input text-center">
-                                <input  type="file" name="dataCliente" id="file-input" class="file-input__input"/>
-                                <label class="file-input__label" for="file-input">
-                                  <i class="zmdi zmdi-upload zmdi-hc-2x"></i>
-                                  <span>Elegir Archivo CSV(separado por comas)</span></label>
+                      </div>
+                      <div class="col-lg-12" style=" margin-bottom:50px;">
+                        <h2>Cargar candidatos desde un archivo</h2>
+                        <!-- Formulario que sube los datos del candidato a enviar -->
+                        <form action="../controller/recibe_excel_validando.php" method="POST" enctype="multipart/form-data" class="mt-5">
+                          <div class=" row">
+                            <!-- Input File para subir lista de excel -->
+                            <div class="col-lg-6 file-input text-center">
+                              <input type="file" name="dataCliente" id="file-input" class="file-input__input" accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                              <!-- <input  type="file" name="dataCliente" id="file-input" class="file-input__input"/> -->
+                              <label class="file-input__label" for="file-input">
+                              <i class="zmdi zmdi-upload zmdi-hc-2x"></i>
+                              <span>Elegir Archivo CSV(separado por comas)</span></label>
                             </div>
-                            <div class="col-sm-6 text-center mt-2">
-                                <!-- <input type="submit" name="subir" class="btn-enviar" value="Subir Excel"/> -->
+                            <!-- BTN subir EXCEL -->
+                            <div class="col-lg-6 text-center mt-2">
                                 <input type="number" id="idvac" name="idvac" value="<?php echo $id ?>" hidden>
                                 <input type="submit" name="subir" class="btn-lg btn-primary" value="Subir Excel"/>
                             </div>
                           </div>
                         </form>
                       </div>
-                     <br>
-
-                     <h2 style="margin-top:100px;">Cargar candidatos manualmente</h2>
-                     <form action="../controller/agregar_invitacion.php" method="POST">
+                      <br>
+                      <div class="col-lg-12">
+                        <!-- Datos manuales para subir del candidato para enviar -->
+                      <h2 style="margin-top:20px;">Cargar candidatos manualmente</h2>
+                      <!-- Formulario para cargar usuarios de invitacion -->
+                      <form action="../controller/agregar_invitacion.php" method="POST">
                         <div class="row">
-                            <input type="number" id="idvac" name="idvac" value="<?php echo $id; ?>" hidden>
-                            <div class="col-sm-6">
+                          <input type="number" id="idvac" name="idvac" value="<?php echo $id; ?>" hidden>
+                          <div class="col-sm-6">
                             <label for="" class="form-label">Nombre del caldidato</label>
                             <input type="text" class="form-control" name="nombreCandidato" id="nombreCandidato" aria-describedby="helpId" placeholder="" required>
-                            </div>
-                            <div class="col-sm-6">
+                          </div>
+                          <div class="col-sm-6">
                             <label for="" class="form-label">correo</label>
                             <input type="email" class="form-control" name="correoCandidato" id="correoCandidato" aria-describedby="helpId" placeholder="" required>
-                            </div>
+                          </div>
                             <br>
-                            <div class="col-sm-3" >
-                                <br>
-                                <button type="submit" class="btn btn-block btn-primary btn-lg">Guardar Candidato</button><br>
-                            </div>
+                          <div class="col-sm-3" >
+                            <br>
+                            <button type="submit" class="btn btn-block btn-primary btn-lg">Guardar Candidato</button><br>
+                          </div>
                         </div>
-                     </form>
-
-                        <div class="col-md-12">
-                           <div class="form-group">
-                              <!-- Full Name -->
+                      </form>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <!-- Full Name -->
                           <label class="control-label">Nombre de la Vacante:</label>
                           <input type="text" name="nombre" class="form-control" value="<?php echo $vac['dt_nombre']?>" disabled >
-                           </div>
                         </div>
-
-                        <!-- Aqui se visualizan los candidatos agregaods -->
-
-
-                        <div class="container mt-5"> 
-
-  
-                    <h3 class="text-center mb-5" style="font-weight: 800; font-size: 35px">
-                        Invitacion de vacantes
-                        <hr>
-                    </h3>
-
-
-
-<?php
-// include('config.php');
-include('../model/database_emails.php');
-  // $QueryInmuebleDetalle = ("SELECT * FROM clients WHERE correo !='' limit 50 ");
-  $resultadoInmuebleDetalle = get_cantidad($id);
-  $cantidad = mysqli_num_rows($resultadoInmuebleDetalle);
-?>
-
-
-<form action="email.php" method="post">
-    
-<input type="number" id="idvac" name="idvac" value="<?php echo $id; ?>" hidden>
-  <div class="row mb-5">
-    <div class="col-4">
-      <input type="checkbox" onclick="marcarCheckbox(this);"/>
-      <label id="marcas">Marcar todos</label>
-    </div>
-    <div class="col-4">
-       <p id="resp"></p>
-    </div>
-     <div class="col-sm-4" style="margin:10px;">
-      <input type="submit" style="display: none;" name="enviarform" id="enviarform" class="btn btn-round btn-primary btn-block" value="Enviar Emails">
-    </div>
-  </div>
-
-
-  <div class="table-responsive mb-5">
-  <table class="table  table-hover table-bordered">
-         <thead class="thead-dark">
-           <tr>
-                <th> # </th>
-                <th>Cliente</th>
-                <th>Email</th>
-                <th>Estatus de Notificación</th>
-                <th>Ultimo envio</th>
-                <th>acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-          <?php
-          $i = 1;
-          while ($dataClientes = mysqli_fetch_array($resultadoInmuebleDetalle)) { 
-            // while ($resultadoInmuebleDetalle as $key => $dataClientes) {
-            ?>
-
-            <tr>
-                <td>
-                  <?php echo $i; ?>
-                    <input type="checkbox"  name="correo[]" class="CheckedAK" correo="<?php echo $dataClientes['correo']; ?>" value="<?php echo $dataClientes['correo']; ?>"/>
-                  </td>
-                <td><?php echo $dataClientes['nombre']; ?></td>
-                <td><?php echo $dataClientes['correo']; ?></td>
-                <td>
-                  <?php
-                  echo ($dataClientes['notificacion']) ? '<i class="zmdi zmdi-check-all zmdi-hc-2x green"></i>' : '<i class="zmdi zmdi-check zmdi-hc-2x black"></i>';
-                  ?>
-                </td>
-                <td>
-                  <?php
-                   if ($dataClientes['notificacion'] == 1) {
-                     echo $dataClientes['dt_fecha']; 
-                  }else{
-                    echo "0000-00-00 00:00:00";
-                  }
-                   ?>
-                </td>
-                <td>
-                    <!-- <form action="../controller/eliminar_vacante_correo.php" method="POST">
-                        <input type="number" id="idvac" name="idvac" value="<?php echo $id; ?>" hidden>
-                        <input type="text" id="id_vacante_correo" name="id_vacante_correo" value="<?php echo $dataClientes['id']; ?>" hidden>
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form> -->
-                    <a href="../controller/eliminar_vacante_correo.php?vac=<?php echo $dataClientes['id']; ?>" class="colora">
-                                <button type="button" class="btn btn-warning" style="margin-top:10px;">
-                                    <i class='glyphicon glyphicon-pencil'></i> Eliminar
-                                </button>
-                    </a>
-                </td>
-            </tr>
-          <?php $i++; } ?>
-        </tbody>
-    </table>
-  </div>
-</div>
-</form>
-
-</div>
-
-                        <!-- cierra la vista de candidatos -->
-   
-                       <div class="col-md-6 col-md-offset-3">
-                           <div class="form-group"><br><br>
-                            <input type="hidden" name="id" value="<?php echo $id; ?>" />    
+                      </div>
+                      <!-- Aqui se visualizan los candidatos agregaods -->
+                      <div class="container">   
+                        <h3 class="text-center mb-5" style="font-weight: 800; font-size: 35px">
+                          Invitacion de vacantes
+                          <hr>
+                        </h3>
+                        <?php
+                          include('../model/database_emails.php');
+                          // $QueryInmuebleDetalle = ("SELECT * FROM clients WHERE correo !='' limit 50 ");
+                          $resultadoInmuebleDetalle = get_cantidad($id);
+                          $cantidad = mysqli_num_rows($resultadoInmuebleDetalle);
+                        ?>
+                        <!-- Formulario para envio de las vacantes por correo  -->
+                        <form action="email.php" method="post">
+                            <input type="number" id="idvac" name="idvac" value="<?php echo $id; ?>" hidden>
+                            <div class="row mb-5">
+                              <div class="col-4">
+                                <input type="checkbox" onclick="marcarCheckbox(this);"/>
+                                <label id="marcas">Marcar todos</label>
+                              </div>
+                              <div class="col-4">
+                                <p id="resp"></p>
+                              </div>
+                              <div class="col-sm-4" style="margin:10px;">
+                                <input type="submit" style="display: none;" name="enviarform" id="enviarform" class="btn btn-round btn-primary btn-block" value="Enviar Emails">
+                              </div>
+                            </div>
+                            <div class="table-responsive mb-5">
+                              <table class="table  table-hover table-bordered m-auto">
+                                  <thead class="thead-dark">
+                                    <tr>
+                                          <th> # </th>
+                                          <th>Cliente</th>
+                                          <th>Email</th>
+                                          <th>Estatus de Notificación</th>
+                                          <th>Ultimo envio</th>
+                                          <th>acciones</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  <?php $i = 1; while ($dataClientes = mysqli_fetch_array($resultadoInmuebleDetalle)) { ?>
+                                      <tr>
+                                        <td>
+                                          <?php echo $i; ?>
+                                          <input type="checkbox"  name="correo[]" class="CheckedAK" correo="<?php echo $dataClientes['correo']; ?>" value="<?php echo $dataClientes['correo']; ?>"/>
+                                        </td>
+                                        <td><?php echo $dataClientes['nombre']; ?></td>
+                                        <td><?php echo $dataClientes['correo']; ?></td>
+                                        <td>
+                                          <?php
+                                            echo ($dataClientes['notificacion']) ? '<i class="zmdi zmdi-check-all zmdi-hc-2x green"></i>' : '<i class="zmdi zmdi-check zmdi-hc-2x black"></i>';
+                                          ?>
+                                        </td>
+                                        <td>
+                                          <?php
+                                            if ($dataClientes['notificacion'] == 1) {
+                                              echo $dataClientes['dt_fecha']; 
+                                            }else{
+                                              echo "0000-00-00 00:00:00";
+                                            }
+                                          ?>
+                                        </td>
+                                        <td>
+                                          <a href="../controller/eliminar_vacante_correo.php?vac=<?php echo $dataClientes['id']; ?>" class="colora">
+                                            <button type="button" class="btn btn-warning" style="margin-top:10px;">
+                                              <i class='glyphicon glyphicon-pencil'></i> Eliminar
+                                            </button>
+                                          </a>
+                                        </td>
+                                      </tr>
+                                    <?php $i++; } ?>
+                                  </tbody>
+                              </table>
+                            </div>
+                        </form>
+                      </div>
+                      <!-- cierra la vista de candidatos -->
+                      <div class="col-md-6 col-md-offset-3">
+                        <div class="form-group"><br><br>
+                          <input type="hidden" name="id" value="<?php echo $id; ?>" />    
                             <!-- <button type="submit" class="btn btn-block btn-primary btn-lg">Guardar</button><br><br> -->
-                           </div>
                         </div>
-                  <!-- </form> -->
-               </div>
-            
-
-         </div>
-      </section>
+                      </div>
+                    </div>
                   </div>
-              </section>
+                </section>
+              </div>
+            </section>
           </main>
         </div>
         <!-- /.row -->
@@ -882,5 +841,7 @@ $(document).ready(function() {
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+<script src="../js/script.js"></script>
+<!-- <script  src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
 </body>
 </html>
