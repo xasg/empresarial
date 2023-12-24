@@ -513,7 +513,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="vacantes_actuales.php" class="nav-link">
+                <a href="invitados.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Invitaciones

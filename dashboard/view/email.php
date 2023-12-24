@@ -13,11 +13,17 @@ require '../../PHPMailer/src/SMTP.php';
 
 if (isset($_REQUEST['enviarform'])) {
     $vacante = isset( $_POST['idvac']) ? $_POST['idvac'] : '';
-    $empresa = obtener_empresa($vacante);
-    foreach ($empresa as $key => $value) {
-        $nom_comercial = $value['dt_nombre_comercial'];
-        $nom_vacante = $value['dt_nombre'];
+    if ($vacante != null) {
+        $empresa = obtener_empresa($vacante);
+        foreach ($empresa as $key => $value) {
+            $nom_comercial = $value['dt_nombre_comercial'];
+            $nom_vacante = $value['dt_nombre'];
+        }
     }
+    // else{
+    //     $nom_comercial = isset( $_POST['nombreComercial']) ? $_POST['nombreComercial'] : '';
+    //     $nom_vacante = isset( $_POST['nombreVacante']) ? $_POST['nombreVacante'] : '';
+    // }
     if (is_array($_REQUEST['correo'])) {
         $num_countries = count($_REQUEST['correo']);
         $columna   = 1;

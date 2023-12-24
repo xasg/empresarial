@@ -542,7 +542,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                   </ol>
               </li>
               <li class="nav-item">
-                <a href="vacantes_actuales.php" class="nav-link ">
+                <a href="invitados.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Invitaciones
@@ -672,9 +672,8 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                         </h3>
                         <?php
                           include('../model/database_emails.php');
-                          // $QueryInmuebleDetalle = ("SELECT * FROM clients WHERE correo !='' limit 50 ");
-                          $resultadoInmuebleDetalle = get_cantidad($id);
-                          $cantidad = mysqli_num_rows($resultadoInmuebleDetalle);
+                          $resultadoCandidatosInvitados = get_cantidad($id);
+                          $cantidad = mysqli_num_rows($resultadoCandidatosInvitados);
                         ?>
                         <!-- Formulario para envio de las vacantes por correo  -->
                         <form action="email.php" method="post">
@@ -704,7 +703,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                                       </tr>
                                   </thead>
                                   <tbody>
-                                  <?php $i = 1; while ($dataClientes = mysqli_fetch_array($resultadoInmuebleDetalle)) { ?>
+                                  <?php $i = 1; while ($dataClientes = mysqli_fetch_array($resultadoCandidatosInvitados)) { ?>
                                       <tr>
                                         <td>
                                           <?php echo $i; ?>

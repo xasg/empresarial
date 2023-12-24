@@ -23,7 +23,7 @@ function get_cantidad($id){
 }
 function get_cantidad_total(){
     global $mysqli;
-    $sql = "SELECT * FROM candidatos_correos LEFT JOIN vacante ";
+    $sql = "SELECT * FROM candidatos_correos LEFT JOIN vacante USING (id_vacante) LEFT JOIN empresa USING(id_usuario) ";
     
     $result = $mysqli->query($sql);
 

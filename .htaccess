@@ -15,4 +15,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 #RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?views=$1 [L]
 
 # Manejo de errores 404 y 500 -> se indica la carpeta si esta en local es de la siguiente forma y si es en servidor es el url seguido de la carpeta ejemplo https://empresarial.fese.mx/404.html
-ErrorDocument 404 /proyects/empresarial/empresarial/404.html
+ErrorDocument 404 /proyects/empresarial/404.html

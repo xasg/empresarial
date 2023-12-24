@@ -7,12 +7,23 @@
 //    require_once('../model/databases_admin.php');
    mysqli_set_charset( $mysqli, 'utf8');
    if(isset($_SESSION['tp_user']) == 3){  
-   $id=$_SESSION["id"];   
 
-   $empresa = get_usuario($id);
-   $usuario = view_empresa($id);
-   $result = run_entidad();
-   $giro = run_giro();
+//    $id=$_SESSION["id"];   
+    
+   $id=$_GET['vac'];
+   $vac = run_vacanteinfo($id);
+   $nom = run_vacante_info($id);
+   $nom_comercial = "nom";
+//    foreach ($nom as $key => $value) {
+//       $nom_comercial = $value['dt_nombre_comercial'];
+//    }
+
+   $vacante = run_vacantes();
+   $empresas = run_empresas_vacante();
+   $conteos = count_empresas();
+   foreach($conteos as $num){
+       $conteo = $num['numeralia'];
+   }
 
 // Reporte Candidatos/Beneficiarios
    $conteosCandidatos = count_candidatos_total();
@@ -99,7 +110,11 @@ $invitacionP = $invitacionesPendientes['numeralia'];
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
      <link href="../../css/style.css" rel="stylesheet"> 
-
+     <link rel="stylesheet" type="text/css" href="../css/cssGenerales.css">
+  <!-- Demas estilos -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
   <style>
     .active{
       background: #af4dac !important;
@@ -125,7 +140,37 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       border-radius: 22px;  border: 4px solid #964094 !important;  color:#964094; box-shadow: -1px 2px 7px #964094 !important;
       transition:all .3s;
     }
+    
+    table{
+  table-layout: auto;
+  overflow: auto;
+  border: 1px solid;
+  margin-left: 2%;
+  max-width:500px !important;
+  }
+  table thead,
+  table th,
+  table td {
+    width: 99%;
+    max-width: 200px !important;
+    overflow: auto;
+    border: 1px solid;
+  }
+
+  table th{
+    height: 20px !important;
+  }
+
+  .btn-primary{
+    background: #6E2463 !important;
+  }
   </style>
+  
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#example-getting-started').multiselect();
+    });
+  </script>
 </head>
 <!--
 `body` tag options:
@@ -254,8 +299,8 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
           </li>
          
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link  active">
+          <li class="nav-item">
+            <a href="#" class="nav-link ">
             <i class="nav-icon fa fa-building "></i>
               <p>
                 Empresas
@@ -275,7 +320,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="registrar_empresa.php" class="nav-link active">
+                <a href="registrar_empresa.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Registrar Empresa</p>
                 </a>
@@ -447,12 +492,11 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
           </li>
           <?php
-               // Empresas con vacantes
-               $empresasConVacantes = count_empresas_vac_actuales();
-               $empresaVacante = $empresasConVacantes['registros'];
+          $vacantesActuales = count_empresas_vac_actuales();
+          $actuales = $vacantesActuales['registros'];
           ?>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
             <i class="nav-icon fa fa-briefcase"></i>
               <p>
                 Vacantes
@@ -461,9 +505,9 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 <span class="badge badge-info right">2</span>
                 <?php
                 // Solo va a mostrar este danger count cuando hay empresas nuevas o sin validar
-                  if ($empresaVacante > 0) {
+                  if ($actuales > 0) {
                 ?>
-                <span class="badge badge badge-danger"><?php echo $empresaVacante;?></span>
+                <span class="badge badge badge-danger"><?php echo $actuales;?></span>
                 <?php
                   # code...
                   }
@@ -472,7 +516,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="vacantes.php" class="nav-link ">
+                <a href="vacantes.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Registrar Vacante
@@ -480,15 +524,25 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 </a>
               </li>
               <li class="nav-item">
-                <a href="vacantes_actuales.php" class="nav-link">
+                <a href="vacantes_actuales.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Ver vacantes
                   </p>
                 </a>
+                  <ol>
+                    <li class="nav-item">
+                      <a href="vacantes.php" class="nav-link active">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Invitar
+                        </p>
+                      </a>
+                    </li>
+                  </ol>
               </li>
               <li class="nav-item">
-                <a href="invitados.php" class="nav-link">
+                <a href="invitados.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Invitaciones
@@ -496,7 +550,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 </a>
               </li>
             </ul>
-          </li>       
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -512,13 +566,13 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Registro de Empresas</h1>
+            <h1 class="m-0">Invitar Vacantes</h1>
           </div><!-- /.col -->
           
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-              <li class="breadcrumb-item ">Registrar Empresas</li>
+              <li class="breadcrumb-item ">Invitar Vacantes</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -531,59 +585,118 @@ $invitacionP = $invitacionesPendientes['numeralia'];
       <div class="container-fluid">
         <div class="row">
           <!-- Nav con imagen del logo de fese -->
-          <div class="container-fluid" style="background-color: #f5f5f5">
+          <div class="col-lg-12 container-fluid" style="background-color: #f5f5f5">
               <nav class="navbar navbar-default">
-                  <a class="navbar-brand" href="index.php" ><img src="../../img/empresarial.png" alt="Dispute Bills" style="width:200px;"> 
+                  <a class="navbar-brand" href="index.php" ><img src="../../img/empresarial.png" alt="Dispute Bills" style="width:200px;"></a>
               </nav>
           </div>      
           <!-- Contenedor principal Main del Fromulario -->
           <main class="container">
-              <section class="border shadow m-auto" style="border-radius:22px;">
-                  <div class="row m-auto">
-                      <div class="col-md-12">
-                          <ul class="wizard-steps">
-                              <li class="completed"><a><h5 class="text-center m-auto">Datos <span>Empresa</span></h5></a></li>
-                              <li><p style="color: #fafafa; margin: auto !important;">Ingresar datos</p></li>
-                          </ul>
+            <section class="border shadow  m-auto" style="border-radius:22px; margin-bottom:100px !important;">
+              <div class="row m-auto">
+                <div class="col-md-12">
+                  <ul class="wizard-steps mt-5">
+                    <li class="completed"><a><h5 class="text-center ">Invitar a <span>Vacante</span></h5></a></li>
+                    <li><p class="text-center mt-2" style="color: #fafafa;">Editar datos</p></li>
+                  </ul>
+                </div>
+                <!-- Formulario de registro  -->
+                <section class="container col-lg-12 border">
+                  <div class="container col-lg-12 border">
+                    <div class="row m-auto">
+                      <!-- Aqui se visualizan los candidatos agregaods -->
+                      <div class="container col-12 ">   
+                        <h3 class="text-center mb-5" style="font-weight: 800; font-size: 35px">
+                          Invitacion de vacantes
+                          <hr>
+                        </h3>
+                        <?php
+                          include('../model/database_emails.php');
+                          $resultadoCandidatosInvitados = get_cantidad_total();
+                          $cantidad = mysqli_num_rows($resultadoCandidatosInvitados);
+                        ?>
+                        <!-- Formulario para envio de las vacantes por correo  -->
+                        <form action="email.php" method="post">
+                            <div class="row mb-5">
+                              <div class="col-4">
+                                <!-- <input type="checkbox" onclick="marcarCheckbox(this);"/> -->
+                                <!-- <label id="marcas">Marcar todos</label> -->
+                              </div>
+                              <div class="col-4">
+                                <!-- <p id="resp"></p> -->
+                              </div>
+                              <div class="col-sm-4" style="margin:10px;">
+                                <!-- <input type="submit" style="display: none;" name="enviarform" id="enviarform" class="btn btn-round btn-primary btn-block" value="Enviar Emails"> -->
+                              </div>
+                            </div>
+                            <div class="table-responsive mb-5">
+                              <table class="table  table-hover table-bordered m-auto">
+                                  <thead class="thead-dark">
+                                    <tr>
+                                          <th> # </th>
+                                          <th>Candidato</th>
+                                          <th>Email</th>
+                                          <th>Empresa</th>
+                                          <th>Vacante</th>
+                                          <th>Estatus de Notificación</th>
+                                          <th>Ultimo envio</th>
+                                          <th>acciones</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  <?php $i = 1; while ($dataClientes = mysqli_fetch_array($resultadoCandidatosInvitados)) { ?>
+                                      <tr>
+                                        <td>
+                                          <?php echo $i; ?>
+                                          <!-- <input type="checkbox"  name="correo[]" class="CheckedAK" correo="<?php echo $dataClientes['correo']; ?>" value="<?php echo $dataClientes['correo']; ?>"/> -->
+                                        </td>
+                                        <td><?php echo $dataClientes['nombre']; ?></td>
+                                        <td><?php echo $dataClientes['correo']; ?></td>
+                                        <!-- <td><input type="number" id="idvac" name="idvac" value="<?php echo $dataClientes['id_vacante']; ?>" hidden></td> -->
+                                        <!-- <td> <input type="text" id="nombreComercial" name="nombreComercial" value="<?php echo $dataClientes['dt_nombre_comercial']; ?>" disabled> </td>
+                                        <td> <input type="text" id="nombreVacante" name="nombreVacante" value="<?php echo $dataClientes['dt_nombre'];?>" stye="width:100% !important;" disabled></td> -->
+                                        <td> <?php echo $dataClientes['dt_nombre_comercial']; ?> </td>
+                                        <td> <?php echo $dataClientes['dt_nombre'];?></td>
+                                        <td>
+                                          <?php
+                                            echo ($dataClientes['notificacion']) ? '<i class="zmdi zmdi-check-all zmdi-hc-2x green"></i>' : '<i class="zmdi zmdi-check zmdi-hc-2x black"></i>';
+                                          ?>
+                                        </td>
+                                        <td>
+                                          <?php
+                                            if ($dataClientes['notificacion'] == 1) {
+                                              echo $dataClientes['dt_fecha']; 
+                                            }else{
+                                              echo "0000-00-00 00:00:00";
+                                            }
+                                          ?>
+                                        </td>
+                                        <td>
+                                          <a href="../controller/eliminar_vacante_correo.php?vac=<?php echo $dataClientes['id']; ?>" class="colora">
+                                            <button type="button" class="btn btn-warning" style="margin-top:10px;">
+                                              <i class='glyphicon glyphicon-pencil'></i> Eliminar
+                                            </button>
+                                          </a>
+                                        </td>
+                                      </tr>
+                                    <?php $i++; } ?>
+                                  </tbody>
+                              </table>
+                            </div>
+                        </form>
                       </div>
-
-                      <!-- Formulario de registro  -->
-                      <form action="../controller/new_empresa_admin_dashboard.php" method="POST" class="container m-auto">
-                          <div class="container text-center">
-                            <br>
-                            <h2 style="border-bottom:3px solid #6E2463;">Registro de la empresa</h2><br> 
-                              <div class="row container">
-                                <img class="col-md-2" style="width: 70px !important; "  src="../imgs/bot-fese.svg">
-                                <p class="text-justify col-md-8">
-                                  <b> Nota:</b>
-                                    <small>El nombre que se proporcione se registrara en la base de datos tanto como <b>razon social</b> como <b>nombre comercial</b>, esto sera de forma temporal ademas se registra con el correo iniciando por empresa seguido del <b>id</b> de la empresa registrada en la base de datos <b>@fese.mx</b> ejemplo:
-                                    <br>
-                                    <b>empresa1707@fese.mx</b>
-                                    <br>
-                                    Ademas el <b>password</b> para todas las empresas registradas desde este panel sera <b>Fese2023</b></small>
-                                </p>
-                              </div>
-
-                              <div class="col-md-5 m-auto">
-                                  <div class="form-group">
-                                      <!-- Street 1 --><br>
-                                      <label class="control-label">Nombre comercial:</label>
-                                      <input type="text" class="form-control" name="nombre" value="" pattern="[A-Za-z\. ]{1,50}" title="Proporcione un nombre correcto" onChange="conMayusculas(this)" required>
-                                  </div>
-                              </div>
-
-                              <div class="col-md-4 col-md-offset-3 m-auto">
-                                  <br><br>
-                                  <div class="form-group">
-                                      <!-- Submit Button -->
-                                      <input type="hidden" name="id" value="<?php echo $id; ?>" />
-                                      <button type="submit" class="btn btn-block btn-primary " style="background: #6E2463;">Crear Empresa</button><br><br>
-                                  </div>
-                              </div>
-                          </div>                                           
-                      </form>
+                      <!-- cierra la vista de candidatos -->
+                      <div class="col-md-6 col-md-offset-3">
+                        <div class="form-group"><br><br>
+                          <input type="hidden" name="id" value="<?php echo $id; ?>" />    
+                            <!-- <button type="submit" class="btn btn-block btn-primary btn-lg">Guardar</button><br><br> -->
+                        </div>
+                      </div>
+                    </div>
                   </div>
-              </section>
+                </section>
+              </div>
+            </section>
           </main>
         </div>
         <!-- /.row -->
@@ -622,5 +735,58 @@ $invitacionP = $invitacionesPendientes['numeralia'];
 <script src="../plugins/chart.js/Chart.js"></script>
 <!-- Tablas chartJs -->
 <script src="../data-dashboard.js"></script>
+
+<script type="text/javascript" src="../../plugins/calendar/js/bootstrap-datepicker.min.js"></script>
+<!-- <script type="text/javascript" src="../plugins/daterangepicker/daterangepicker.js"></script> -->
+
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'yyyy-mm-dd',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
+
+
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date2"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'yyyy-mm-dd',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable( {
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        }
+    } );
+} );
+
+
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+<script src="../js/script.js"></script>
+<!-- <script  src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
 </body>
 </html>
