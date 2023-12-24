@@ -577,7 +577,7 @@
                                   if ($emp['dt_nombre_comercial'] != NULL) {
                                     echo $emp['dt_nombre_comercial']; 
                                   }else {
-                                    echo " Sin registro";
+                                    echo "<h4 class='btn btn-warning' disabled>Sin registro</h4>";
                                   }
                                     
                                     ?>
@@ -588,7 +588,7 @@
                                   <td>
                                     <?php if( $emp['estatus']==1){ 
                                       // echo "Participando";
-                                      echo "<h2 class='btn btn-success' disabled>Participando</h2>";
+                                      echo "<h4 class='btn btn-success' disabled>Participando</h4>";
                                     }elseif ($emp['estatus'] == 0) {
                                       ?>
                                       <h2 class="btn btn-warning" disabled> Pendiente </h2>

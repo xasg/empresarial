@@ -275,8 +275,8 @@ $invitacionP = $invitacionesPendientes['numeralia'];
             <i class="fas fa-cog mr-2"></i> Configuración
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-          <i class="fa fa-sign-out" aria-hidden="true"></i> Salir
+          <a href="../controller/logout.php" class="dropdown-item">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>Salir 
           </a>
           
       </li>

@@ -619,7 +619,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                           <div class=" row">
                             <!-- Input File para subir lista de excel -->
                             <div class="col-lg-6 file-input text-center">
-                              <input type="file" name="dataCliente" id="file-input" class="file-input__input" accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                              <input type="file" name="dataCliente" id="file-input" class="file-input__input" accept=".csv" />
                               <!-- <input  type="file" name="dataCliente" id="file-input" class="file-input__input"/> -->
                               <label class="file-input__label" for="file-input">
                               <i class="zmdi zmdi-upload zmdi-hc-2x"></i>
@@ -696,7 +696,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                                   <thead class="thead-dark">
                                     <tr>
                                           <th> # </th>
-                                          <th>Cliente</th>
+                                          <th>Candidato</th>
                                           <th>Email</th>
                                           <th>Estatus de Notificación</th>
                                           <th>Ultimo envio</th>

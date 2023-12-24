@@ -73,7 +73,7 @@ function  crear_empresa_admin($id_user, $nombre)
 {
 global $mysqli;
 $sql="INSERT INTO empresa(id_empresa, id_usuario, dt_razon_social,dt_nombre_comercial) 
-       VALUES (null, '{$id_user}', '{$nombre}','{$nombre}')";
+       VALUES (null, '{$id_user}', UPPER('{$nombre}'),UPPER('{$nombre}'))";
 $mysqli->query($sql);
 }
 

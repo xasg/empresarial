@@ -56,19 +56,19 @@ border-bottom-right-radius: .3rem;
                       <br>
                     </div>
     
-                    <form>
+                    <form action="controller/login_admin.php" method="POST">
                       <p>
                         <b>Ingresa con tu correo y password</b>
                       </p>
     
                       <div class="form-outline mb-4">
-                        <input type="email" id="form2Example11" class="form-control"
+                        <input type="email" id="correo" name="correo" class="form-control"
                           placeholder="Ingresa tu correo" required/>
                         <label class="form-label" for="form2Example11">Correo</label>
                       </div>
     
                       <div class="form-outline mb-4">
-                        <input type="password" id="form2Example22" class="form-control" placeholder="Ingresa tu password" required/>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Ingresa tu password" required/>
                         <label class="form-label" for="form2Example22">Password</label>
                       </div>
                       <div class="text-center pt-1 mb-5 pb-1">
