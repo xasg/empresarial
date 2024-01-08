@@ -524,25 +524,15 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 </a>
               </li>
               <li class="nav-item">
-                <a href="vacantes_actuales.php" class="nav-link active">
+                <a href="vacantes_actuales.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Ver vacantes
                   </p>
                 </a>
-                  <ol>
-                    <li class="nav-item">
-                      <a href="vacantes.php" class="nav-link active">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>
-                          Invitar
-                        </p>
-                      </a>
-                    </li>
-                  </ol>
               </li>
               <li class="nav-item">
-                <a href="invitados.php" class="nav-link ">
+                <a href="invitados.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Invitaciones
