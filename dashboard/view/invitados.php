@@ -598,6 +598,11 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                       <div class="container col-12 ">   
                         <h3 class="text-center mb-5" style="font-weight: 800; font-size: 35px">
                           Invitacion de vacantes
+                          <br>
+                          <div class="container mt-3">
+                          <h2>Buscador</h2>
+                          <input type="text" id="searchInput" class="form-control mb-3" placeholder="Buscar por nombre">
+                          
                           <hr>
                         </h3>
                         <?php
@@ -777,6 +782,20 @@ $(document).ready(function() {
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
 <script src="../js/script.js"></script>
+<script>
+$(document).ready(function(){
+    var $rows = $('tbody tr');  // Cambia el selector a tus filas específicas
+    $('#searchInput').keyup(function() {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+        $rows.show().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
+    });
+});
+
+</script>
 <!-- <script  src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
 </body>
 </html>

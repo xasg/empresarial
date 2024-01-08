@@ -99,7 +99,7 @@ function run_vacantes()
 {
   global $mysqli;
   // $sql ="SELECT * FROM vacante left join empresa using (id_usuario) WHERE dt_razon_social != 'null' ";
-  $sql ="SELECT *,vacante.dt_fh_registro as fecha_registro_vacante FROM vacante left join empresa using (id_usuario) where empresa.tp_status = 1 order by vacante.dt_fh_registro DESC ";
+  $sql ="SELECT *,vacante.dt_fh_registro as fecha_registro_vacante FROM vacante left join empresa using (id_usuario) order by vacante.dt_fh_registro DESC ";
   return $mysqli->query($sql);
 }
 
@@ -205,6 +205,13 @@ function apoyo_vacantes_total(){
 function apoyo_vacantes_actual(){
   global $mysqli, $result;
   $sql ="SELECT SUM(dt_apoyo) as apoyoActual FROM vacante WHERE YEAR(dt_fh_registro) = YEAR(CURDATE()) ";
+//   $sql ="SELECT SUM(dt_apoyo*dt_numero * 
+//   CASE 
+//       WHEN dt_dispersion = 'QUINCENAL' THEN 2
+//       WHEN dt_dispersion = 'MENSUAL' THEN 1
+//       ELSE 0 
+//   END
+// ) as apoyoActual FROM `vacante " ;
   $result = $mysqli->query($sql);
   return $result->fetch_assoc();
 }
@@ -642,7 +649,6 @@ WHERE vacante.dt_fh_registro IS NOT NULL
 AND YEAR(vacante.dt_fh_registro) = YEAR(CURDATE())
 AND MONTH(vacante.dt_fh_registro) = MONTH(CURDATE())
 AND vacante.tp_status = 1
-AND empresa.tp_status = 1  
 ORDER BY id_vacante DESC LIMIT 4";
 $result = $mysqli->query($sql);
 return $result;
@@ -650,9 +656,18 @@ return $result;
 
 function count_empresas_vac_actuales(){
   global $mysqli;
-  $sql = "SELECT count(id_empresa) as registros FROM `empresa`
+  // $sql = "SELECT count(id_empresa) as registros FROM `empresa`
+  // LEFT JOIN vacante USING (id_usuario)
+  // where vacante.tp_status = 1 AND YEAR_MONTH(vacante.dt_fh_registro) = YEAR_MONTH(CURDATE())";
+  $sql = "SELECT COUNT(id_empresa) as registros
+  FROM empresa
   LEFT JOIN vacante USING (id_usuario)
-  where vacante.tp_status = 1 AND YEAR(vacante.dt_fh_registro) = YEAR(CURDATE())";
+  WHERE vacante.tp_status = 1
+    AND (
+      DATE(vacante.dt_fh_registro) = CURDATE() 
+      OR (YEAR(vacante.dt_fh_registro) = YEAR(CURDATE()) AND MONTH(vacante.dt_fh_registro) = MONTH(CURDATE()))
+    );
+  ";
   $result=$mysqli->query($sql);
   return $result->fetch_assoc();
   }

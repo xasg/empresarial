@@ -806,9 +806,10 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                     foreach ($validaVacantes as $validaVacante) {
                   ?>
                       <tr>
-                        <td>
+                        <?php if ($validaVacante['tp_status'] == -1) { echo "Se agrego vacante de una Empresa dada de baja"; } ?>
+                        <td <?php echo ($validaVacante['tp_status'] == -1) ? "class='bg-danger' " : '' ?> >
                           <img src="../dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                          <?php echo $validaVacante['dt_nombre_comercial']; ?>
+                          <?php echo ($validaVacante['dt_nombre_comercial'] == null) ? $validaVacante['dt_razon_social'] : $validaVacante['dt_nombre_comercial']; ?>
                         </td>
                         <td style="width:190px;"><?php echo $validaVacante['dt_nombre']; ?></td>
                         <!-- Agrega aquí los demás campos de validaVacante que necesites mostrar -->

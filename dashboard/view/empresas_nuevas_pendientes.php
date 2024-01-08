@@ -551,8 +551,8 @@
     <!-- /.content-header -->
     <div class="container-fluid shadow m-auto"  >
 
-      <table id="example" class="table table-striped table-bordered" style="margin: 50px auto; font-size:15px !important">
-          <thead>
+      <table id="example" class="table table-hover table-striped table-bordered" style="margin: 50px auto; font-size:15px !important">
+          <thead class="thead-dark">
               <tr >
                     <th >Entidad</th>
                                     <th>Razon social</th>

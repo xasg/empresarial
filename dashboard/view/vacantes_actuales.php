@@ -605,9 +605,9 @@ $invitacionP = $invitacionesPendientes['numeralia'];
           <!-- Contenedor principal Main del Fromulario -->
           <main class="col-lg-12 container">
             <section>
-                <table id="example" class="table table-striped table-bordered" style="margin: 50px auto; font-size:15px !important">
+                <table id="example" class="table table-hover table-striped table-bordered" style="margin: 50px auto; font-size:15px !important">
                 <!-- <table id="example" class="table table-striped table-bordered" style="width:100%"> -->
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
                             <th>ID</th>
                             <th>Empresa - razon social</th>
@@ -624,6 +624,8 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                     </thead>
                     <tbody>
                         <?php
+                            $vacante = run_vacantes();
+                            $i = 0;
                         try {
                             $vacante = run_vacantes();
                             $i = 0;
@@ -631,8 +633,15 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                             $vacante_ids = $vac['id_vacante']; 
                             $numeralia = count_invitados_correo($vacante_ids);
                             $i++;
+                            if ($vac['tp_status'] == -1 && date('Y', strtotime($vac['fecha_registro_vacante'])) == date('Y')) {
+                              $empresasDadaDeBaja++;
+                          }
                         ?>
-                                <tr>
+                                <tr <?php echo ($vac['tp_status'] == -1) ? "class='bg-danger' " : '' ?> >
+                                  
+                                    <!-- <?php if (($vac['tp_status'] == -1) && (date('Y', strtotime($vac['fecha_registro_vacante'])) == date('Y'))) { echo "<h5 class='bg-warning col-md-3'> Se agregó $numeroempresas vacante de una empresa dada de baja en el año actual </h5>"; } ?> -->
+                                   
+
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $vac['dt_razon_social']; ?></td>
                                     <td><?php echo $vac['dt_nombre_comercial']; ?></td>
@@ -668,6 +677,9 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                                 </tr>
                         <?php
                             }
+                            if ($empresasDadaDeBaja > 0) {
+                              echo "<h5 class='bg-warning col-md-3'> Se agregó $empresasDadaDeBaja vacante(s) de una o mas empresas dadas de baja, en el año actual </h5>";
+                          }
                         } catch (Exception $e) {
                             echo "Error al ejecutar la consulta: " . $e->getMessage();
                         }
