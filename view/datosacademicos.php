@@ -5,6 +5,9 @@ session_start();
 $id=$_SESSION["id"];
 $beneficiario =acces_beneficiario($id);
 $entidad=run_entidad()
+//actualizarBeneficiarios20();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

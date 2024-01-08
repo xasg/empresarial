@@ -135,6 +135,32 @@ function update_valida($id, $valida)
   $mysqli->query($sql); 
 }
 
+function actualizarBeneficiarios20()     // con esta funcion se actualiza el usuario con un avance del 20 % 
+{
+  global $mysqli;
+  $sql = "UPDATE `beneficiario`
+  SET dt_avance_registro = '20'
+  WHERE
+  id_cat_entidad IS NOT NULL AND id_cat_entidad != ''  
+  AND dt_nombres IS NOT NULL AND dt_nombres != ''
+  AND dt_apaterno IS NOT NULL AND dt_apaterno != ''
+  AND dt_amaterno IS NOT NULL AND dt_amaterno != ''
+  AND dt_curp IS NOT NULL AND dt_curp != ''
+  AND dt_telefono IS NOT NULL AND dt_telefono != ''
+  AND dt_direccion IS NOT NULL AND dt_direccion != '' 
+  AND dt_colonia IS NOT NULL  AND dt_colonia != ''
+  AND dt_municipio IS NOT NULL AND dt_municipio != '' 
+  AND dt_cp IS NOT NULL AND dt_cp != '';";
+
+  if ($mysqli->query($sql) === TRUE) 
+  {
+    echo "Consulta ejecutada con éxito";
+  }   
+  else
+  {
+    echo "Error al ejecutar la consulta: " . $mysqli->error;
+  }
+}
 
 
 
