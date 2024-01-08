@@ -7,7 +7,7 @@ if ($_REQUEST) {
     down_empresa($id);
     ?>
     <script>
-       window.location="../view/validadas.php"
+       window.location="../view/empresas_nuevas_pendientes.php";
     </script>
     <?php
 }
