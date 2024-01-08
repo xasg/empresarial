@@ -716,7 +716,7 @@ $invitacionP = $invitacionesPendientes['numeralia'];
                 <!-- <i class="ion ion-pie-graph"></i> -->
                 <i class="fa fa-address-book" aria-hidden="true"></i>
               </div>
-              <a href="#" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Invitaciones <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="invitados.php" class="small-box-footer shadow" style="background:#7a167a; border-radius: 20px; height:50px; font-size:25px ">Invitaciones <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
