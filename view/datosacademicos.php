@@ -5,7 +5,6 @@ session_start();
 $id=$_SESSION["id"];
 $beneficiario =acces_beneficiario($id);
 $entidad=run_entidad()
-//actualizarBeneficiarios20();
 
 
 ?>
@@ -62,6 +61,10 @@ $entidad=run_entidad()
             field.value = field.value.toUpperCase() 
         }   
     </script>
+
+<?php
+  actualizarBeneficiarios20();  // se manda a llamar esta funcion para actualizar los datos del registro al 20% 
+?>
 </head>
 <body>
   <div class="container-fluid" style="background-color: #f5f5f5">

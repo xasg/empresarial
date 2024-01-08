@@ -185,7 +185,7 @@ function run_benefiaciario()
         LEFT JOIN empresa ON(rel_beneficiario_vacante.id_empresa=empresa.id_usuario)
         LEFT JOIN vacante ON(rel_beneficiario_vacante.id_vacante=vacante.id_vacante)
         LEFT JOIN digital_beneficiario ON(beneficiario.id_usuario=digital_beneficiario.id_usuario)
-        WHERE `tp_status_beneficiario`=1 AND beneficiario.`dt_fh_registro` LIKE '%2022%'";
+        WHERE `tp_status_beneficiario`=1 AND year(beneficiario.`dt_fh_registro`) =  year(curdate())-1";
         return $mysqli->query($sql);
 }
 

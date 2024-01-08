@@ -33,6 +33,10 @@
         })
       });      
     </script>
+    <?php   
+      actualizarBeneficiarios80();
+      //actualizarBeneficiarios100();
+    ?>
    </head>
    <body>
 <div class="container-fluid" style="background-color: #f5f5f5">

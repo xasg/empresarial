@@ -15,6 +15,11 @@ $beneficiario =acces_beneficiario($id);
      <title>Empresarial</title>
      <link href="../css/bootstrap.css" rel="stylesheet">
      <link href="../css/style.css" rel="stylesheet"> 
+     
+     <?php
+        actualizarBeneficiarios40(); // se manda a llmar esta funcion para actualizar el avance al 40 %     
+     ?>
+
    </head>
    <body>
 <div class="container-fluid" style="background-color: #f5f5f5">

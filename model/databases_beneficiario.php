@@ -135,9 +135,10 @@ function update_valida($id, $valida)
   $mysqli->query($sql); 
 }
 
-function actualizarBeneficiarios20()     // con esta funcion se actualiza el usuario con un avance del 20 % 
+function actualizarBeneficiarios20() 
 {
   global $mysqli;
+
   $sql = "UPDATE `beneficiario`
   SET dt_avance_registro = '20'
   WHERE
@@ -152,17 +153,90 @@ function actualizarBeneficiarios20()     // con esta funcion se actualiza el usu
   AND dt_municipio IS NOT NULL AND dt_municipio != '' 
   AND dt_cp IS NOT NULL AND dt_cp != '';";
 
-  if ($mysqli->query($sql) === TRUE) 
+  if ($mysqli->query($sql) === TRUE)   // se realiza este if para verificar que se ejecuto la consulta 
   {
-    echo "Consulta ejecutada con éxito";
-  }   
+      echo "Consulta ejecutada con éxito";
+  } 
   else
   {
-    echo "Error al ejecutar la consulta: " . $mysqli->error;
+      echo "Error al ejecutar la consulta: " . $mysqli->error;
   }
 }
 
+function actualizarBeneficiarios40()
+{
+  global $mysqli;
+  $sql = 
+    "UPDATE `beneficiario`
+    SET dt_avance_registro = '40'
+    WHERE      
+    dt_ies IS NOT NULL AND dt_ies != ''	
+    AND dt_carrera IS NOT NULL AND dt_carrera != ''
+    AND dt_matricula IS NOT NULL AND dt_matricula != ''
+    AND dt_periodo IS NOT NULL AND dt_periodo != ''
+    AND dt_periodo_num IS NOT NULL AND dt_periodo_num != ''
+    AND dt_creditos IS NOT NULL AND dt_creditos != '' 
+    AND dt_ht IS NOT NULL AND dt_ht != ''
+    AND dt_avance_registro = '20';";
 
+    if ($mysqli->query($sql) === TRUE) 
+    {
+      echo "Consulta ejecutada con éxito";
+    } 
+    else
+    {
+      echo "Error al ejecutar la consulta: " . $mysqli->error;
+    }
+
+  } 
+
+  function actualizarBeneficiarios60()
+  {
+    global $mysqli;
+    $sql = "UPDATE `beneficiario`
+        SET dt_avance_registro = '60'
+        WHERE
+        dt_avance_registro = '40'
+        AND (dt_idioma IS NOT NULL AND dt_idioma != '')
+        AND (dt_idioma_nivel IS NOT NULL AND dt_idioma_nivel != '');";
+      if ($mysqli->query($sql) === TRUE) 
+      {
+        echo "Consulta ejecutada con éxito";
+      } 
+      else
+      {
+        echo "Error al ejecutar la consulta: " . $mysqli->error;
+      }
+  }
+
+  function actualizarBeneficiarios80_100()
+  {
+    global $mysqli;
+    
+    $sql = "UPDATE `beneficiario` b
+    JOIN `digital_beneficiario` db ON b.id_usuario = db.id_usuario
+    SET b.dt_avance_registro = '80'
+    WHERE b.dt_avance_registro = 60
+    AND (db.url_cv IS NOT NULL AND db.url_cv != '')
+    AND (db.url_curp IS NOT NULL AND db.url_curp != '')
+    AND (db.url_acta IS NOT NULL AND db.url_acta != '')
+    AND (db.url_com_domicilio IS NOT NULL AND db.url_com_domicilio != '')
+    AND (db.url_identificacion IS NOT NULL AND db.url_identificacion != '')
+    AND (db.url_seguro IS NOT NULL AND db.url_seguro != '')
+    AND (db.url_cuenta IS NOT NULL AND db.url_cuenta != '');";
+
+
+      if ($mysqli->query($sql) === TRUE) 
+      {
+        echo "Consulta ejecutada con éxito";
+      } 
+      else
+      {
+        echo "Error al ejecutar la consulta: " . $mysqli->error;
+      }
+  
+    
+  }
 
 function insert_relacion($id, $empresa, $vacante)
 {
