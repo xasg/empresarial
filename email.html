@@ -65,8 +65,15 @@ $cuerpo .= '
 <body>
     <div class="contenedor">
         <!-- <img class="imgBanner" src="https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/banner-correo-masivos-urian-viera.jpeg"> -->
-        <img class="imgBanner" src="https://raw.githubusercontent.com/xasg/empresarial/dev-1/imgs/ban.png">
+        <!-- <img class="imgBanner" src="https://raw.githubusercontent.com/xasg/empresarial/dev-1/imgs/ban.png"> -->
         <table style="max-width: 1400px; padding: 10px; margin:0 auto; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <td>
+                        <div class="imgBanner" style="background-image: url(https://raw.githubusercontent.com/xasg/empresarial/dev-1/imgs/ban.png);background-position: center; background-size: cover;  height: 100vh; "></div>
+                    </td>
+                </tr>
+            </thead>
             <tr>
                 <td style="padding: 0; background-color: #ffffff;">
                     <div class="misection">
@@ -80,10 +87,10 @@ $cuerpo .= '
                         <h2 style="color: #0D4D5B; margin: 0 0 7px; margin-top: 50px;">Documentación requerida</h2>
                         <ol style="text-align: justify;">
                             <li>CV  </li>
+                            <li>Comprobante de Domicilio con Código Postal que coincida con la dirección de tu INE. </li>
                             <li>CURP</li>
                             <li>INE ambas caras o cualquier identificación oficial con fotografía vigente.</li>  
                             <li>Acta de Nacimiento</li>
-                            <li>Comprobante de Domicilio con Código Postal que coincida con la dirección de tu INE. </li>
                             <li>Comprobante de estudios. Documento oficial de la institución que señale nombre del alumno, nombre de la escuela, carrera y créditos obtenidos al momento de hacer el registro.</li>
                             <li>Reporte de vigencia seguro médico facultativo IMSS, póliza del IMSS Bienestar o póliza de seguro médico privado. (vigente durante el periodo de la práctica).</li>
                             <li>
@@ -110,7 +117,20 @@ $cuerpo .= '
 
                 </td>
             </tr>
-         
+         <tfoot>
+            <tr>
+                <td>
+                    <div style="display:flex !important; align-items: center; justify-content: center; gap:30px; flex-direction: column; width: 100%; background-image: url(img/Footer.png); height: 25vh; background-position: center; background-size: cover; background-repeat: no-repeat;">
+                        <!-- <img src="img/Footer.png" alt=""> -->
+                        <h5 style="text-align: center; color: #fff; font-size: 18px;">Siguenos en redes sociales</h5>
+                        <div style="display:flex !important; align-items: center; justify-content: center; gap:30px;">
+                            <a href="https://www.facebook.com/FESE.MX"><img style="height: 52px; width: 52px;" src="img/FBs.png" alt=""></a>
+                            <a href="https://www.linkedin.com/company/fundacion-educacion-superior-empresa/?originalSubdomain=mx"><img style="height: 52px; width: 52px;" src="img/LinkedINs.png" alt=""></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+         </tfoot>
         </table>';
 
 $cuerpo .= '
