@@ -6,10 +6,6 @@ $id=$_SESSION["id"];
 $beneficiario =acces_beneficiario($id);
 $entidad=run_entidad()
 
-<<<<<<< HEAD
-=======
-
->>>>>>> RamaFrancisco
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -69,7 +65,7 @@ $entidad=run_entidad()
   actualizarBeneficiarios20();  // se manda a llamar esta funcion para actualizar los datos del registro al 20% 
 ?>
 </head>
-<body <?php update_avance_registro_20($id);     ?>>     <!---MANDO A LLAMAR MI FUNCION PARA ACTUALIZAR LOS DATOS DEL AVANCE DEL USUARIO ---->
+<body >     <!---MANDO A LLAMAR MI FUNCION PARA ACTUALIZAR LOS DATOS DEL AVANCE DEL USUARIO ---->
   <div class="container-fluid" style="background-color: #f5f5f5">
     <nav class="navbar navbar-default">
       <div class="container">

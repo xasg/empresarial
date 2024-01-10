@@ -156,7 +156,7 @@ function apoyo_vacantes_anterior(){
 function run_candidato()
 {
   global $mysqli, $result;
-  $sql ="SELECT empresa.dt_razon_social, beneficiario.id_usuario,`dt_nombres`,`dt_apaterno`,`dt_amaterno`,`dt_curp`,`dt_nombre_carrera`,`dt_nombre_ies`,beneficiario.tp_status_beneficiario, vacante.dt_inicio, vacante.dt_termino, vacante.dt_apoyo, dt_eval_curp, dt_eval_acta, dt_eval_domicilio, dt_eval_identificacion, dt_eval_estudios, dt_eval_seguro, dt_eval_bancario, dt_eval_aplica, dt_eval_comentario, dt_status_validacion, usuario.dt_correo, usuario.dt_password, tp_estatus,
+  $sql ="SELECT empresa.dt_razon_social, beneficiario.id_usuario,`dt_avance_registro`,`dt_nombres`,`dt_apaterno`,`dt_amaterno`,`dt_curp`,`dt_nombre_carrera`,`dt_nombre_ies`,beneficiario.tp_status_beneficiario, vacante.dt_inicio, vacante.dt_termino, vacante.dt_apoyo, dt_eval_curp, dt_eval_acta, dt_eval_domicilio, dt_eval_identificacion, dt_eval_estudios, dt_eval_seguro, dt_eval_bancario, dt_eval_aplica, dt_eval_comentario, dt_status_validacion, usuario.dt_correo, usuario.dt_password, tp_estatus,
   --  CAST(beneficiario.dt_fh_registro AS DATE) AS fecha
   beneficiario.dt_fh_registro as fecha
     FROM beneficiario
