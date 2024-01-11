@@ -135,14 +135,14 @@ function update_valida($id, $valida)
   $mysqli->query($sql); 
 }
 
-function actualizarBeneficiarios20() 
+function actualizarBeneficiarios20($id) 
 {
   global $mysqli;
 
   $sql = "UPDATE `beneficiario`
   SET dt_avance_registro = '20'
-  WHERE
-  id_cat_entidad IS NOT NULL AND id_cat_entidad != ''  
+  WHERE id_usuario = $id
+  AND id_cat_entidad IS NOT NULL AND id_cat_entidad != ''  
   AND dt_nombres IS NOT NULL AND dt_nombres != ''
   AND dt_apaterno IS NOT NULL AND dt_apaterno != ''
   AND dt_amaterno IS NOT NULL AND dt_amaterno != ''
@@ -155,7 +155,7 @@ function actualizarBeneficiarios20()
 
   if ($mysqli->query($sql) === TRUE)   // se realiza este if para verificar que se ejecuto la consulta 
   {
-      //echo "Consulta ejecutada con éxito";
+      //echo "Consulta ejecutada con éxito DEL USUARIO ". $id;
   } 
   else
   {
@@ -163,14 +163,14 @@ function actualizarBeneficiarios20()
   }
 }
 
-function actualizarBeneficiarios40()
+function actualizarBeneficiarios40($id)
 {
   global $mysqli;
   $sql = 
     "UPDATE `beneficiario`
     SET dt_avance_registro = '40' 
-    WHERE      
-    dt_ies IS NOT NULL AND dt_ies != ''	
+    WHERE  id_usuario = $id    
+    AND dt_ies IS NOT NULL AND dt_ies != ''	
     AND dt_carrera IS NOT NULL AND dt_carrera != ''
     AND dt_matricula IS NOT NULL AND dt_matricula != ''
     AND dt_periodo IS NOT NULL AND dt_periodo != ''

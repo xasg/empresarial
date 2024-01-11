@@ -17,7 +17,7 @@
      <link href="../css/style.css" rel="stylesheet">
       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <?php
-        actualizarBeneficiarios40(); // se manda a llmar esta funcion para actualizar el avance al 40 %     
+        actualizarBeneficiarios60(); // se manda a llmar esta funcion para actualizar el avance al 40 %     
      ?>
 
     </head>

@@ -62,7 +62,7 @@ $entidad=run_entidad()
     </script>
 
 <?php
-  actualizarBeneficiarios20();  // se manda a llamar esta funcion para actualizar los datos del registro al 20% 
+  actualizarBeneficiarios20($id);  // se manda a llamar esta funcion para actualizar los datos del registro al 20% 
 ?>
 </head>
 <body >     <!---MANDO A LLAMAR MI FUNCION PARA ACTUALIZAR LOS DATOS DEL AVANCE DEL USUARIO ---->

@@ -17,7 +17,7 @@ $beneficiario =acces_beneficiario($id);
      <link href="../css/style.css" rel="stylesheet"> 
      
      <?php
-        actualizarBeneficiarios40(); // se manda a llmar esta funcion para actualizar el avance al 40 %     
+        actualizarBeneficiarios40($id); // se manda a llmar esta funcion para actualizar el avance al 40 %     
      ?>
 
    </head>
