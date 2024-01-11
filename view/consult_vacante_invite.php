@@ -108,14 +108,16 @@
                       <h2>Cargar candidatos desde un archivo</h2>
                         <form action="../controller/recibe_excel_validando.php" method="POST" enctype="multipart/form-data">
                           <div class="row">
-                            <div class="col-sm-6 file-input text-center">
-                                <input  type="file" name="dataCliente" id="file-input" class="file-input__input"/>
-                                <label class="file-input__label" for="file-input">
-                                  <i class="zmdi zmdi-upload zmdi-hc-2x"></i>
-                                  <span>Elegir Archivo CSV(separado por comas)</span></label>
+                             <!-- Input File para subir lista de excel -->
+                             <div class="col-lg-6 file-input text-center">
+                              <input type="file" name="dataCliente" id="file-input" class="file-input__input" accept=".csv" />
+                              <!-- <input  type="file" name="dataCliente" id="file-input" class="file-input__input"/> -->
+                              <label class="file-input__label" for="file-input">
+                              <i class="zmdi zmdi-upload zmdi-hc-2x"></i>
+                              <span>Elegir Archivo CSV(separado por comas)</span></label>
                             </div>
-                            <div class="col-sm-6 text-center mt-2">
-                                <!-- <input type="submit" name="subir" class="btn-enviar" value="Subir Excel"/> -->
+                            <!-- BTN subir EXCEL -->
+                            <div class="col-lg-6 text-center mt-2">
                                 <input type="number" id="idvac" name="idvac" value="<?php echo $id ?>" hidden>
                                 <input type="submit" name="subir" class="btn-lg btn-primary" value="Subir Excel"/>
                             </div>
