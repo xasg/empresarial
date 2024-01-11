@@ -4,8 +4,6 @@
    session_start();
    $id=$_SESSION["id"];
    $beneficiario =acces_beneficiario($id);
-
-   
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,25 +16,11 @@
      <link href="../css/bootstrap.css" rel="stylesheet">
      <link href="../css/style.css" rel="stylesheet">
       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<<<<<<< HEAD
-    
-
-
-
-
-    
-
-
-
-   
-   
-    </head>
-=======
       <?php
-        actualizarBeneficiarios60();
-      ?>
-      </head>
->>>>>>> RamaFrancisco
+        actualizarBeneficiarios40(); // se manda a llmar esta funcion para actualizar el avance al 40 %     
+     ?>
+
+    </head>
    <body>
 <div class="container-fluid" style="background-color: #f5f5f5">
   <nav class="navbar navbar-default">

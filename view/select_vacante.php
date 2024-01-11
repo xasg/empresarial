@@ -76,7 +76,7 @@
                     <div class="col-md-12">
                         <ul class="wizard-steps">
                           <li class="finalizado">
-                            <a href="#"><h5>Datos</h5> <span>Personales<?php echo $id; ?></span></a>
+                            <a href="#"><h5>Datos</h5> <span>Personales<?php //echo $id; ?></span></a>
                           </li>
                           <li class="finalizado">
                              <a href="#"><h5>Datos</h5> <span>Academicos</span></a>
@@ -171,7 +171,9 @@
             <div class="row">
                <div class="col-md-8 col-md-offset-2">
                 <h3><br><br><br>Gracias por completar tu registro, tu documentación está en proceso de validación mantente al pendiente de tu correo electrónico para saber si fuiste aceptado o si se requiere más información. </h3>
-               </div>       
+               </div>
+               <?php   actualizarBeneficiarios100(); ?> 
+
 
   <?php } else { ?>      
 
@@ -179,9 +181,9 @@
          <div class="col-md-12"> 
           <form action="../controller/update_digitales_candidato.php" enctype="multipart/form-data" method="post">
               <div class="row">
-               <br>
+               <br>  <!---esta parte se muestra cuando se han checado los documentos y el usuario tiene problema en un documento que se cargo ----->
                 <h4><br><br>Estimado postulante, nos encontramos en proceso de revisión de tu expediente, sin embargo detectamos algunos documentos incorrectos, por lo cual te pedimos  los vuelvas a subir a la plataforma, atendiendo a los siguientes comentarios:<br><br>
-                  <?php  echo $val['dt_eval_comentario'] ?>
+                  <?php  echo $val['dt_eval_comentario'] ?>   <!-------la retroalimentacion para el usuario, sobre su documento que se encuentra mal ---------->
 </h4>
                <br> 
 

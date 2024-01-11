@@ -181,11 +181,11 @@ function actualizarBeneficiarios40()
 
     if ($mysqli->query($sql) === TRUE) 
     {
-      echo "Consulta ejecutada con éxito";
+    //  echo "Consulta ejecutada con éxito";
     } 
     else
     {
-      echo "Error al ejecutar la consulta: " . $mysqli->error;
+      //echo "Error al ejecutar la consulta: " . $mysqli->error;
     }
 
   } 
@@ -201,11 +201,11 @@ function actualizarBeneficiarios40()
         AND (dt_idioma_nivel IS NOT NULL AND dt_idioma_nivel != '');";
       if ($mysqli->query($sql) === TRUE) 
       {
-        echo "Consulta ejecutada con éxito";
+        //echo "Consulta ejecutada con éxito";
       } 
       else
       {
-        echo "Error al ejecutar la consulta: " . $mysqli->error;
+        //echo "Error al ejecutar la consulta: " . $mysqli->error;
       }
   }
 
@@ -216,7 +216,7 @@ function actualizarBeneficiarios40()
     $sql = "UPDATE `beneficiario` b
     JOIN `digital_beneficiario` db ON b.id_usuario = db.id_usuario
     SET b.dt_avance_registro = '80'
-    WHERE b.dt_avance_registro = 60
+    WHERE b.dt_avance_registro = '60'
     AND (db.url_cv IS NOT NULL AND db.url_cv != '')
     AND (db.url_curp IS NOT NULL AND db.url_curp != '')
     AND (db.url_acta IS NOT NULL AND db.url_acta != '')
@@ -228,15 +228,41 @@ function actualizarBeneficiarios40()
 
       if ($mysqli->query($sql) === TRUE) 
       {
-        echo "Consulta ejecutada con éxito";
+        //echo "Consulta ejecutada con éxito";
       } 
       else
       {
-        echo "Error al ejecutar la consulta: " . $mysqli->error;
+        //echo "Error al ejecutar la consulta: " . $mysqli->error;
       }
   
     
   }
+
+
+  function actualizarBeneficiarios100()
+  {
+    global $mysqli;
+    
+    $sql = " UPDATE `beneficiario` b
+    JOIN `validacion_ben` db ON b.id_usuario = db.id_usuario
+    SET b.dt_avance_registro = '100'
+    WHERE b.dt_avance_registro = '80'";
+
+
+      if ($mysqli->query($sql) === TRUE) 
+      {
+        //echo "Consulta ejecutada con éxito";
+      } 
+      else
+      {
+        //echo "Error al ejecutar la consulta: " . $mysqli->error;
+      }
+  
+    
+  }
+
+
+
 
 function insert_relacion($id, $empresa, $vacante)
 {
