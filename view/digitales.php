@@ -17,7 +17,7 @@
      <link href="../css/style.css" rel="stylesheet">
       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <?php
-        actualizarBeneficiarios60(); // se manda a llmar esta funcion para actualizar el avance al 40 %     
+        actualizarBeneficiarios60($id); // se manda a llmar esta funcion para actualizar el avance al 40 %     
      ?>
 
     </head>
@@ -82,7 +82,7 @@
                 <div class="col-md-5">   
                 <div class="col-md-12"> 
                            <label>CURRICULUM VITAE</label>
-                          <?php if($beneficiario['url_cv']!=NULL){ ?>
+                          <?php if(isset ($beneficiario['url_cv'])!=NULL){ ?>
                           <a href="<?php echo $beneficiario['url_cv'];?>" target="_black"> 
                             <label style="color: #0098A9;">Consultar</label></a>
                           <?php } ?>
@@ -109,7 +109,7 @@
                 <div class="col-md-5">
                   <div class="col-md-12"> 
                            <label>CURP</label>
-                          <?php if($beneficiario['url_curp']!=NULL){ ?>
+                          <?php if(isset ($beneficiario['url_curp'])!=NULL){ ?>
                           <a href="<?php echo $beneficiario['url_curp'];?>" target="_black"> 
                             <label style="color: #0098A9;">Consultar</label></a>
                           <?php } ?>
@@ -137,7 +137,7 @@
                 <div class="col-md-5">
                   <div class="col-md-12"> 
                            <label>ACTA DE NACIMIENTO</label>
-                          <?php if($beneficiario['url_acta']!=NULL){ ?>
+                          <?php if(isset ($beneficiario['url_acta'])!=NULL){ ?>
                           <a href="<?php echo $beneficiario['url_acta'];?>" target="_black"> 
                             <label style="color: #0098A9;">Consultar</label></a>
                           <?php } ?>
@@ -164,7 +164,7 @@
                 <div class="col-md-5">
                   <div class="col-md-12"> 
                            <label>COMPROBANTE DE DOMICILIO</label>
-                          <?php if($beneficiario['url_com_domicilio']!=NULL){ ?>
+                          <?php if(isset ($beneficiario['url_com_domicilio'])!=NULL){ ?>
                           <a href="<?php echo $beneficiario['url_com_domicilio'];?>" target="_black"> 
                             <label style="color: #0098A9;">Consultar</label></a>
                           <?php } ?>
@@ -191,7 +191,7 @@
                 <div class="col-md-5">
                   <div class="col-md-12"> 
                            <label>INE / CARTILLA / PASAPORTE(por ambos lados)</label>
-                          <?php if($beneficiario['url_identificacion']!=NULL){ ?>
+                          <?php if(isset ($beneficiario['url_identificacion'])!=NULL){ ?>
                           <a href="<?php echo $beneficiario['url_identificacion'];?>" target="_black"> 
                             <label style="color: #0098A9;">Consultar</label></a>
                           <?php } ?>
@@ -218,7 +218,7 @@
                 <div class="col-md-5">
                   <div class="col-md-12"> 
                            <label>SEGURO MÉDICO VIGENTE</label>
-                          <?php if($beneficiario['url_seguro']!=NULL){ ?>
+                          <?php if(isset ($beneficiario['url_seguro'])!=NULL){ ?>
                           <a href="<?php echo $beneficiario['url_seguro'];?>" target="_black"> 
                             <label style="color: #0098A9;">Consultar</label></a>
                           <?php } ?>
@@ -245,7 +245,7 @@
 
                                     <div class="col-md-12"> 
                            <label>COMPROBANTE DE ESTUDIOS(Que muestre Nombre, Institución y Carrera)</label>
-                          <?php if($beneficiario['url_com_estudios']!=NULL){ ?>
+                          <?php if(isset ($beneficiario['url_com_estudios'])!=NULL){ ?>
                           <a href="<?php echo $beneficiario['url_com_estudios'];?>" target="_black"> 
                             <label style="color: #0098A9;">Consultar</label></a>
                           <?php } ?>
@@ -272,7 +272,7 @@
                 <div class="col-md-5">
                   <div class="col-md-12"> 
                            <label>COMPROBANTE DE CUENTA BANCARIA (Que muestre Banco, Tipo de Cuenta, Nombre y Clabe)
-                          <?php if($beneficiario['url_cuenta']!=NULL){ ?>
+                          <?php if(isset ($beneficiario['url_cuenta'])!=NULL){ ?>
                           <a href="<?php echo $beneficiario['url_cuenta'];?>" target="_black"> 
                             <label style="color: #0098A9;">Consultar</label></a>
                           <?php } ?></label>
@@ -301,7 +301,7 @@
                 <div class="col-md-5">
                   <div class="form-group">
                     <label>CLABE de 18 dígitos</label>
-                    <input type="text" name="clabe" maxlength="18" class="form-control" value="<?php echo $beneficiario['dt_clabe'];?>" required>
+                    <input type="text" name="clabe" maxlength="18" class="form-control" value="<?php echo isset ($beneficiario['dt_clabe']);?>" required>
                   </div>
                 </div>
                 <!-- / -->

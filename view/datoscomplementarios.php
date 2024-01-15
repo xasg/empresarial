@@ -79,7 +79,7 @@ $beneficiario =acces_beneficiario($id);
                 <div class="col-md-4">
                       <div class="form-group">  
                               <label class="control-label">Idioma</label>
-                                 <?php if($beneficiario['dt_idioma']!=NULL){?>
+                                 <?php if(isset ($beneficiario['dt_idioma'])!=NULL){?>
                               <select class="form-control" name="idioma" required>
                               <?php 
                                  echo '<option value="'.$beneficiario['dt_idioma'].'" selected="">'.$beneficiario['dt_idioma'].'</option>'
@@ -120,7 +120,7 @@ $beneficiario =acces_beneficiario($id);
                 <div class="col-md-4">
                       <div class="form-group">  
                               <label class="control-label">Nivel</label>
-                                 <?php if($beneficiario['dt_idioma_nivel']!=NULL){?>
+                                 <?php if(isset ($beneficiario['dt_idioma_nivel'])!=NULL){?>
                               <select class="form-control" name="nivel" required>
                               <?php 
                                  echo '<option value="'.$beneficiario['dt_idioma_nivel'].'" selected="">'.$beneficiario['dt_idioma_nivel'].'</option>'
