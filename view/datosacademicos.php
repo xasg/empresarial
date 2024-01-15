@@ -5,6 +5,7 @@ session_start();
 $id=$_SESSION["id"];
 $beneficiario =acces_beneficiario($id);
 $entidad=run_entidad()
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -59,8 +60,12 @@ $entidad=run_entidad()
             field.value = field.value.toUpperCase() 
         }   
     </script>
+
+<?php
+  actualizarBeneficiarios20($id);  // se manda a llamar esta funcion para actualizar los datos del registro al 20% 
+?>
 </head>
-<body>
+<body >     <!---MANDO A LLAMAR MI FUNCION PARA ACTUALIZAR LOS DATOS DEL AVANCE DEL USUARIO ---->
   <div class="container-fluid" style="background-color: #f5f5f5">
     <nav class="navbar navbar-default">
       <div class="container">
@@ -234,7 +239,7 @@ $entidad=run_entidad()
 
     <div class="col-md-3 col-md-offset-9">
       <div class="form-group" style="display:flex; gap:10px"><br><br>    
-        <a href="datospersonales.php" class="  btn-primary btn-lg">Anterior</a>  
+        <!--<a href="datospersonales.php" class="  btn-primary btn-lg">Anterior</a>  -->
         <button type="submit" class="btn  btn-block btn-primary btn-lg">Guardar</button><br><br>
       </div>
     </div>          

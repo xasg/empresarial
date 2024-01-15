@@ -15,6 +15,11 @@ $beneficiario =acces_beneficiario($id);
      <title>Empresarial</title>
      <link href="../css/bootstrap.css" rel="stylesheet">
      <link href="../css/style.css" rel="stylesheet"> 
+     
+     <?php
+        actualizarBeneficiarios40($id); // se manda a llmar esta funcion para actualizar el avance al 40 %     
+     ?>
+
    </head>
    <body>
 <div class="container-fluid" style="background-color: #f5f5f5">
@@ -137,7 +142,7 @@ $beneficiario =acces_beneficiario($id);
                 </div> 
                     <div class="col-md-3 col-md-offset-9">
                       <div class="form-group" style="display:flex; gap:10px"><br><br>
-                        <a href="datospersonales.php" class="  btn-primary btn-lg">Anterior</a>    
+                        <!--<a href="datospersonales.php" class="  btn-primary btn-lg">Anterior</a>    -->
                         <button type="submit" class="btn btn-block btn-primary btn-lg">Guardar</button><br><br>
                       </div>
                     </div>           

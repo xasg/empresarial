@@ -135,6 +135,132 @@ function update_valida($id, $valida)
   $mysqli->query($sql); 
 }
 
+function actualizarBeneficiarios20($id) 
+{
+  global $mysqli;
+
+  $sql = "UPDATE `beneficiario`
+  SET dt_avance_registro = '20'
+  WHERE id_usuario = $id
+  AND id_cat_entidad IS NOT NULL AND id_cat_entidad != ''  
+  AND dt_nombres IS NOT NULL AND dt_nombres != ''
+  AND dt_apaterno IS NOT NULL AND dt_apaterno != ''
+  AND dt_amaterno IS NOT NULL AND dt_amaterno != ''
+  AND dt_curp IS NOT NULL AND dt_curp != ''
+  AND dt_telefono IS NOT NULL AND dt_telefono != ''
+  AND dt_direccion IS NOT NULL AND dt_direccion != '' 
+  AND dt_colonia IS NOT NULL  AND dt_colonia != ''
+  AND dt_municipio IS NOT NULL AND dt_municipio != '' 
+  AND dt_cp IS NOT NULL AND dt_cp != '';";
+
+  if ($mysqli->query($sql) === TRUE)   // se realiza este if para verificar que se ejecuto la consulta 
+  {
+      //echo "Consulta ejecutada con éxito DEL USUARIO ". $id;
+  } 
+  else
+  {
+      //echo "Error al ejecutar la consulta: " . $mysqli->error;
+  }
+}
+
+function actualizarBeneficiarios40($id)
+{
+  global $mysqli;
+  $sql = 
+    "UPDATE `beneficiario`
+    SET dt_avance_registro = '40' 
+    WHERE  id_usuario = $id    
+    AND dt_ies IS NOT NULL AND dt_ies != ''	
+    AND dt_carrera IS NOT NULL AND dt_carrera != ''
+    AND dt_matricula IS NOT NULL AND dt_matricula != ''
+    AND dt_periodo IS NOT NULL AND dt_periodo != ''
+    AND dt_periodo_num IS NOT NULL AND dt_periodo_num != ''
+    AND dt_creditos IS NOT NULL AND dt_creditos != '' 
+    AND dt_ht IS NOT NULL AND dt_ht != ''
+    AND dt_avance_registro = '20';";
+
+    if ($mysqli->query($sql) === TRUE) 
+    {
+    //  echo "Consulta ejecutada con éxito";
+    } 
+    else
+    {
+      //echo "Error al ejecutar la consulta: " . $mysqli->error;
+    }
+
+  } 
+
+  function actualizarBeneficiarios60()
+  {
+    global $mysqli;
+    $sql = "UPDATE `beneficiario`
+        SET dt_avance_registro = '60'
+        WHERE
+        dt_avance_registro = '40'
+        AND (dt_idioma IS NOT NULL AND dt_idioma != '')
+        AND (dt_idioma_nivel IS NOT NULL AND dt_idioma_nivel != '');";
+      if ($mysqli->query($sql) === TRUE) 
+      {
+        //echo "Consulta ejecutada con éxito";
+      } 
+      else
+      {
+        //echo "Error al ejecutar la consulta: " . $mysqli->error;
+      }
+  }
+
+  function actualizarBeneficiarios80()
+  {
+    global $mysqli;
+    
+    $sql = "UPDATE `beneficiario` b
+    JOIN `digital_beneficiario` db ON b.id_usuario = db.id_usuario
+    SET b.dt_avance_registro = '80'
+    WHERE b.dt_avance_registro = '60'
+    AND (db.url_cv IS NOT NULL AND db.url_cv != '')
+    AND (db.url_curp IS NOT NULL AND db.url_curp != '')
+    AND (db.url_acta IS NOT NULL AND db.url_acta != '')
+    AND (db.url_com_domicilio IS NOT NULL AND db.url_com_domicilio != '')
+    AND (db.url_identificacion IS NOT NULL AND db.url_identificacion != '')
+    AND (db.url_seguro IS NOT NULL AND db.url_seguro != '')
+    AND (db.url_cuenta IS NOT NULL AND db.url_cuenta != '');";
+
+
+      if ($mysqli->query($sql) === TRUE) 
+      {
+        //echo "Consulta ejecutada con éxito";
+      } 
+      else
+      {
+        //echo "Error al ejecutar la consulta: " . $mysqli->error;
+      }
+  
+    
+  }
+
+
+  function actualizarBeneficiarios100()
+  {
+    global $mysqli;
+    
+    $sql = " UPDATE `beneficiario` b
+    JOIN `validacion_ben` db ON b.id_usuario = db.id_usuario
+    SET b.dt_avance_registro = '100'
+    WHERE b.dt_avance_registro = '80'";
+
+
+      if ($mysqli->query($sql) === TRUE) 
+      {
+        //echo "Consulta ejecutada con éxito";
+      } 
+      else
+      {
+        //echo "Error al ejecutar la consulta: " . $mysqli->error;
+      }
+  
+    
+  }
+
 
 
 
