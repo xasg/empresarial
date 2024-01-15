@@ -112,7 +112,7 @@
                    <h1></h1>
                 <?php } ?>
                 
-                <td><?php echo $cand['dt_avance_registro']; ?></td>
+                <td><?php echo $cand['dt_avance_registro'].'%'; ?></td>
 
                     
 
