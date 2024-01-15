@@ -119,19 +119,19 @@ function curpValida(curp) {
                 <div class="col-md-4">
                 <div class="form-group">
                   <label>Nombre(s):</label>
-                  <input type="text" class="form-control" onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_nombres'] ?>" pattern="[A-Za-z ]{1,30}" title="Proporcione un nombre correcto" required>
+                  <input type="text" class="form-control" onChange="conMayusculas(this)" value="<?php echo isset ( $beneficiario['dt_nombres']) ?>" pattern="[A-Za-z ]{1,30}" title="Proporcione un nombre correcto" required>   <!---SE AGREGA EL echo isset () PARA PODER EVITAR WARNINGS CUANDO SE REGRESAN EN LA PARTE DEL MENU ---->
                 </div>
                 </div>
                 <div class="col-md-4">
                 <div class="form-group">
                   <label>Apellido Paterno:</label>
-                  <input type="text" class="form-control" onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_apaterno']?>" pattern="[A-Za-z ]{1,30}" title="Proporcione un Apellido correcto" required>
+                  <input type="text" class="form-control" onChange="conMayusculas(this)" value="<?php echo isset ( $beneficiario['dt_apaterno'] )?>" pattern="[A-Za-z ]{1,30}" title="Proporcione un Apellido correcto" required>
                 </div>
                 </div>
                 <div class="col-md-4">
                 <div class="form-group">
                   <label>Apellido Materno:</label>
-                   <input type="text" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_amaterno']?>" pattern="[A-Za-z ]{1,30}" title="Proporcione un Apellido correcto" required>
+                   <input type="text" class="form-control"  onChange="conMayusculas(this)" value="<?php echo isset ( $beneficiario['dt_amaterno'] )?>" pattern="[A-Za-z ]{1,30}" title="Proporcione un Apellido correcto" required>
                 </div>
                 </div>              
               </div>
@@ -141,20 +141,20 @@ function curpValida(curp) {
                 <div class="form-group">
                   <label>CURP:</label>
                    <!--<input type="text" name="curp" class="form-control" value="<?php //echo $beneficiario['dt_curp'] ?>">-->
-                   <input type="text" name="curp" class="form-control" id="curp_input" oninput="validarInput(this)" placeholder="Ingrese su CURP"  value="<?php echo $beneficiario['dt_curp'] ?>" required>
+                   <input type="text" name="curp" class="form-control" id="curp_input" oninput="validarInput(this)" placeholder="Ingrese su CURP"  value="<?php echo isset ($beneficiario['dt_curp'] )?>" required>
                     <p id="resultado"></p>
                 </div>
                 </div>
                 <div class="col-md-4">
                 <div class="form-group">
                   <label>Teléfono(10 Dígitos):</label>
-                   <input type="text" name="telefono" class="form-control"  onChange="conMayusculas(this)"  maxlength="10" value="<?php echo $beneficiario['dt_telefono'] ?>" placeholder="Ejemplo:5546268266" pattern="[0-9]{10}" title="Proporcione un Teléfono correcto" required>
+                   <input type="text" name="telefono" class="form-control"  onChange="conMayusculas(this)"  maxlength="10" value="<?php echo isset ($beneficiario['dt_telefono']) ?>" placeholder="Ejemplo:5546268266" pattern="[0-9]{10}" title="Proporcione un Teléfono correcto" required>
                 </div>
                 </div> 
                 <div class="col-md-4">
                 <div class="form-group">
                   <label>Correo:</label>
-                   <input type="email" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_correo']?>" required>
+                   <input type="email" class="form-control"  onChange="conMayusculas(this)" value="<?php echo isset ($beneficiario['dt_correo'])?>" required>
                 </div>
                 </div>           
               </div>
@@ -162,8 +162,10 @@ function curpValida(curp) {
                 <div class="col-md-6">
                 <div class="form-group">
                   <label>Dirección (Calle y Número):</label>
-                   <!-- <input type="text" name="direccion" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_direccion']?>" pattern="[A-Za-z\# ]{1,1000}" title="Proporcione una dirección correcto" required> -->
-                   <input type="text" name="direccion" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_direccion']?>" pattern="[A-Za-0-9]+" title="Proporcione una dirección correcto" required>
+                   <!-- <input type="text" name="direccion" class="form-control"  onChange="conMayusculas(this)" value="<?php //echo isset( $beneficiario['dt_direccion'])?>" pattern="[A-Za-z\# ]{1,1000}" title="Proporcione una dirección correcto" required> -->
+                   <!--<input type="text" name="direccion" class="form-control"  onChange="conMayusculas(this)" value="<?php //echo isset ( $beneficiario['dt_direccion'])?>" pattern="[A-Za-0-9]+" title="Proporcione una dirección correcto" required>-->
+                   <input type="text" name="direccion" class="form-control" onChange="conMayusculas(this)" value="<?php echo isset($beneficiario['dt_direccion']) ? htmlspecialchars($beneficiario['dt_direccion']) : ''; ?>" pattern="[A-Za-z0-9# ]+" title="Proporcione una dirección correcta" required>   <!--Se usa este input para poder agregar el caracter # en el registro  y htmlspecialchars para el uso del mismo # y evitar inyeccion de codigo --->
+
                 </div>
                 </div>
                 <div class="col-md-6">
