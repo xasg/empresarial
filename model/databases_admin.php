@@ -168,7 +168,7 @@ function run_candidato()
         LEFT JOIN empresa ON(rel_beneficiario_vacante.id_empresa=empresa.id_usuario)
         LEFT JOIN vacante ON(rel_beneficiario_vacante.id_vacante=vacante.id_vacante)
         LEFT JOIN validacion_ben ON(beneficiario.id_usuario=validacion_ben.id_usuario)
-        WHERE beneficiario.tp_status_beneficiario=0 AND dt_eval_aplica<=1 ORDER BY beneficiario.dt_fh_registro DESC ";
+        WHERE beneficiario.tp_status_beneficiario=0 AND dt_eval_aplica <=1 AND YEAR(beneficiario.`dt_fh_registro`) LIKE '20%'  ORDER BY beneficiario.dt_fh_registro DESC ";
         // -- WHERE beneficiario.tp_status_beneficiario=0 AND dt_eval_aplica<=1 AND beneficiario.`dt_fh_registro` LIKE '%2023%' ";
         return $mysqli->query($sql);
 }
