@@ -5,10 +5,8 @@
    if(isset($_SESSION['id'])){  
    $id=$_SESSION["id"];   
    $empresas = run_empresas();
-   $conteos = count_empresas();
- foreach($conteos as $num){
-     $conteo = $num['numeralia'];
- }
+   $empresasVacantes = count_empresas();
+   $conteo = $empresasVacantes['numeralia'];
   }else{
     // Si no está logueado lo redireccion a la página de login.
     header("HTTP/1.1 302 Moved Temporarily"); 
@@ -112,22 +110,26 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                             <label for="" class="form-label">Empresas registradas validadas [<?php echo $conteo; ?>]</label>
-                                <select id="id_usuario_empresa" name="id_usuario_empresa"   class="form-control" name="hr_inicio" required>
-                                    <option selected>Selecciona la empresa</option>
-                                    <?php
-                                    $conteos;
-                                    foreach ($empresas as $key => $value) {
-                                        $i++;
-                                    ?>
-                                    <option value=<?php echo $value['dt_nombre_comercial']; ?> > <?php echo $value['dt_nombre_comercial']?></option>
-                                    <!-- <option id="id_usuario" name="id_usuario"  > <?php echo $value['dt_nombre_comercial']?></option> -->
-
-                                    <?php 
-                                        
-                                         
-                                    }
-                                    ?>
-                                </select>
+                                          <select id="id_usuario_empresa" name="id_usuario_empresa"   class="form-control" name="hr_inicio" required>
+                                            <option selected>Selecciona la empresa</option>
+                                            <?php
+                                            // $conteos;
+                                            foreach ($empresas as $value) {
+                                                $i++;
+                                            ?>
+                                              <?php
+                                                if (  $value['dt_nombre_comercial'] != null) {
+                                              ?>
+                                                <option value=<?php echo $value['id_usuario'];?> ><?php echo $i." - ".$value['dt_nombre_comercial'];?></option>
+                                              <?php  
+                                                }else{
+                                              ?>
+                                                <option value=<?php echo $value['id_usuario']; ?> ><?php echo $i."- No ha registrado nombre combercial (".$value['dt_razon_social'].")";?></option>
+                                            <?php 
+                                              } 
+                                            }
+                                            ?>
+                                        </select>
                                 
                             </div>
                         </div>                  

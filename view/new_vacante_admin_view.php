@@ -9,9 +9,7 @@
    $vacante = run_vacantes();
    $empresas = run_empresas();
    $conteos = count_empresas();
-   foreach($conteos as $num){
-       $conteo = $num['numeralia'];
-   }
+    $conteo = $conteos['numeralia'];
   }else{
     // Si no está logueado lo redireccion a la página de login.
     header("HTTP/1.1 302 Moved Temporarily"); 
