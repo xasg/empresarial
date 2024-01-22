@@ -75,16 +75,16 @@
                     <div class="col-md-12">
                         <ul class="wizard-steps">
                           <li class="finalizado">
-                            <a href="#"><h5>Datos</h5> <span>Personales<?php //echo $id; ?></span></a>
+                            <a href="datospersonales.php"><h5>Datos</h5> <span>Personales<?php //echo $id; ?></span></a>
                           </li>
                           <li class="finalizado">
-                             <a href="#"><h5>Datos</h5> <span>Academicos</span></a>
+                             <a href="datosacademicos.php"><h5>Datos</h5> <span>Academicos</span></a>
                           </li>
                           <li class="finalizado">
-                            <a href="#"><h5>Datos</h5> <span>Complementarios</span></a>
+                            <a href="datoscomplementarios.php"><h5>Datos</h5> <span>Complementarios</span></a>
                           </li>            
                           <li class="finalizado">
-                            <a href="#"><h5>Archivos</h5> <span>Digitales</span></a>
+                            <a href="digitales.php"><h5>Archivos</h5> <span>Digitales</span></a>
                           </li>     
                            <li class="completed">
                             <a href="#"><h5>Seleccionar</h5> <span>Vacante</span></a>

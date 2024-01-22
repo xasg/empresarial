@@ -141,20 +141,20 @@ function curpValida(curp) {
                 <div class="form-group">
                   <label>CURP:</label>
                    <!--<input type="text" name="curp" class="form-control" value="<?php //echo $beneficiario['dt_curp'] ?>">-->
-                   <input type="text" name="curp" class="form-control" id="curp_input" oninput="validarInput(this)" placeholder="Ingrese su CURP"  value="<?php echo isset ($beneficiario['dt_curp'] )?>" required>
+                   <input type="text" name="curp" class="form-control" id="curp_input" oninput="validarInput(this)" placeholder="Ingrese su CURP"  value="<?php echo $beneficiario['dt_curp'] ?>" required>
                     <p id="resultado"></p>
                 </div>
                 </div>
                 <div class="col-md-4">
                 <div class="form-group">
                   <label>Teléfono(10 Dígitos):</label>
-                   <input type="text" name="telefono" class="form-control"  onChange="conMayusculas(this)"  maxlength="10" value="<?php echo isset ($beneficiario['dt_telefono']) ?>" placeholder="Ejemplo:5546268266" pattern="[0-9]{10}" title="Proporcione un Teléfono correcto" required>
+                   <input type="text" name="telefono" class="form-control"  onChange="conMayusculas(this)"  maxlength="10" value="<?php echo $beneficiario['dt_telefono'] ?>" placeholder="Ejemplo:5546268266" pattern="[0-9]{10}" title="Proporcione un Teléfono correcto" required>
                 </div>
                 </div> 
                 <div class="col-md-4">
                 <div class="form-group">
                   <label>Correo:</label>
-                   <input type="email" class="form-control"  onChange="conMayusculas(this)" value="<?php echo isset ($beneficiario['dt_correo'])?>" required>
+                   <input type="email" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_correo']?>" required>
                 </div>
                 </div>           
               </div>
@@ -164,14 +164,14 @@ function curpValida(curp) {
                   <label>Dirección (Calle y Número):</label>
                    <!-- <input type="text" name="direccion" class="form-control"  onChange="conMayusculas(this)" value="<?php //echo isset( $beneficiario['dt_direccion'])?>" pattern="[A-Za-z\# ]{1,1000}" title="Proporcione una dirección correcto" required> -->
                    <!--<input type="text" name="direccion" class="form-control"  onChange="conMayusculas(this)" value="<?php //echo isset ( $beneficiario['dt_direccion'])?>" pattern="[A-Za-0-9]+" title="Proporcione una dirección correcto" required>-->
-                   <input type="text" name="direccion" class="form-control" onChange="conMayusculas(this)" value="<?php echo isset($beneficiario['dt_direccion']) ? htmlspecialchars($beneficiario['dt_direccion']) : ''; ?>" pattern="[A-Za-z0-9# ]+" title="Proporcione una dirección correcta" required>   <!--Se usa este input para poder agregar el caracter # en el registro  y htmlspecialchars para el uso del mismo # y evitar inyeccion de codigo --->
+                   <input type="text" name="direccion" class="form-control" onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_direccion'] ? htmlspecialchars($beneficiario['dt_direccion']) : ''; ?>" pattern="[A-Za-z0-9# ]+" title="Proporcione una dirección correcta" required>   <!--Se usa este input para poder agregar el caracter # en el registro  y htmlspecialchars para el uso del mismo # y evitar inyeccion de codigo --->
 
                 </div>
                 </div>
                 <div class="col-md-6">
                 <div class="form-group">
                   <label>Localidad, colonia o barrio:</label>
-                   <input type="text" name="colonia" class="form-control"  onChange="conMayusculas(this)" value="<?php echo isset( $beneficiario['dt_colonia'] ) ?>"  pattern="[A-Z-a-z]" title="Proporcione un nombre correcto"required>
+                   <input type="text" name="colonia" class="form-control"  onChange="conMayusculas(this)" value="<?php echo $beneficiario['dt_colonia']  ?>"  pattern="[A-Z-a-z]" title="Proporcione un nombre correcto"required>
                 </div>
                 </div>                           
               </div>
@@ -179,14 +179,14 @@ function curpValida(curp) {
                 <div class="col-md-6">
                 <div class="form-group">
                   <label>Municipio:</label>
-                  <input type="text" name="municipio" class="form-control"  onChange="conMayusculas(this)" value="<?php echo isset( $beneficiario['dt_municipio'] )?>" pattern="[A-Za-z ]{1,50}" title="Proporcione un nombre correcto" required>
+                  <input type="text" name="municipio" class="form-control"  onChange="conMayusculas(this)" value="<?php echo  $beneficiario['dt_municipio'] ?>" pattern="[A-Za-z ]{1,50}" title="Proporcione un nombre correcto" required>
                 </div>
                 </div>
                         <div class="col-md-6">
                            <div class="form-group">
                               <!-- State Button -->
                               <label class="control-label">Entidad federativa:</label>
-                              <?php if(isset ($beneficiario['id_cat_entidad'])!=NULL){?>
+                              <?php if($beneficiario['id_cat_entidad']!=NULL){?>
                               <select class="form-control" name="entidad" onChange="conMayusculas(this)" required>
                               <?php 
                                  echo '<option value="'.$beneficiario['id_cat_entidad'].'">'.$beneficiario['nombre_entidad'].'</option>'
@@ -216,7 +216,7 @@ function curpValida(curp) {
                 <div class="col-md-3">
                 <div class="form-group">
                   <label>Codigo Postal:</label>
-                  <input type="text" name="cp" class="form-control" maxlength="5" value="<?php echo isset( $beneficiario['dt_cp'])?>" pattern="[0-9]{5}" title="Proporcione un Código Postal correcto" required>
+                  <input type="text" name="cp" class="form-control" maxlength="5" value="<?php echo  $beneficiario['dt_cp']?>" pattern="[0-9]{5}" title="Proporcione un Código Postal correcto" required>
                 </div>
                 </div>
                 <div class="col-md-3 col-md-offset-9">

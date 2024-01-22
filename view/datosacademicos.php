@@ -149,7 +149,7 @@ $entidad=run_entidad()
       <div class="form-group">
         <label>Matricula o Número de control</label>                          
 
-        <input type="text" name="matricula" class="form-control" value="<?php echo isset($beneficiario['dt_matricula']) ? $beneficiario['dt_matricula'] : ''; ?>" pattern="[A-Za-z0-9 ]{1,20}" title="Proporcione una matricula o número de control  correcto" required>
+        <input type="text" name="matricula" class="form-control" value="<?php echo $beneficiario['dt_matricula'] ? $beneficiario['dt_matricula'] : ''; ?>" pattern="[A-Za-z0-9 ]{1,20}" title="Proporcione una matricula o número de control  correcto" required>
       </div>
     </div>             
     <div class="col-md-3">
@@ -165,14 +165,14 @@ $entidad=run_entidad()
     <div class="col-md-2">
       <div class="form-group">
         <label>No. Periodo que cursa</label>
-        <input type="text" name="no_periodo" placeholder="Ejemplo: 8" maxlength="2" class="form-control" value="<?php echo isset ($beneficiario['dt_periodo_num']) ?>" pattern="[0-9]{1,2}" title="Proporcione un numero" required>
+        <input type="text" name="no_periodo" placeholder="Ejemplo: 8" maxlength="2" class="form-control" value="<?php echo $beneficiario['dt_periodo_num'] ?>" pattern="[0-9]{1,2}" title="Proporcione un numero" required>
       </div>
     </div>
 
     <div class="col-md-4">
       <div class="form-group">
         <label>Porcentaje de Créditos</label>
-        <input type="text" name="no_creditos" placeholder="Ejemplo: 80" class="form-control" value="<?php echo isset ($beneficiario['dt_creditos'] )?>" pattern="[0-9]{2,3}"  title="Proporcione un numero" required>
+        <input type="text" name="no_creditos" placeholder="Ejemplo: 80" class="form-control" value="<?php echo $beneficiario['dt_creditos'] ?>" pattern="[0-9]{2,3}"  title="Proporcione un numero" required>
       </div>
     </div> 
 

@@ -272,7 +272,7 @@
                 <div class="col-md-5">
                   <div class="col-md-12"> 
                            <label>COMPROBANTE DE CUENTA BANCARIA (Que muestre Banco, Tipo de Cuenta, Nombre y Clabe)
-                          <?php if(isset ($beneficiario['url_cuenta'])!=NULL){ ?>
+                          <?php if($beneficiario['url_cuenta']!=NULL){ ?>
                           <a href="<?php echo $beneficiario['url_cuenta'];?>" target="_black"> 
                             <label style="color: #0098A9;">Consultar</label></a>
                           <?php } ?></label>
