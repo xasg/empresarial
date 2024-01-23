@@ -70,7 +70,8 @@
                   <th class="text-center">CURP</th>
                   <th class="text-center">IES</th>
                   <th class="text-center">EMPRESA</th>
-                  <th class="text-center">FECHA DE REGISTRO</th> 
+                  <th class="text-center">FECHA DE REGISTRO</th>
+                  <th class="text-center">FECHA FIN DE REGISTRO</th>
                   <th class="text-center">ACCESOS</th>
                   <th class="text-center">ESTATUS</th>    
                   <th class="text-center">AVANCE</th>
@@ -91,6 +92,9 @@
                   <td><?php echo $cand['dt_nombre_ies']. "<br> <strong>".$cand['dt_nombre_carrera']."</strong>" ?></td>
                   <td><?php echo $cand['dt_razon_social']; ?></td>
                   <td class="text-center"><?php echo $cand['fecha']; ?></td>
+                  <!-----> 
+                  <td class="text-center"><?php echo $cand['dt_fin_registro']; ?></td>
+                  
                   <td><?php echo "usuario:".$cand['dt_correo']."<br>"."contraseña:".$cand['dt_password'] ?></td>
               <td class="text-center"><br><br>
                 <?php if($cand['tp_estatus']>=4 AND $cand['dt_eval_aplica']!=1 ){ ?>
