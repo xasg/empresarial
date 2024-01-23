@@ -132,13 +132,13 @@
                       <option selected disabled><?php echo $fecha_actual;?></option>
                       <?php
                                 
-                    $anio = date('Y') - 2019 ;
-                    // $yearf = date('Y') - $anio; 
-                  for ($i=0; $i <= $anio ; $i++) {
-                    $yearf = date('Y') - $i;
-                    echo "<option >".$yearf."</option>";
-                  }
-                  ?>
+                        $anio = date('Y') - 2019 ;
+                        // $yearf = date('Y') - $anio; 
+                      for ($i=0; $i <= $anio ; $i++) {
+                        $yearf = date('Y') - $i;
+                        echo "<option >".$yearf."</option>";
+                      }
+                      ?>
                     </select>
                     <button type="submit">Seleccionar</button>
                   </div>
