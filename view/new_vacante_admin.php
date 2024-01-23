@@ -151,7 +151,7 @@
                         <div class="col-md-4">
                            <div class="form-group">
                               <!-- Street 1 -->
-                              <label class="control-label">Número de vacantes</label>
+                              <label class="control-label">Número de Espacios</label>
                               <input type="text" class="form-control" name="numero" onChange="conMayusculas(this)" required>
                            </div>
                         </div>
