@@ -128,12 +128,12 @@
                       name="year"
                       id="year"
                     >
-                      <option selected>Select one</option>
+                    <option selected disabled><?php echo $fecha_actual;?></option>
                       <?php
                                 
                     $anio = date('Y') - 2019 ;
                     // $yearf = date('Y') - $anio; 
-                  for ($i=0; $i < $anio ; $i++) {
+                  for ($i=0; $i <= $anio ; $i++) {
                     $yearf = date('Y') - $i;
                     echo "<option >".$yearf."</option>";
                   }

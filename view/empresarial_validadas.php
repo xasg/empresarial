@@ -3,8 +3,9 @@
      session_start();
      mysqli_set_charset( $mysqli, 'utf8');
      $id=$_SESSION["id"];
-     $empresa = run_empresas();
-  
+    //  $empresa = run_empresas();
+     $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y') ;
+     $empresa = run_empresas($fecha_actual);
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -118,7 +119,32 @@
                       </ul>
                     </div>
                   </div>
-
+                                      
+                  <form action="empresarial_validadas.php" method="POST">
+                  <div class="mb-3">
+                    <label for="" class="form-label">Selecciona el periodo</label>
+                    <select
+                      class="form-select form-select-lg"
+                      name="year"
+                      id="year"
+                    >
+                    
+                      <option selected disabled><?php echo $fecha_actual;?></option>
+                      <?php
+                                
+                    $anio = date('Y') - 2019 ;
+                    // $yearf = date('Y') - $anio; 
+                  for ($i=0; $i <= $anio ; $i++) {
+                    $yearf = date('Y') - $i;
+                    echo "<option >".$yearf."</option>";
+                  }
+                  ?>
+                    </select>
+                    <button type="submit">Seleccionar</button>
+                  </div>
+                  
+                  
+                  </form>
                   <table id="example" class="table table-striped table-bordered" style="width:90% !important">  
                       <thead>
                             <tr>
