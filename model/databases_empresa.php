@@ -69,11 +69,11 @@ $sql="INSERT INTO empresa(id_empresa, id_usuario, dt_razon_social)
        VALUES (null, '{$id_user}', '{$nombre}')";
 $mysqli->query($sql);
 }
-function  crear_empresa_admin($id_user, $nombre)
+function  crear_empresa_admin($id_user, $nombreR, $nombreC)
 {
 global $mysqli;
 $sql="INSERT INTO empresa(id_empresa, id_usuario, dt_razon_social,dt_nombre_comercial) 
-       VALUES (null, '{$id_user}', '{$nombre}','{$nombre}')";
+       VALUES (null, '{$id_user}', '{$nombreR}','{$nombreC}')";
 $mysqli->query($sql);
 }
 

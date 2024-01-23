@@ -74,7 +74,7 @@ if(isset($_SESSION['id'])){
                 <!-- </div> -->
                </div>
           </div>
-            <br><br><br><br><br><br>
+            <br><br>
                   
                   <div class="col-md-12 m-auto">
                  <div class="panel-heading">
@@ -106,11 +106,13 @@ if(isset($_SESSION['id'])){
                <form action="../controller/new_empresa_admin.php" method="POST">
               <div class="container w-50"><br><h2>Datos de la empresa</h2><br> 
                   <div>
-                        <div class="col-md-12 m-5">
-                           <div class="form-group">
+                        <div class="col-md-12 m-5" >
+                           <div class="form-group col-md-6 "  >
                               <!-- Street 1 --><br>
+                              <label class="control-label">Razon Social:</label>
+                              <input type="text" class="form-control" name="nombreR" value="" pattern="[A-Za-z\. ]{1,50}" title="Proporcione un nombre correcto" onChange="conMayusculas(this)" >
                               <label class="control-label">Nombre comercial:</label>
-                              <input type="text" class="form-control" name="nombre" value="" pattern="[A-Za-z\. ]{1,50}" title="Proporcione un nombre correcto" onChange="conMayusculas(this)" required>
+                              <input type="text" class="form-control" name="nombreC" value="" pattern="[A-Za-z\. ]{1,50}" title="Proporcione un nombre correcto" onChange="conMayusculas(this)" required>
                            </div>
                         </div>
                        <div class="col-md-6 col-md-offset-3"><br><br>

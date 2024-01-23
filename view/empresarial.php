@@ -103,7 +103,7 @@
                   </div>
                 </div>
           </div>
-            <div class="row"><br><br><br>
+            <div class="row">
                   <div class="col-md-12 m-auto">
                     <div class="panel-heading">
                       <ul class="nav nav-tabs">
