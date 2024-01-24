@@ -69,12 +69,6 @@ if (isset($_REQUEST['enviarform'])) {
             <head>
             <meta charset="UTF-8">
             <title>Envio de email de practicas</title>';
-            $cuerpo = '
-            <!DOCTYPE html>
-            <html lang="es">
-            <head>
-            <meta charset="UTF-8">
-            <title>Envio de email de practicas</title>';
             $cuerpo .= ' 
             <style>
                 * {

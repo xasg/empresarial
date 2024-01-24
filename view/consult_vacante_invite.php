@@ -2,6 +2,12 @@
    include_once('../model/databases_empresa.php');
    session_start();
    mysqli_set_charset( $mysqli, 'utf8');
+   // Verificar si la sesión está iniciada
+    if (!isset($_SESSION['id'])) {
+      // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+      header('Location: ../index.php');
+      exit(); // Asegurarse de que el script se detenga después de la redirección
+    }
    $id=$_GET['vac'];
    $vac = run_vacanteinfo($id);
    $nom = run_vacante_info($id);

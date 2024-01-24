@@ -2,7 +2,14 @@
    include_once('../model/databases_admin.php');
    session_start();
    mysqli_set_charset($mysqli, 'utf8');
-   $beneficiarios = run_benefiaciario();
+   // Verificar si la sesión está iniciada
+    if (!isset($_SESSION['id'])) {
+      // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+      header('Location: ../index.php');
+      exit(); // Asegurarse de que el script se detenga después de la redirección
+    }
+    $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y');
+    $beneficiarios = run_benefiaciario($fecha_actual);
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -56,7 +63,8 @@
                         <ul class="nav nav-tabs">
                             <li class=""><a class="colora" href="empresarial.php" >Empresas</a></li>
                             <li class=""><a class="colora" href="candidato.php" >Candidatos</a></li>
-                            <li class="dropdown active">
+                            <li class="active"><a class="colora" href="beneficiario.php" >Beneficiarios</a></li>
+                            <!-- <li class="dropdown active">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="beneficiario.php">Beneficiarios
 							<span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -66,7 +74,7 @@
 							  <li><a href="empresarial2020.php">2020</a></li>
 							  <li><a href="empresarial2019.php">2019</a></li>
 							</ul>
-						    </li>
+						    </li> -->
                     <li><a class="colora" href="noaplica.php" >No aplica</a></li>
                     <li class=""><a class="colora" href="new_vacante_admin.php" >Vacantes</a></li>
                 </ul>
@@ -74,47 +82,75 @@
                </div>
   </div>
 
-  <div class="row"><br><br><br>
-      <table id="example" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-				  <th>ID</th>
+  <div class="row">
+    <form action="beneficiario.php" method="POST">
+      <div class=" col-md-3 " style="margin-left:40px;">
+        <label for="" class="form-label">Selecciona el periodo</label>
+          <select class="row form-control col-md-3" name="year" id="year">
+            <option selected disabled><?php echo $fecha_actual;?></option>
+              <?php
+                $anio = date('Y') - 2019 ;
+                    // $yearf = date('Y') - $anio; 
+                  for ($i=0; $i <= $anio ; $i++) {
+                    $yearf = date('Y') - $i;
+                    echo "<option >".$yearf."</option>";
+                  }
+              ?>
+          </select>
+              <button class="btn btn-md " type="submit">Seleccionar</button>
+      </div>
+    </form>
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>  
+                  <th>#</th>
                   <th>NOMBRE</th>
-                  <th>CURP</th>
-                  <th>IES / CARRERA </th>
-                  <th>EMPRESA</th>
-                  <th>CLAVE TRANFER</th>
-                  <th>CLABE</th>
+                  <th>EMPRESA</th> 
+                  <th>VACANTE</th>
                   <th>INICIO ACTIVIDADES</th>
                   <th>FIN ACTIVIDADES</th>
+                  <th>PAGO</th>
+                  <th>PERFIL</th>
+                  <th>CONVENIO</th>
+                  <th>PAQUETERIA</th>
             </tr>
-        </thead>
+          </thead>
               <tbody>
                 <?php
+                 $counter = 1;
                 while($ben = $beneficiarios->fetch_assoc())
                 {
                 ?>
                 <tr>
-				  <td><?php echo $ben['id_usuario']; ?></td>
-                  <td><?php echo $ben['dt_nombres']. " ".$ben['dt_apaterno']. " ".$ben['dt_amaterno']. "<br>" ?>
+                  <td class="text-center"><?php echo $counter++ ?></td>
+				  <td><?php echo $ben['dt_nombres']. " ".$ben['dt_apaterno']. " ".$ben['dt_amaterno']. "<br>" ?>
                     <?php echo $ben['dt_correo']."<br>"."Contraseña:".$ben['dt_password'] ?>
                     <a href="editar_ben_admin.php?ben=<?php echo $ben['id_usuario']; ?>">                    
                     <span class="glyphicon glyphicon-edit" style="color: #ff5733"></span></a>
                   </td>
-                  <td><?php echo $ben['dt_curp']; ?></td>
-                   <td><?php echo $ben['dt_nombre_ies']. "<br>".$ben['dt_nombre_carrera']; ?></td>
                   <td><?php echo $ben['dt_razon_social']; ?></td>
-                  <td><?php echo $ben['trans']; ?></td>                  
-                  <td><?php echo $ben['dt_clabe']; ?></td>
-                  <td><?php echo $ben['dt_inicio']; ?></td>
-                  <td><?php echo $ben['dt_termino']; ?></td>
+                  <td><?php echo strtoupper($ben['dt_nombre']); ?></td>
+                  <td><?php echo strtoupper($ben['dt_inicio']); ?></td>
+                  <td><?php echo strtoupper($ben['dt_termino']); ?></td>
+                  <td><?php echo "$ ".$ben['dt_apoyo']; ?></td>
+                  <td class="text-center"><br><a href="beneficiario_juridico.php?ben=<?php echo $ben['id_usuario']; ?>">
+                    <button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-search'></i>&nbsp;&nbsp;Ver</button>
+                    </a>
+                  </td>
+                  <td>
+                    <?php if($ben['url_convenio1']!=NULL) { ?>
+                      <a target="_blank" class="colora" href="<?php echo str_replace("../","http://empresarial.fese.mx/",$ben['url_convenio1'])?> "><br><button type="button" class="btn btn-success" ><i class='glyphicon glyphicon-search'></i> consultar</button></a>
+                    <?php } else { ?>
+                      <br><button type="button" class="btn btn-info" data-toggle="modal" data-target="#convenio" data-nombre="<?php echo $ben['dt_nombres']. " ".$ben['dt_apaterno']. " ".$ben['dt_amaterno']; ?>" data-id="<?php echo $ben['id_usuario']?>"><i class='glyphicon glyphicon-upload'></i>&nbsp;&nbsp;&nbsp;&nbsp;subir&nbsp;&nbsp;&nbsp;&nbsp;</button> 
+                   <?php } ?>
+                 </td>
+                 <td><?php echo $ben['dt_paqueteria']."<br>".$ben['dt_guia']?></td>
                 </tr> 
                 <?php
                   }
                 ?>               
-              </tbody> 
-        
-      </table>
+              </tbody>         
+        </table>
   </div>                    
 </div>
 

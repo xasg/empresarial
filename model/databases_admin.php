@@ -64,7 +64,7 @@ return $result->fetch_assoc();
 
 
 
-function run_empresas()
+function run_empresas($fecha)
 {
   global $mysqli, $result;
   $sql ="SELECT empresa.id_usuario, usuario.dt_password, usuario.dt_correo, `nombre_entidad`, `dt_razon_social`, dt_nombre_comercial,`dt_rfc`, `dt_nombre_contacto`, `dt_correo_contacto`,`dt_telefono_contacto`,`dt_nombre`, url_convenio, empresa.`tp_status` AS estatus FROM `empresa`
@@ -72,19 +72,19 @@ LEFT JOIN usuario ON(empresa.id_usuario=usuario.id_usuario)
 LEFT JOIN vacante ON(empresa.id_usuario=vacante.id_usuario) 
 LEFT JOIN cor_digital_empresa ON(empresa.id_usuario=cor_digital_empresa.id_usuario)
 LEFT JOIN cat_entidad ON(empresa.id_cat_entidad=cat_entidad.id_cat_entidad) 
-Where empresa.tp_status = 1 
+Where empresa.tp_status = 1 and YEAR(empresa.dt_fh_registro) = '$fecha'
 GROUP BY empresa.id_usuario ORDER BY  empresa.dt_fh_registro DESC";
         return $mysqli->query($sql);
 }
-function run_empresas_baja()
+function run_empresas_baja($fecha)
 {
   global $mysqli, $result;
-  $sql ="SELECT empresa.id_usuario, usuario.dt_password, usuario.dt_correo, `nombre_entidad`, `dt_razon_social`,dt_nombre_comercial,`dt_rfc`, `dt_nombre_contacto`, `dt_correo_contacto`,`dt_telefono_contacto`,`dt_nombre`, url_convenio, empresa.`tp_status` AS estatus FROM `empresa`
+  $sql ="SELECT empresa.id_empresa,empresa.id_usuario, usuario.dt_password, usuario.dt_correo, `nombre_entidad`, `dt_razon_social`,dt_nombre_comercial,`dt_rfc`, `dt_nombre_contacto`, `dt_correo_contacto`,`dt_telefono_contacto`,`dt_nombre`, url_convenio, empresa.`tp_status` AS estatus FROM `empresa`
 LEFT JOIN usuario ON(empresa.id_usuario=usuario.id_usuario)
 LEFT JOIN vacante ON(empresa.id_usuario=vacante.id_usuario) 
 LEFT JOIN cor_digital_empresa ON(empresa.id_usuario=cor_digital_empresa.id_usuario)
 LEFT JOIN cat_entidad ON(empresa.id_cat_entidad=cat_entidad.id_cat_entidad) 
-Where empresa.tp_status = -1
+Where empresa.tp_status = -1 AND YEAR(empresa.dt_fh_registro) = '$fecha'
 GROUP BY empresa.id_usuario ORDER BY  empresa.dt_fh_registro DESC";
         return $mysqli->query($sql);
 }
@@ -174,7 +174,7 @@ function run_candidato()
 }
 
 
-function run_benefiaciario()
+function run_benefiaciario($fecha)
 {
   global $mysqli, $result;
   $sql ="SELECT empresa.dt_razon_social, beneficiario.id_usuario, dt_correo, `dt_nombres`,`dt_apaterno`,`dt_amaterno`,`dt_curp`,`dt_nombre_carrera`,`dt_nombre_ies`,`tp_status_beneficiario`, vacante.dt_nombre, vacante.dt_inicio, vacante.dt_termino, vacante.dt_apoyo, dt_clabe, SUBSTRING(dt_clabe, 1, 3) AS banco, url_cuenta, url_convenio1, url_convenio2, dt_paqueteria, usuario.dt_password, dt_guia,(SELECT dt_nombre FROM cat_banco WHERE id_banco=banco) AS banco ,(SELECT dt_clave_tranf FROM cat_banco WHERE id_banco=banco) AS trans , CAST(beneficiario.dt_fh_registro AS DATE) AS fecha FROM beneficiario
@@ -185,7 +185,7 @@ function run_benefiaciario()
         LEFT JOIN empresa ON(rel_beneficiario_vacante.id_empresa=empresa.id_usuario)
         LEFT JOIN vacante ON(rel_beneficiario_vacante.id_vacante=vacante.id_vacante)
         LEFT JOIN digital_beneficiario ON(beneficiario.id_usuario=digital_beneficiario.id_usuario)
-        WHERE `tp_status_beneficiario`=1 AND year(beneficiario.`dt_fh_registro`) =  year(curdate())-1";
+        WHERE `tp_status_beneficiario`=1 AND year(beneficiario.`dt_fh_registro`) =  '{$fecha}'";
         return $mysqli->query($sql);
 }
 
@@ -324,7 +324,73 @@ function update_validacion($id, $valida, $curp, $acta, $domicilio, $identificaci
 }
 
 
+// CREACION DE EMPRESAS
+function  crear_empresa_admin($id_user, $nombreR, $nombreC,$entidad)
+{
+global $mysqli;
+$sql="INSERT INTO empresa(id_empresa, id_usuario, dt_razon_social,dt_nombre_comercial,id_cat_entidad) 
+       VALUES (null, '{$id_user}', '{$nombreR}','{$nombreC}','{$entidad}')";
+$mysqli->query($sql);
+}
 
+function crear_digital_empresa($id_user)
+{
+global $mysqli;
+$sql="INSERT INTO cor_digital_empresa(id_digital, id_usuario) VALUES (null, '{$id_user}')";
+$mysqli->query($sql);
+}
+
+function crear_estatus($id_user)
+{
+global $mysqli;
+$sql="INSERT INTO estatus(id_estatus, id_usuario) VALUES (null, '{$id_user}')";
+$mysqli->query($sql);
+}
+
+function crear_usuario($correo, $password)
+{
+global $mysqli;
+$sql="INSERT INTO usuario(id_usuario, dt_correo, dt_password) VALUES (null, '{$correo}', '{$password}')";
+$mysqli->query($sql);
+}
+
+/** usado para consultar datos de acceso del login **/
+
+function get_user_acces($correo)
+{
+  global $mysqli;
+  $sql = "SELECT estatus.tp_estatus, usuario.id_usuario,dt_password, tp_usuario FROM usuario 
+          LEFT JOIN estatus ON(usuario.id_usuario=estatus.id_usuario)
+          WHERE dt_correo = '{$correo}'";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+
+function get_limit_user(){
+  global $mysqli;
+  $sql ="SELECT * FROM `usuario` ORDER BY id_usuario desc LIMIT 1";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+
+// Eliminar registro de usuarios y de empresas
+
+function delete_empresa($idempresa){
+  global $mysqli;
+  $sql ="DELETE FROM empresa WHERE id_empresa = '{$idempresa}'";
+  return $mysqli->query($sql);
+}
+function delete_empresa_usuario($idusuario){
+  global $mysqli;
+  $sql ="DELETE FROM usuario WHERE id_usuario = '{$idusuario}'";
+  return $mysqli->query($sql);
+}
+
+function delete_empresa_usuario_vacante($idusuario){
+  global $mysqli;
+  $sql ="DELETE FROM vacante WHERE id_usuario = '{$idusuario}'";
+  return $mysqli->query($sql);
+}
 
 function insert_actividades($dateinicio, $datefin)
 {
