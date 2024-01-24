@@ -1,11 +1,18 @@
 <?php   
-     include_once('../model/databases_admin.php');
-     session_start();
-     mysqli_set_charset( $mysqli, 'utf8');
-     $id=$_SESSION["id"];
-    //  $fecha_actual = date('Y');
-    $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y') ;
-     $empresa = run_empresas_pendiente($fecha_actual);
+include_once('../model/databases_admin.php');
+session_start();
+mysqli_set_charset($mysqli, 'utf8');
+
+// Verificar si la sesión está iniciada
+if (!isset($_SESSION['id'])) {
+    // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+    header('Location: ../index.php');
+    exit(); // Asegurarse de que el script se detenga después de la redirección
+}
+
+$id = $_SESSION['id'];
+$fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y');
+$empresa = run_empresas_pendiente($fecha_actual);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -70,7 +77,7 @@
       <div id="navbar1" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Inicio</a></li>
-          <li><a href="vacantes.php">Vacantes</a></li>
+          <li><a href="new_vacante_admin_view.php">Vacantes</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Perfil <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">

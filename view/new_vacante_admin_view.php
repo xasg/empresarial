@@ -104,8 +104,8 @@
       </div>
       <div id="navbar1" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Inicio</a></li>
-          <li><a href="vacantes.php">Vacantes</a></li>
+          <li ><a href="#">Inicio</a></li>
+          <li class="active"><a href="#">Vacantes</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Perfil <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
