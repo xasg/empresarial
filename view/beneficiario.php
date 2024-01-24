@@ -63,7 +63,8 @@
                         <ul class="nav nav-tabs">
                             <li class=""><a class="colora" href="empresarial.php" >Empresas</a></li>
                             <li class=""><a class="colora" href="candidato.php" >Candidatos</a></li>
-                            <li class="dropdown active">
+                            <li class="active"><a class="colora" href="beneficiario.php" >Beneficiarios</a></li>
+                            <!-- <li class="dropdown active">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="beneficiario.php">Beneficiarios
 							<span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -73,7 +74,7 @@
 							  <li><a href="empresarial2020.php">2020</a></li>
 							  <li><a href="empresarial2019.php">2019</a></li>
 							</ul>
-						    </li>
+						    </li> -->
                     <li><a class="colora" href="noaplica.php" >No aplica</a></li>
                     <li class=""><a class="colora" href="new_vacante_admin.php" >Vacantes</a></li>
                 </ul>
