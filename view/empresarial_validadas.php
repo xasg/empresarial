@@ -193,7 +193,7 @@
                                   <?php } ?>
                                 </td>
                                 <td class="text-center m-2">
-                                  <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-primary" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
+                                  <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
                                   <?php
                                   if ($emp['estatus'] == 0 ) {
                                   ?>
