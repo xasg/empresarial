@@ -1,6 +1,12 @@
 <?php   
    include_once('../model/databases_admin.php');
    session_start();
+   // Verificar si la sesión está iniciada
+    if (!isset($_SESSION['id'])) {
+      // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+      header('Location: ../index.php');
+      exit(); // Asegurarse de que el script se detenga después de la redirección
+    }
    mysqli_set_charset($mysqli, 'utf8');
    $beneficiarios = run_benefiaciario();
    ?>

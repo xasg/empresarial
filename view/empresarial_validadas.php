@@ -2,9 +2,16 @@
      include_once('../model/databases_admin.php');
      session_start();
      mysqli_set_charset( $mysqli, 'utf8');
+     // Verificar si la sesión está iniciada
+      if (!isset($_SESSION['id'])) {
+        // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+        header('Location: ../index.php');
+        exit(); // Asegurarse de que el script se detenga después de la redirección
+      }
      $id=$_SESSION["id"];
-     $empresa = run_empresas();
-  
+    //  $empresa = run_empresas();
+     $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y') ;
+     $empresa = run_empresas($fecha_actual);
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -104,21 +111,45 @@
                 </div>
           </div>
             
-            <div class="row"><br><br><br>
+            <div class="row">
                   <div class="col-md-12 m-auto">
                     <div class="panel-heading">
                       <ul class="nav nav-tabs">
                           <li class="active"><a class="colora" href="#" >Empresas</a></li>
                           <li ><a class="colora" href="new_empresa_admin.php" >Registrar empresa</a></li>
                       </ul>
-                      <ul class="nav nav-tabs">
+                      <ul class="nav nav-tabs"><br>
                         <li><a class="colora" href="empresarial.php" >Nuevas / Pendientes</a></li>
                         <li class="active"><a class="colora" href="#" >Validadas</a></li>
                         <li ><a class="colora" href="empresarial_bajas.php" >Bajas</a></li>
                       </ul>
                     </div>
                   </div>
-
+                                      
+                  <form action="empresarial_validadas.php" method="POST">
+                  <div class=" col-md-3 " style="margin-left:40px;">
+                    <label for="" class="form-label">Selecciona el periodo</label>
+                    <select
+                      class="row form-control col-md-3"
+                      name="year"
+                      id="year"
+                    >
+                    <option selected disabled><?php echo $fecha_actual;?></option>
+                      <?php
+                                
+                    $anio = date('Y') - 2019 ;
+                    // $yearf = date('Y') - $anio; 
+                  for ($i=0; $i <= $anio ; $i++) {
+                    $yearf = date('Y') - $i;
+                    echo "<option >".$yearf."</option>";
+                  }
+                  ?>
+                    </select>
+                    <button class="btn btn-md " type="submit">Seleccionar</button>
+                  </div>
+                  
+                  
+                </form>
                   <table id="example" class="table table-striped table-bordered" style="width:90% !important">  
                       <thead>
                             <tr>
@@ -162,7 +193,7 @@
                                   <?php } ?>
                                 </td>
                                 <td class="text-center m-2">
-                                  <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
+                                  <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
                                   <?php
                                   if ($emp['estatus'] == 0 ) {
                                   ?>
