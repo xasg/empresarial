@@ -261,8 +261,36 @@ function actualizarBeneficiarios40($id)
     
   }
 
+  // Insertar la ies en caso de que el candidato seleccione Otros
+  function insert_ies($nombreescuela){
+    global $mysqli;
+    $sql = "INSERT INTO cat_ies (id_cat_ies, dt_nombre_ies) VALUES ('act', '{$nombreescuela}')";
+    return $mysqli->query($sql);
+  }
+  
+// Buscar el catalogo 
+function buscar_ies($nombreescuela){
+  global $mysqli;
+  $sql = "SELECT * FROM cat_ies WHERE id_cat_ies = 'act' AND dt_nombre_ies = '{$nombreescuela}'";
+  $result = $mysqli->query($sql);  // Corregido el nombre de la variable
+  $id_general = $result->fetch_assoc();
+  return $id_final = $id_general['id'];
+}
 
+// Actualizar el catalogo
+function update_ies($id_escuela){
+  global $mysqli;
+  $sql = "UPDATE cat_ies SET id_cat_ies = '{$id_escuela}' WHERE id = '{$id_escuela}'";
+  $mysqli->query($sql);  // Corregido el nombre de la variable
+}
 
+function buscar_ies_final($id_ies,$nombreescuela){
+  global $mysqli;
+  $sql = "SELECT * FROM cat_ies WHERE id = '{$id_ies}' AND dt_nombre_ies = '{$nombreescuela}'";
+  $result = $mysqli->query($sql);  // Corregido el nombre de la variable
+  $id_general = $result->fetch_assoc();
+  return $id_final = $id_general['id'];
+}
 
 function insert_relacion($id, $empresa, $vacante)
 {

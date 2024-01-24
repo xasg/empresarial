@@ -8,7 +8,8 @@
       header('Location: ../index.php');
       exit(); // Asegurarse de que el script se detenga después de la redirección
     }
-   $beneficiarios = run_benefiaciario();
+    $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y');
+    $beneficiarios = run_benefiaciario($fecha_actual);
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -60,21 +61,40 @@
           <div class="row"><br><br><br>
                <div class="col-md-12">
                  <div class="panel-heading">
+                  
                         <ul class="nav nav-tabs">
                            <li class="dropdown active">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="empresarial_juridico.php">Beneficiarios
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">                         
+                        <a  href="empresarial_juridico.php">Beneficiarios</a>
+                        <!-- <span class="caret"></span></a> -->
+                        <!-- <ul class="dropdown-menu">                         
                           <li><a href="administracion2021.php">2021</a></li>
-						   <li><a href="administracion2020.php">2020</a></li>
-                        </ul>
+						               <li><a href="administracion2020.php">2020</a></li>
+                        </ul> -->
                       </li>
                         </ul>
                 </div>
                </div>
           </div>
 
-  <div class="row"><br><br><br>
+  <div class="row">
+  <div class="row">
+    <form action="administracion.php" method="POST">
+      <div class=" col-md-3 " style="margin-left:40px;">
+        <label for="" class="form-label">Selecciona el periodo</label>
+          <select class="row form-control col-md-3" name="year" id="year">
+            <option selected disabled><?php echo $fecha_actual;?></option>
+              <?php
+                $anio = date('Y') - 2019 ;
+                    // $yearf = date('Y') - $anio; 
+                  for ($i=0; $i <= $anio ; $i++) {
+                    $yearf = date('Y') - $i;
+                    echo "<option >".$yearf."</option>";
+                  }
+              ?>
+          </select>
+              <button class="btn btn-md " type="submit">Seleccionar</button>
+      </div>
+    </form><br>
       <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
