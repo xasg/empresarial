@@ -8,7 +8,8 @@
       header('Location: ../index.php');
       exit(); // Asegurarse de que el script se detenga después de la redirección
     }
-   $beneficiarios = run_benefiaciario();
+    $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y');
+    $beneficiarios = run_benefiaciario();
    ?>
 <!DOCTYPE html>
 <html lang="es">
