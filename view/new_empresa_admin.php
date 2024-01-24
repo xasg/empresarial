@@ -113,6 +113,18 @@ if(isset($_SESSION['id'])){
                               <input type="text" class="form-control" name="nombreR" value="" pattern="[A-Za-z\. ]{1,50}" title="Proporcione un nombre correcto" onChange="conMayusculas(this)" >
                               <label class="control-label">Nombre comercial:</label>
                               <input type="text" class="form-control" name="nombreC" value="" pattern="[A-Za-z\. ]{1,50}" title="Proporcione un nombre correcto" onChange="conMayusculas(this)" required>
+                              <label class="control-label">Entidad:</label>
+                              <select  class="form-control" name="entidad"id="entidad">
+                              <option >--</option>      
+                                 <?php 
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                       ?>
+                                       <option  value="<?php echo $row['id_entidad']; ?>"><?php echo $row['id_entidad'].'-'.$row['nombre_entidad']; ?></option>      
+                                       <?php
+                                    }
+                                 ?>
+                                 
+                              </select>
                            </div>
                         </div>
                        <div class="col-md-6 col-md-offset-3"><br><br>

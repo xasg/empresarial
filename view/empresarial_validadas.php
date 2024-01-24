@@ -105,14 +105,14 @@
                 </div>
           </div>
             
-            <div class="row"><br><br><br>
+            <div class="row">
                   <div class="col-md-12 m-auto">
                     <div class="panel-heading">
                       <ul class="nav nav-tabs">
                           <li class="active"><a class="colora" href="#" >Empresas</a></li>
                           <li ><a class="colora" href="new_empresa_admin.php" >Registrar empresa</a></li>
                       </ul>
-                      <ul class="nav nav-tabs">
+                      <ul class="nav nav-tabs"><br>
                         <li><a class="colora" href="empresarial.php" >Nuevas / Pendientes</a></li>
                         <li class="active"><a class="colora" href="#" >Validadas</a></li>
                         <li ><a class="colora" href="empresarial_bajas.php" >Bajas</a></li>
@@ -121,30 +121,29 @@
                   </div>
                                       
                   <form action="empresarial_validadas.php" method="POST">
-                  <div class="mb-3">
+                  <div class=" col-md-3 " style="margin-left:40px;">
                     <label for="" class="form-label">Selecciona el periodo</label>
                     <select
-                      class="form-select form-select-lg"
+                      class="row form-control col-md-3"
                       name="year"
                       id="year"
                     >
-                    
-                      <option selected disabled><?php echo $fecha_actual;?></option>
+                    <option selected disabled><?php echo $fecha_actual;?></option>
                       <?php
                                 
-                        $anio = date('Y') - 2019 ;
-                        // $yearf = date('Y') - $anio; 
-                      for ($i=0; $i <= $anio ; $i++) {
-                        $yearf = date('Y') - $i;
-                        echo "<option >".$yearf."</option>";
-                      }
-                      ?>
+                    $anio = date('Y') - 2019 ;
+                    // $yearf = date('Y') - $anio; 
+                  for ($i=0; $i <= $anio ; $i++) {
+                    $yearf = date('Y') - $i;
+                    echo "<option >".$yearf."</option>";
+                  }
+                  ?>
                     </select>
-                    <button type="submit">Seleccionar</button>
+                    <button class="btn btn-md " type="submit">Seleccionar</button>
                   </div>
                   
                   
-                  </form>
+                </form>
                   <table id="example" class="table table-striped table-bordered" style="width:90% !important">  
                       <thead>
                             <tr>
@@ -188,7 +187,7 @@
                                   <?php } ?>
                                 </td>
                                 <td class="text-center m-2">
-                                  <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
+                                  <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-primary" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
                                   <?php
                                   if ($emp['estatus'] == 0 ) {
                                   ?>

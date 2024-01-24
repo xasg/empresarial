@@ -111,7 +111,7 @@
                           <li class="active"><a class="colora" href="#" >Empresas</a></li>
                           <li ><a class="colora" href="new_empresa_admin.php" >Registrar empresa</a></li>
                       </ul>
-                      <ul class="nav nav-tabs">
+                      <ul class="nav nav-tabs"><br>
                       <li class="active"><a class="colora" href="#" >Nuevas / Pendientes</a></li>
                         <li><a class="colora" href="empresarial_validadas.php" >Validadas</a></li>
                         <li><a class="colora" href="empresarial_bajas.php" >Bajas</a></li>
@@ -121,10 +121,10 @@
 
                   
                   <form action="empresarial.php" method="POST">
-                  <div class="mb-3">
+                  <div class=" col-md-3 " style="margin-left:40px;">
                     <label for="" class="form-label">Selecciona el periodo</label>
                     <select
-                      class="form-select form-select-lg"
+                      class="row form-control col-md-3"
                       name="year"
                       id="year"
                     >
@@ -139,7 +139,7 @@
                   }
                   ?>
                     </select>
-                    <button type="submit">Seleccionar</button>
+                    <button class="btn btn-md " type="submit">Seleccionar</button>
                   </div>
                   
                   
@@ -196,12 +196,12 @@
                                   <?php } ?>
                                 </td>
                                 <td class="text-center m-2">
-                                  <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
+                                  <a style="margin:3px;" href="edit_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-pencil'></i> editar</button></a>
                                   <?php
                                   if ($emp['estatus'] == 0 ) {
                                   ?>
                                   <br>
-                                  <a style="margin:3px;" href="../controller/valida_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-pencil'></i>validar</button></a>
+                                  <a style="margin:3px;" href="../controller/valida_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-primary" ><i class='glyphicon glyphicon-pencil'></i>validar</button></a>
                                   <br>
                                   <a style="margin-top:3px;" href="../controller/baja_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-danger" ><i class='glyphicon glyphicon-pencil'></i>Dar de baja</button></a>
                                     <?php 

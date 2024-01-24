@@ -1,5 +1,5 @@
 <?php
-     include_once('../model/databases_empresa.php');
+     include_once('../model/databases_admin.php');
    mysqli_set_charset( $mysqli, 'utf8'); 
    session_start(); 
    if( $_POST )
@@ -9,16 +9,17 @@
    
    $nombreR = isset( $_POST['nombreR']) ? $_POST['nombreR'] : '';
    $nombreC = isset( $_POST['nombreC']) ? $_POST['nombreC'] : '';
+   $entidad = isset( $_POST['entidad']) ? $_POST['entidad'] : '';
    $correo = "empresa".$idLimit."@fese.mx";
    $password = "Fese2023";
 
    $usuario =get_user_acces($correo);
    if($usuario==0){ 
     $est=2;  
-    crear_usuario($correo, $password,  $est);
+   crear_usuario($correo, $password,  $est);
    $usuario =get_user_acces($correo);
    $id_user=$usuario['id_usuario'];
-   crear_empresa_admin($id_user, $nombreR, $nombreC);
+   crear_empresa_admin($id_user, $nombreR,$nombreC ,$entidad);
    crear_digital_empresa($id_user);
    crear_estatus($id_user);
 

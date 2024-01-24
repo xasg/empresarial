@@ -79,7 +79,7 @@ GROUP BY empresa.id_usuario ORDER BY  empresa.dt_fh_registro DESC";
 function run_empresas_baja($fecha)
 {
   global $mysqli, $result;
-  $sql ="SELECT empresa.id_usuario, usuario.dt_password, usuario.dt_correo, `nombre_entidad`, `dt_razon_social`,dt_nombre_comercial,`dt_rfc`, `dt_nombre_contacto`, `dt_correo_contacto`,`dt_telefono_contacto`,`dt_nombre`, url_convenio, empresa.`tp_status` AS estatus FROM `empresa`
+  $sql ="SELECT empresa.id_empresa,empresa.id_usuario, usuario.dt_password, usuario.dt_correo, `nombre_entidad`, `dt_razon_social`,dt_nombre_comercial,`dt_rfc`, `dt_nombre_contacto`, `dt_correo_contacto`,`dt_telefono_contacto`,`dt_nombre`, url_convenio, empresa.`tp_status` AS estatus FROM `empresa`
 LEFT JOIN usuario ON(empresa.id_usuario=usuario.id_usuario)
 LEFT JOIN vacante ON(empresa.id_usuario=vacante.id_usuario) 
 LEFT JOIN cor_digital_empresa ON(empresa.id_usuario=cor_digital_empresa.id_usuario)
@@ -324,7 +324,73 @@ function update_validacion($id, $valida, $curp, $acta, $domicilio, $identificaci
 }
 
 
+// CREACION DE EMPRESAS
+function  crear_empresa_admin($id_user, $nombreR, $nombreC,$entidad)
+{
+global $mysqli;
+$sql="INSERT INTO empresa(id_empresa, id_usuario, dt_razon_social,dt_nombre_comercial,id_cat_entidad) 
+       VALUES (null, '{$id_user}', '{$nombreR}','{$nombreC}','{$entidad}')";
+$mysqli->query($sql);
+}
 
+function crear_digital_empresa($id_user)
+{
+global $mysqli;
+$sql="INSERT INTO cor_digital_empresa(id_digital, id_usuario) VALUES (null, '{$id_user}')";
+$mysqli->query($sql);
+}
+
+function crear_estatus($id_user)
+{
+global $mysqli;
+$sql="INSERT INTO estatus(id_estatus, id_usuario) VALUES (null, '{$id_user}')";
+$mysqli->query($sql);
+}
+
+function crear_usuario($correo, $password)
+{
+global $mysqli;
+$sql="INSERT INTO usuario(id_usuario, dt_correo, dt_password) VALUES (null, '{$correo}', '{$password}')";
+$mysqli->query($sql);
+}
+
+/** usado para consultar datos de acceso del login **/
+
+function get_user_acces($correo)
+{
+  global $mysqli;
+  $sql = "SELECT estatus.tp_estatus, usuario.id_usuario,dt_password, tp_usuario FROM usuario 
+          LEFT JOIN estatus ON(usuario.id_usuario=estatus.id_usuario)
+          WHERE dt_correo = '{$correo}'";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+
+function get_limit_user(){
+  global $mysqli;
+  $sql ="SELECT * FROM `usuario` ORDER BY id_usuario desc LIMIT 1";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+
+// Eliminar registro de usuarios y de empresas
+
+function delete_empresa($idempresa){
+  global $mysqli;
+  $sql ="DELETE FROM empresa WHERE id_empresa = '{$idempresa}'";
+  return $mysqli->query($sql);
+}
+function delete_empresa_usuario($idusuario){
+  global $mysqli;
+  $sql ="DELETE FROM usuario WHERE id_usuario = '{$idusuario}'";
+  return $mysqli->query($sql);
+}
+
+function delete_empresa_usuario_vacante($idusuario){
+  global $mysqli;
+  $sql ="DELETE FROM vacante WHERE id_usuario = '{$idusuario}'";
+  return $mysqli->query($sql);
+}
 
 function insert_actividades($dateinicio, $datefin)
 {
