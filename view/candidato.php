@@ -97,7 +97,12 @@
                   
                   <td><?php echo "usuario:".$cand['dt_correo']."<br>"."contraseña:".$cand['dt_password'] ?></td>
               <td class="text-center"><br><br>
-                <?php if($cand['tp_estatus']>=4 AND $cand['dt_eval_aplica']!=1 ){ ?>
+              <!--BOTON PARA PODER ELIMINAR LOS REGISTROS DE CANDIDATOS -->
+              <button type="button" class="btn btn-success" onclick="eliminar_candidato()">
+                <i class="glyphicon glyphicon-trash"></i> Eliminar
+              </button>
+              <!---->
+              <?php if($cand['tp_estatus']>=4 AND $cand['dt_eval_aplica']!=1 ) { ?>
                     <a href="validar_cand.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
                   <!----->
                   <?php if($cand['dt_status_validacion']==0 ){ ?>                     
