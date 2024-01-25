@@ -131,7 +131,31 @@
                   <td><?php echo $ben['dt_razon_social']; ?></td>
                   <td><?php echo strtoupper($ben['dt_nombre']); ?></td>
                   <td><?php echo strtoupper($ben['dt_inicio']); ?></td>
-                  <td><?php echo strtoupper($ben['dt_termino']); ?></td>
+                  <!------------------------------------>
+                  <?php
+                  $fecha1 = strtoupper($ben['dt_inicio']);
+                  $fecha2 = strtoupper($ben['dt_termino']);
+                  
+                  $datetime1 = new DateTime($fecha1);
+                  $datetime2 = new DateTime($fecha2);
+                  
+                  $interval = $datetime1->diff($datetime2);
+                  $diferenciaEnDias = $interval->days;
+                  
+                  //echo "La diferencia en días entre las fechas es: " . $diferenciaEnDias . " días";
+                  ?>
+                  <!--------------------------------------------------->
+                  <td>
+                      
+                      <?php echo strtoupper($ben['dt_termino']); //echo "diferencia de dias ". $diferenciaEnDias?> 
+                      <?php  if ($diferenciaEnDias < 14 )
+                      {
+                        ?>
+                        <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-calendar"></span> Extender o Eliminar </button>
+                      <?php 
+                      }
+                      ?> 
+                  </td>
                   <td><?php echo "$ ".$ben['dt_apoyo']; ?></td>
                   <td class="text-center"><br><a href="beneficiario_juridico.php?ben=<?php echo $ben['id_usuario']; ?>">
                     <button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-search'></i>&nbsp;&nbsp;Ver</button>

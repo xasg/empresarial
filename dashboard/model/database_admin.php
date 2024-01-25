@@ -214,7 +214,29 @@ function apoyo_vacantes_anterior(){
   $result = $mysqli->query($sql);
   return $result->fetch_assoc();
 }
+/*********************************************************************************/
+function eliminar_candidato()
+{
+    
+  window.location.href = "../view/pruebas_paquito.php";
 
+  /*global $mysqli;
+
+    $sql = "UPDATE `beneficiario` 
+            SET beneficiario.tp_status_beneficiario = '-1' 
+            WHERE id_usuario = '$id'";  // Usar el valor de la variable $id
+    
+    if ($mysqli->query($sql) === TRUE) 
+    {
+        echo "Consulta ejecutada con éxito";
+    } else 
+    {
+        echo "Error al ejecutar la consulta: " . $mysqli->error;
+    }*/
+}
+
+
+/******************************************************************************/
 
 function run_candidato()
 {

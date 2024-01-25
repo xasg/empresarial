@@ -124,7 +124,7 @@
                                               <?php  
                                                 }else{
                                               ?>
-                                                <option value=<?php echo $value['id_usuario']; ?> ><?php echo $i."- No ha registrado nombre combercial (".$value['dt_razon_social'].")";?></option>
+                                                <option value=<?php echo $value['id_usuario']; ?> ><?php echo $i."- No ha registrado nombre comercial (".$value['dt_razon_social'].")";?></option>
                                             <?php 
                                               } 
                                             }
@@ -151,7 +151,7 @@
                         <div class="col-md-4">
                            <div class="form-group">
                               <!-- Street 1 -->
-                              <label class="control-label">Número de Espacios</label>
+                              <label class="control-label">Número de vacantes</label>
                               <input type="text" class="form-control" name="numero" onChange="conMayusculas(this)" required>
                            </div>
                         </div>
