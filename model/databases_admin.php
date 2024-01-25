@@ -124,6 +124,19 @@ function vacantes($id_empresa)
   			return $mysqli->query($sql);
 }
 
+  // inseetar relacion en database
+  function insertar_relacion($id_entidad,$id_ies){
+    global $mysqli;
+    $sql = "INSERT INTO relacion(id_cat_entidad,id_cat_ies) VALUES('{$id_entidad}','{$id_ies}')";
+    return $mysqli->query($sql);
+  }
+
+  function update_ies($nombre_ies , $id){
+    global $mysqli;
+    $sql = "UPDATE cat_ies SET dt_nombre_ies = '{$nombre_ies}' where id = '{$id}' ";
+    return $mysqli->query($sql);
+  }
+
 
 
 function num_vacantes()

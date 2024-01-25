@@ -9,6 +9,7 @@
       exit(); // Asegurarse de que el script se detenga después de la redirección
     }
    $id=$_GET['ben'];
+   $_SESSION['beneficiarop'] = $id;
    $beneficiario = acces_beneficiario($id);
    $result = run_entidad();
    $empresas=view_empresas();
@@ -219,7 +220,33 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>IES</label>
-                      <input type="text" class="form-control"  value="<?php echo $beneficiario['dt_nombre_ies']?>" required>
+                      <?php
+
+                        $id_valida_ies = buscar_ies_final($beneficiario['id_ies_relacion'], $beneficiario['dt_nombre_ies']);
+                        // $id_valida_carrera = buscar_carrera_final($beneficiario['id_cat_carrera'], $beneficiario['dt_nombre_carrera']);
+                        $validacion = valida_ies($id_valida_ies, $beneficiario['id_cat_entidad']);
+                        $validacion_nombre = valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']);
+
+                        if ($validacion === 0 || $validacion == null) {
+                            echo "Agregada en la entidad ".$validacion_nombre['nombre_entidad']." esta IES se puede agregar a esta entidad";
+                            ?>
+
+                            <!-- <form action="../controller/agregar_ies_al_catalogo.php" method="POST"> -->
+                              <input type="text" class="form-control " id="id_ies" style="display:none;" name="id_ies"  value="<?php echo $id_valida_ies; ?>"  >
+                              <input type="text" class="form-control " id="id_entidad" style="display:none;" name="id_entidad"  value="<?php echo $beneficiario['id_cat_entidad']; ?>" >
+                              <input type="text" class="form-control" id="nueva_ies" name="nueva_ies" style="color:#fff; background:red; border:1px solid red" value="<?php echo $beneficiario['dt_nombre_ies'] ?>" required>
+                              <br>
+                              <!-- <button type="submit" class="btn btn-primary p-2 ">Agregar al catalogo de IES</button> -->
+                              <button type="submit" name="accion" value="ies" class="btn btn-primary p-2 ">Agregar al catalogo de IES</button>
+                            <!-- </form> -->
+                            <?php
+                        }else{
+                      ?>
+                      <h5>Ubicada en la <b>Entidad de: </b> <?php echo $validacion_nombre['nombre_entidad'];?></h5>
+                      <input type="text" class="form-control " id="id_ies" style="display:none;" name="id_ies"  value="<?php echo $id_valida_ies; ?>"  >
+                      <input type="text" class="form-control" id="nombre_ies" name="nombre_ies"  value="<?php echo $beneficiario['dt_nombre_ies']?>" required>
+                      <p>Si se edita este campo se editara en la base de datos, y asi es como les aparecera a los candidatos</p>
+                    <?php }?>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -281,7 +308,7 @@
     <div class="col-md-4">
                 <div class="form-group">  
                    <input type="hidden" name="id" value="<?php echo $beneficiario['id_usuario']?>" />
-                  <button type="submit" class="btn btn-block btn-primary btn-lg">Actualizar</button><br><br>
+                    <button type="submit" name="accion" value="datos" class="btn btn-block btn-primary btn-lg">Actualizar</button><br><br>
                   </div>
                 </div>
   </form>
