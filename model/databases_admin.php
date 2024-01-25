@@ -173,6 +173,26 @@ function run_candidato()
         return $mysqli->query($sql);
 }
 
+function run_candidato_baja()
+{
+  global $mysqli, $result;
+  $sql ="SELECT empresa.dt_razon_social, dt_fin_registro, beneficiario.id_usuario,`dt_avance_registro`,`dt_nombres`,`dt_apaterno`,`dt_amaterno`,`dt_curp`,`dt_nombre_carrera`,`dt_nombre_ies`,beneficiario.tp_status_beneficiario, vacante.dt_inicio, vacante.dt_termino, vacante.dt_apoyo, dt_eval_curp, dt_eval_acta, dt_eval_domicilio, dt_eval_identificacion, dt_eval_estudios, dt_eval_seguro, dt_eval_bancario, dt_eval_aplica, dt_eval_comentario, dt_status_validacion, usuario.dt_correo, usuario.dt_password, tp_estatus,
+  --  CAST(beneficiario.dt_fh_registro AS DATE) AS fecha
+  beneficiario.dt_fh_registro as fecha
+    FROM beneficiario
+        LEFT JOIN usuario ON(beneficiario.id_usuario=usuario.id_usuario)
+        LEFT JOIN estatus ON(usuario.id_usuario=estatus.id_usuario)
+        LEFT JOIN cat_ies ON(beneficiario.dt_ies=cat_ies.id_cat_ies)
+        LEFT JOIN cat_carrera ON(beneficiario.dt_carrera=cat_carrera.id_cat_carrera)
+        LEFT JOIN rel_beneficiario_vacante ON(beneficiario.id_usuario=rel_beneficiario_vacante.id_usuario)
+        LEFT JOIN empresa ON(rel_beneficiario_vacante.id_empresa=empresa.id_usuario)
+        LEFT JOIN vacante ON(rel_beneficiario_vacante.id_vacante=vacante.id_vacante)
+        LEFT JOIN validacion_ben ON(beneficiario.id_usuario=validacion_ben.id_usuario)
+        WHERE beneficiario.tp_status_beneficiario= -1 AND dt_eval_aplica <=1 AND YEAR(beneficiario.`dt_fh_registro`) LIKE '20%'  ORDER BY beneficiario.dt_fh_registro DESC ";
+        // -- WHERE beneficiario.tp_status_beneficiario=0 AND dt_eval_aplica<=1 AND beneficiario.`dt_fh_registro` LIKE '%2023%' ";
+        return $mysqli->query($sql);
+}
+
 
 function run_benefiaciario($fecha)
 {

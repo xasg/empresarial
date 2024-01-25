@@ -9,7 +9,7 @@
       exit(); // Asegurarse de que el script se detenga después de la redirección
     }
 
-   $candidato = run_candidato();
+   $candidato = run_candidato_baja();
    
    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_candidato'])) {
     // Llama a la función cuando se presiona el botón
@@ -126,37 +126,11 @@
                   <td><?php echo "usuario:".$cand['dt_correo']."<br>"."contraseña:".$cand['dt_password'] ?></td>
                   <td class="text-center"><br><br>
                     <!---->
-                    <a href="eliminar_candidato.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
-                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar </button>
-                    <!----->
-              <!--BOTON PARA PODER ELIMINAR LOS REGISTROS DE CANDIDATOS -->
-              
-              <!---->
-              <?php if($cand['tp_estatus']>=4 AND $cand['dt_eval_aplica']!=1 ) { ?>
-                    <a href="validar_cand.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
-                  
-                  <?php if($cand['dt_status_validacion']==0 ){ ?>                     
-                  <button type="button" class="btn btn-warning"><i class='glyphicon glyphicon-star-empty'></i> Valida</button>
-                  <?php } elseif($cand['dt_status_validacion']==1 ){ ?>
-                    <button type="button" class="btn btn-danger"><i class='glyphicon glyphicon-star-empty'></i> En actualización</button>
-                  <?php } elseif($cand['dt_status_validacion']==2 ){ ?>
-                    <button type="button" class="btn btn-success"><i class='glyphicon glyphicon-star-empty'></i> Actualizado</button>
-                  <?php } ?>
-
-
-                </a>
-                <?php }elseif ($cand['tp_estatus']>=4 AND $cand['dt_eval_aplica']==1) { ?>
-                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#dataUpdate" data-nombre="<?php echo $cand['dt_nombres']. " ".$cand['dt_apaterno']. " ".$cand['dt_amaterno']; ?>" data-id="<?php echo $cand['id_usuario']?>"  data-empresa="<?php echo $cand['dt_razon_social']; ?>"><i class='glyphicon glyphicon-edit'></i>Postular</button>
-                <?php }elseif ($cand['tp_estatus']<4) { ?>
-                   <h1></h1>
-                <?php } ?>
-                
-                <td><?php echo $cand['dt_avance_registro'].'%'; ?></td>
-
-                    
-
-              </td> 
-
+                    <a href="restaurar_candidato.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
+                    <button type="button" class="btn btn-success"><i class='glyphicon glyphicon-star-empty'></i> Restaurar</button>
+                    <!----->                
+                    <td><?php echo $cand['dt_avance_registro'].'%'; ?></td>
+                  </td> 
                 </tr> 
                 <?php
                   }
