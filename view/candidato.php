@@ -127,7 +127,7 @@
                   <td class="text-center"><br><br>
                     <!---->
                     <a href="eliminar_candidato.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
-                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar </button>
+                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Baja </button>
                     <!----->
               <!--BOTON PARA PODER ELIMINAR LOS REGISTROS DE CANDIDATOS -->
               

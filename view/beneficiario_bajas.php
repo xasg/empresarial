@@ -9,7 +9,7 @@
       exit(); // Asegurarse de que el script se detenga después de la redirección
     }
     $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y');
-    $beneficiarios = run_benefiaciario($fecha_actual);
+    $beneficiarios = run_benefiaciario_baja($fecha_actual);
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -83,7 +83,7 @@
   </div>
 
   <div class="row">
-    <form action="beneficiario.php" method="POST">
+    <form action="beneficiario_bajas.php" method="POST">
       <div class=" col-md-3 " style="margin-left:40px;">
         <label for="" class="form-label">Selecciona el periodo</label>
           <select class="row form-control col-md-3" name="year" id="year">
@@ -98,7 +98,8 @@
               ?>
           </select>
               <button class="btn btn-md " type="submit">Seleccionar</button>
-              <div class="container">
+      </div>
+      <div class="container">
             <div class="row">
                 <div class="col-md-12">
                   <div class="panel-heading">
@@ -109,8 +110,6 @@
                 </div>
             </div>
           </div>
-      </div>
-      
     </form>
     
     <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -126,7 +125,7 @@
                   <th>PERFIL</th>
                   <th>CONVENIO</th>
                   <th>PAQUETERIA</th>
-                  <th>BAJA</th>
+                  <th>Restaurar</th>
             </tr>
           </thead>
               <tbody>
@@ -184,9 +183,9 @@
                  </td>
                  <td><?php echo $ben['dt_paqueteria']."<br>".$ben['dt_guia']?></td>
                  <td>
-                 
-                    <a href="eliminar_beneficiario.php?ben=<?php echo $ben['id_usuario']; ?>" class="colora">
-                    <br><button type="button" class="btn btn-danger" data-toggle="modal"><i class='glyphicon glyphicon-trash'></i><!--<span class="glyphicon glyphicon-trash">--></span> Baja </button>
+                    <a href="restaurar_beneficiario.php?ben=<?php echo $ben['id_usuario']; ?>" class="colora">
+                    <br><button type="button" class="btn btn-success"><i class='glyphicon glyphicon-star-empty'></i> Restaurar</button>
+                    
                  </td>
                 </tr> 
                 <?php

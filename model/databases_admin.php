@@ -173,7 +173,7 @@ function run_candidato()
         return $mysqli->query($sql);
 }
 
-function run_candidato_baja()
+function run_candidato_baja()   // esta funcion es solo para mostrar los candidatos que estan de baja 
 {
   global $mysqli, $result;
   $sql ="SELECT empresa.dt_razon_social, dt_fin_registro, beneficiario.id_usuario,`dt_avance_registro`,`dt_nombres`,`dt_apaterno`,`dt_amaterno`,`dt_curp`,`dt_nombre_carrera`,`dt_nombre_ies`,beneficiario.tp_status_beneficiario, vacante.dt_inicio, vacante.dt_termino, vacante.dt_apoyo, dt_eval_curp, dt_eval_acta, dt_eval_domicilio, dt_eval_identificacion, dt_eval_estudios, dt_eval_seguro, dt_eval_bancario, dt_eval_aplica, dt_eval_comentario, dt_status_validacion, usuario.dt_correo, usuario.dt_password, tp_estatus,
@@ -208,6 +208,22 @@ function run_benefiaciario($fecha)
         WHERE `tp_status_beneficiario`=1 AND year(beneficiario.`dt_fh_registro`) =  '{$fecha}'";
         return $mysqli->query($sql);
 }
+
+function run_benefiaciario_baja($fecha)
+{
+  global $mysqli, $result;
+  $sql ="SELECT empresa.dt_razon_social, beneficiario.id_usuario, dt_correo, `dt_nombres`,`dt_apaterno`,`dt_amaterno`,`dt_curp`,`dt_nombre_carrera`,`dt_nombre_ies`,`tp_status_beneficiario`, vacante.dt_nombre, vacante.dt_inicio, vacante.dt_termino, vacante.dt_apoyo, dt_clabe, SUBSTRING(dt_clabe, 1, 3) AS banco, url_cuenta, url_convenio1, url_convenio2, dt_paqueteria, usuario.dt_password, dt_guia,(SELECT dt_nombre FROM cat_banco WHERE id_banco=banco) AS banco ,(SELECT dt_clave_tranf FROM cat_banco WHERE id_banco=banco) AS trans , CAST(beneficiario.dt_fh_registro AS DATE) AS fecha FROM beneficiario
+         LEFT JOIN usuario ON(beneficiario.id_usuario=usuario.id_usuario)
+        LEFT JOIN cat_ies ON(beneficiario.dt_ies=cat_ies.id_cat_ies)
+        LEFT JOIN cat_carrera ON(beneficiario.dt_carrera=cat_carrera.id_cat_carrera)
+        LEFT JOIN rel_beneficiario_vacante ON(beneficiario.id_usuario=rel_beneficiario_vacante.id_usuario)
+        LEFT JOIN empresa ON(rel_beneficiario_vacante.id_empresa=empresa.id_usuario)
+        LEFT JOIN vacante ON(rel_beneficiario_vacante.id_vacante=vacante.id_vacante)
+        LEFT JOIN digital_beneficiario ON(beneficiario.id_usuario=digital_beneficiario.id_usuario)
+        WHERE `tp_status_beneficiario`=-2 AND year(beneficiario.`dt_fh_registro`) =  '{$fecha}'";
+        return $mysqli->query($sql);
+}
+
 
 
 
