@@ -177,7 +177,10 @@
                <div class="col-md-8 col-md-offset-2">
                 <h3><br><br><br>Gracias por completar tu registro, tu documentación está en proceso de validación mantente al pendiente de tu correo electrónico para saber si fuiste aceptado o si se requiere más información. </h3>
                </div>
-               <?php   actualizarBeneficiarios100($id); ?> 
+               <?php   
+                  actualizarBeneficiarios100($id); 
+                  actualizarFechaFinRegistro($id);
+                ?> 
 
 
   <?php } else { ?>      

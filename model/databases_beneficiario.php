@@ -190,13 +190,13 @@ function actualizarBeneficiarios40($id)
 
   } 
 
-  function actualizarBeneficiarios60()
+  function actualizarBeneficiarios60($id)
   {
     global $mysqli;
     $sql = "UPDATE `beneficiario`
         SET dt_avance_registro = '60'
-        WHERE
-        dt_avance_registro = '40'
+        WHERE id_usuario = $id
+        AND dt_avance_registro = '40'
         AND (dt_idioma IS NOT NULL AND dt_idioma != '')
         AND (dt_idioma_nivel IS NOT NULL AND dt_idioma_nivel != '');";
       if ($mysqli->query($sql) === TRUE) 
@@ -209,14 +209,15 @@ function actualizarBeneficiarios40($id)
       }
   }
 
-  function actualizarBeneficiarios80()
+  function actualizarBeneficiarios80($id)
   {
     global $mysqli;
     
     $sql = "UPDATE `beneficiario` b
     JOIN `digital_beneficiario` db ON b.id_usuario = db.id_usuario
     SET b.dt_avance_registro = '80'
-    WHERE b.dt_avance_registro = '60'
+    WHERE b.id_usuario = $id
+    AND b.dt_avance_registro = '60'
     AND (db.url_cv IS NOT NULL AND db.url_cv != '')
     AND (db.url_curp IS NOT NULL AND db.url_curp != '')
     AND (db.url_acta IS NOT NULL AND db.url_acta != '')
@@ -239,14 +240,15 @@ function actualizarBeneficiarios40($id)
   }
 
 
-  function actualizarBeneficiarios100()
+  function actualizarBeneficiarios100($id)
   {
     global $mysqli;
-    
-    $sql = " UPDATE `beneficiario` b
+    $sql = "UPDATE `beneficiario` b
     JOIN `validacion_ben` db ON b.id_usuario = db.id_usuario
     SET b.dt_avance_registro = '100'
-    WHERE b.dt_avance_registro = '80'";
+    WHERE b.id_usuario = $id
+    AND b.dt_avance_registro = '80';";
+
 
 
       if ($mysqli->query($sql) === TRUE) 
