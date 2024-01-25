@@ -18,7 +18,7 @@ if( $mysqli->connect_errno )
 function acces_beneficiario($id)
 {
   global $mysqli;
-  $sql = "SELECT * FROM beneficiario 
+  $sql = "SELECT *, cat_ies.id_cat_ies as id_ies_relacion FROM beneficiario 
           LEFT JOIN usuario USING(id_usuario) 
           LEFT JOIN cat_entidad ON(beneficiario.id_cat_entidad=cat_entidad.id_cat_entidad)
           LEFT JOIN digital_beneficiario ON(beneficiario.id_usuario=digital_beneficiario.id_usuario)
@@ -263,7 +263,108 @@ function actualizarBeneficiarios40($id)
     
   }
 
+  // Insertar la ies en caso de que el candidato seleccione Otros
+  function insert_ies($nombreescuela, $id_entidad) {
+    global $mysqli;
+    $sql = "INSERT INTO cat_ies (id_cat_ies, dt_nombre_ies, id_cat_entidad) VALUES ('act', '{$nombreescuela}', '{$id_entidad}')";
+    return $mysqli->query($sql);
+}
+  // Insertar la carrera
+  function insert_carrera($nombrecarrera){
+    global $mysqli;
+    $sql = "INSERT INTO cat_carrera (id_cat_carrera, dt_nombre_carrera) VALUES ('act', '{$nombrecarrera}')";
+    return $mysqli->query($sql);
+  }
+//  Buscar primero si la ies existe en el catalogo
+function buscar_primero_ies($nombreescuela){
+  global $mysqli;
+  $sql = "SELECT * FROM cat_ies WHERE dt_nombre_ies = '{$nombreescuela}'";
+  $result = $mysqli->query($sql);  // Corregido el nombre de la variable
+  $id_general = $result->fetch_assoc();
+  return $id_final = $id_general['id'];
+}
 
+// valida_ies
+function valida_ies($id_cat_ies, $id_entidad) {
+  global $mysqli;
+  // $sql = "SELECT * FROM cat_ies LEFT JOIN relacion USING(id_cat_ies) LEFT JOIN cat_entidad USING (id_cat_entidad) WHERE cat_ies.id_cat_ies = '{$id_cat_ies}' and relacion.id_cat_entidad = '{$id_entidad}'";
+  $sql = "SELECT * 
+  FROM cat_ies 
+  -- LEFT JOIN cat_entidad USING (id_cat_entidad) 
+  LEFT JOIN relacion USING(id_cat_ies) 
+  WHERE cat_ies.id_cat_ies = '{$id_cat_ies}' AND relacion.id_cat_entidad = '{$id_entidad}';
+  ";
+  $result = $mysqli->query($sql);
+
+  if ($result && $result->num_rows > 0) {
+      $id_general = $result->fetch_assoc();
+      return $id_general['id'];
+  } else {
+      return 0; // o cualquier otro valor predeterminado que desees devolver en caso de que no haya resultados
+  }
+}
+
+// La siguiente funcion valida el nombre de la entidad con que se registro
+function valida_ies_nombre($id_cat_ies,$id_entidad){
+  global $mysqli;
+  $sql = "SELECT * 
+  FROM cat_ies 
+  LEFT JOIN cat_entidad USING (id_cat_entidad)  
+  LEFT JOIN relacion USING (id_cat_entidad)  
+  WHERE (cat_ies.id_cat_ies = '{$id_cat_ies}' AND relacion.id_cat_entidad = '{$id_entidad}')  ";
+  $result = $mysqli->query($sql);
+  return $result->fetch_assoc();
+}
+
+// Buscar el catalogo 
+function buscar_ies($nombreescuela){
+  global $mysqli;
+  $sql = "SELECT * FROM cat_ies WHERE id_cat_ies = 'act' AND dt_nombre_ies = '{$nombreescuela}'";
+  $result = $mysqli->query($sql);  // Corregido el nombre de la variable
+  $id_general = $result->fetch_assoc();
+  return $id_final = $id_general['id'];
+}
+// Buscar la carrera
+function buscar_carrera($nombrecarrera){
+  global $mysqli;
+  $sql = "SELECT * FROM cat_carrera WHERE id_cat_carrera = 'act' AND dt_nombre_carrera = '{$nombrecarrera}'";
+  $result = $mysqli->query($sql);  // Corregido el nombre de la variable
+  $id_general = $result->fetch_assoc();
+  return $id_final = $id_general['id'];
+}
+
+// Actualizar el catalogo
+function update_ies($id_escuela){
+  global $mysqli;
+  $sql = "UPDATE cat_ies SET id_cat_ies = '{$id_escuela}' WHERE id = '{$id_escuela}'";
+  $mysqli->query($sql);  // Corregido el nombre de la variable
+}
+
+// Actualizar el catalogo
+function update_carrera($id_escuela){
+  global $mysqli;
+  $sql = "UPDATE cat_carrera SET id_cat_carrera = '{$id_escuela}' WHERE id = '{$id_escuela}'";
+  $mysqli->query($sql);  // Corregido el nombre de la variable
+}
+
+// Busqueda ya completa en el catalogo
+function buscar_ies_final($id_ies,$nombreescuela){
+  global $mysqli;
+  $sql = "SELECT * FROM cat_ies WHERE id = '{$id_ies}' AND dt_nombre_ies = '{$nombreescuela}'";
+  $result = $mysqli->query($sql);  // Corregido el nombre de la variable
+  $id_general = $result->fetch_assoc();
+  return $id_final = $id_general['id'];
+}
+// carrera agregada correctamente al catalogo tanto campo id como id_cat_carrera
+function buscar_carrera_final($id_carrera,$nombrecarrera){
+  global $mysqli;
+  $sql = "SELECT * FROM cat_carrera WHERE id = '{$id_carrera}' AND dt_nombre_carrera = '{$nombrecarrera}'";
+  $result = $mysqli->query($sql);  // Corregido el nombre de la variable
+  $id_general = $result->fetch_assoc();
+  return $id_final = $id_general['id'];
+}
+
+// Buscar la relacion en la tabla relacion para validar si ya se encuentra la IES sino se agrega al catalogo de relacion con la carrera y la IES
 
 
 function insert_relacion($id, $empresa, $vacante)
