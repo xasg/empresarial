@@ -263,50 +263,6 @@ function actualizarBeneficiarios40($id)
     
   }
 
-  function actualizarFechaFinRegistro($id)
-  {
-    global $mysqli;
-    // Usa el método strtotime()
-  //  $nueva_fecha = date("Y-m-d"); // formato ISO 8601: año-mes-día
-    date_default_timezone_set('America/Mexico_City');   // definimos la zona horario de la ciudad de mexico por deafult 
-    $nueva_fecha = date("Y-m-d H:i:s"); // formato ISO 8601 extendido con hora, minuto y segundo
-
-
-    $sql = "UPDATE `beneficiario` 
-            SET dt_fin_registro = '$nueva_fecha'
-            WHERE id_usuario = $id
-            AND dt_avance_registro = '100'";
-    
-    if ($mysqli->query($sql) === TRUE) 
-    {
-       // echo "Consulta ejecutada con éxito";
-    } else 
-    {
-        //echo "Error al ejecutar la consulta: " . $mysqli->error;
-    }
-  }
-
-  /*actualizarFechaFinRegistro($id)
-  {
-    // Usa el método strtotime()
-   // $nueva_fecha = date("d/m/Y"); // día/mes/año
-
-   
-  
-    //$nueva_fecha = date("Y-m-d H:i:s");
-    /*$sql = "UPDATE `beneficiario` 
-            SET dt_fin_registro = '$nueva_fecha'
-            WHERE id_usuario = $id
-            AND dt_avance_registro = '100'";
-    
-    if ($mysqli->query($sql) === TRUE) {
-        //echo "Consulta ejecutada con éxito";
-    } else {
-        //echo "Error al ejecutar la consulta: " . $mysqli->error;
-    }
-    */
-  //}
-
 
 
 

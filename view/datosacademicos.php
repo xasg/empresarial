@@ -36,35 +36,87 @@ $entidad=run_entidad()
     });
 </script>
         <script language="javascript">
-      $(document).ready(function(){
-        $("#entidad").change(function () {          
-          $("#entidad option:selected").each(function () {
-            id_cat_entidad = $(this).val();
-            $.post("../includes/getIES.php", { id_cat_entidad: id_cat_entidad }, function(data){
-              $("#ies").html(data);
-            });            
-          });
-        })
-      });      
+$(document).ready(function(){
+  // Manejar el cambio en el elemento con id "entidad"
+  $("#entidad").change(function () {          
+    $("#entidad option:selected").each(function () {
+      id_cat_entidad = $(this).val();
+      $.post("../includes/getIES.php", { id_cat_entidad: id_cat_entidad }, function(data){
+        $("#ies").html(data);
+        agregarOpcionOtros("ies");
+        mostrarOcultarInputOtros("ies");
+        obtenerCarreras(); // Llamada a la función para obtener las carreras al cambiar "entidad"
+      });            
+    });
+  });
+
+  // Manejar el cambio en el elemento con id "ies"
+  $("#ies").change(function () {
+    mostrarOcultarInputOtros("ies");
+    obtenerCarreras(); // Llamada a la función para obtener las carreras al cambiar "ies"
+  });
+
+  // Manejar el cambio en el elemento con id "carrera"
+  $("#carrera").change(function () {
+    mostrarOcultarInputOtros("carrera");
+  });
+
+  // Agregar la opción "otros" al cargar la página para "ies" y "carrera"
+  agregarOpcionOtros("ies");
+  agregarOpcionOtros("carrera");
+
+  // Función para agregar la opción "otros" al select de "ies" y "carrera"
+  function agregarOpcionOtros(elementId) {
+    // Verificar si la opción "otros" ya está presente
+    if ($(`#${elementId} option[value='otros']`).length === 0) {
+      // Agregar la opción "otros" al final del select
+      $(`#${elementId}`).append("<option value='otros'>Otros</option>");
+    }
+  }
+
+  // Función para mostrar u ocultar el input "nombre_ies_input" o "nombre_carrera_input" según la opción seleccionada
+  function mostrarOcultarInputOtros(elementId) {
+    var selectedOption = $(`#${elementId}`).val();
+
+    // Verificar si la opción seleccionada es 'otros'
+    if (selectedOption === 'otros') {
+      // Mostrar un input adicional
+      $(`#nombre_${elementId}_input`).show();
+    } else {
+      // Ocultar el input si la opción no es 'otros'
+      $(`#nombre_${elementId}_input`).hide();
+    }
+  }
+
+  // Función para obtener las carreras mediante AJAX
+  function obtenerCarreras() {
+    var id_cat_ies = $("#ies").val(); // Obtener el valor seleccionado en "ies"
+    
+    // Enviar 0 como valor si la opción seleccionada es 'otros'
+    if (id_cat_ies === 'otros') {
+      id_cat_ies = 0;
+    }
+
+    // Realizar una solicitud AJAX para obtener las carreras
+    $.post("../includes/getCarrera.php", { id_cat_ies: id_cat_ies }, function(data){
+      $("#carrera").html(data);
+      agregarOpcionOtros("carrera");
+      mostrarOcultarInputOtros("carrera");
+    });
+  }
+});
 
 
-      $(document).ready(function(){
-        $("#ies").change(function () {          
-          $("#ies option:selected").each(function () {
-            id_cat_ies = $(this).val();
-            $.post("../includes/getCarrera.php", { id_cat_ies: id_cat_ies }, function(data){
-              $("#carrera").html(data);
-            });            
-          });
-        })
-      });      
 
     </script>
     <script language="JavaScript"> 
-        function conMayusculas(field) 
-        { 
-            field.value = field.value.toUpperCase() 
-        }   
+           $(document).ready(function () {
+            // Selecciona todos los inputs de tipo texto y añade un controlador de eventos
+            $("input[type='text']").on('input', function () {
+              // Convierte el valor del input a mayúsculas
+              $(this).val($(this).val().toUpperCase());
+            });
+          }); 
     </script>
 
 <?php
@@ -140,13 +192,20 @@ $entidad=run_entidad()
     <div class="col-md-4">
       <div class="form-group">
         <label>Institución de Educación Superior</label>
-        <select class="form-control" name="ies" id="ies" required></select>
+        <select class="form-control" name="ies" id="ies" required>
+          <option selected disabled>Selecciona la IES</option>
+          <!-- SELECT DE IES CON OPCION DE OTROS -->
+        </select>
+        <br>
+        <input class="form-control" type="text" id="nombre_ies_input" name="nombre_ies_input" style="display: none;" placeholder="Ingrese el nombre de la IES">
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label>Carrera</label>
         <select class="form-control" name="carrera" id="carrera" required></select>
+        <br>
+        <input class="form-control" type="text" id="nombre_carrera_input" name="nombre_carrera_input" style="display: none;" placeholder="Ingrese la carrera">
       </div>
     </div>                             
   </div>
