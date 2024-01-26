@@ -4,7 +4,7 @@
 // $username = "feseor5_empresarial";
 // $password = "HeVr104321";
 $servername = "localhost";
-$dbname = "empresarial2";
+$dbname = "empresarial";
 $username = "root";
 $password = "";
 ?>
