@@ -8,8 +8,8 @@
       header('Location: ../index.php');
       exit(); // Asegurarse de que el script se detenga después de la redirección
     }
-
-   $candidato = run_candidato();
+   $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y') ;
+   $candidato = run_candidato($fecha_actual);
    
    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_candidato'])) {
     // Llama a la función cuando se presiona el botón
@@ -34,6 +34,23 @@
       <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
       <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
    <script src="../js/bootstrap.min.js"></script>   
+   <style>
+  table{
+  table-layout: auto;
+  overflow: auto;
+  border: 1px solid;
+  margin-left: 2%;
+  max-width:500px !important;
+  }
+  table thead,
+  table th,
+  table td {
+    width: 99%;
+    max-width: 200px !important;
+    overflow: auto;
+    border: 1px solid;
+  }
+</style>
    </head>
    <body>
    <?php include("modal_modificar.php");?>
@@ -89,7 +106,31 @@
           </div>
 
 
-  <div class="row"><br><br><br>
+  <div class="row">
+  <form action="candidato.php" method="POST">
+                  <div class=" col-md-3 " style="margin-left:40px;">
+                    <label for="" class="form-label">Selecciona el periodo</label>
+                    <select
+                      class="row form-control col-md-3"
+                      name="year"
+                      id="year"
+                    >
+                    <option selected disabled><?php echo $fecha_actual;?></option>
+                      <?php
+                                
+                    $anio = date('Y') - 2019 ;
+                    // $yearf = date('Y') - $anio; 
+                  for ($i=0; $i <= $anio ; $i++) {
+                    $yearf = date('Y') - $i;
+                    echo "<option >".$yearf."</option>";
+                  }
+                  ?>
+                    </select>
+                    <button class="btn btn-md " type="submit">Seleccionar</button>
+                  </div>
+                  
+                  
+                </form>
       <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>  

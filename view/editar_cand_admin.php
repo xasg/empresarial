@@ -223,7 +223,8 @@
                       <?php
 
                         $id_valida_ies = buscar_ies_final($beneficiario['id_ies_relacion'], $beneficiario['dt_nombre_ies']);
-                        // $id_valida_carrera = buscar_carrera_final($beneficiario['id_cat_carrera'], $beneficiario['dt_nombre_carrera']);
+                        $id_valida_carrera = buscar_carrera_final($beneficiario['id_cat_carrera'], $beneficiario['dt_nombre_carrera']);
+                        $validacion_carrera = valida_carrera($id_valida_ies, $beneficiario['id_cat_entidad']);
                         $validacion = valida_ies($id_valida_ies, $beneficiario['id_cat_entidad']);
                         $validacion_nombre = valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']);
 
