@@ -2,7 +2,22 @@
    include_once('../model/databases_admin.php');
    session_start();
    mysqli_set_charset( $mysqli, 'utf8');
+   // Verificar si la sesión está iniciada
+    if (!isset($_SESSION['id'])) {
+      // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+      header('Location: ../index.php');
+      exit(); // Asegurarse de que el script se detenga después de la redirección
+    }
+
    $candidato = run_candidato();
+   
+   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_candidato'])) {
+    // Llama a la función cuando se presiona el botón
+    eli_candidato(22);
+}
+   
+    
+
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -61,6 +76,19 @@
                </div>
           </div>
 
+          <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="panel-heading">
+                    <ul class="nav nav-tabs">
+                      <li><a class="colora" href="candidatos_bajas.php" >Bajas</a></li>                      
+                    </ul>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
   <div class="row"><br><br><br>
       <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -70,9 +98,11 @@
                   <th class="text-center">CURP</th>
                   <th class="text-center">IES</th>
                   <th class="text-center">EMPRESA</th>
-                  <th class="text-center">FECHA DE REGISTRO</th> 
+                  <th class="text-center">FECHA DE REGISTRO</th>
+                  <th class="text-center">FECHA FIN DE REGISTRO</th>
                   <th class="text-center">ACCESOS</th>
                   <th class="text-center">ESTATUS</th>    
+                  <th class="text-center">AVANCE</th>
             </tr>
         </thead>
               <tbody>
@@ -90,12 +120,22 @@
                   <td><?php echo $cand['dt_nombre_ies']. "<br> <strong>".$cand['dt_nombre_carrera']."</strong>" ?></td>
                   <td><?php echo $cand['dt_razon_social']; ?></td>
                   <td class="text-center"><?php echo $cand['fecha']; ?></td>
+                  <!-----> 
+                  <td class="text-center"><?php echo $cand['dt_fin_registro']; ?></td>
+                  
                   <td><?php echo "usuario:".$cand['dt_correo']."<br>"."contraseña:".$cand['dt_password'] ?></td>
-              <td class="text-center"><br><br>
-                <?php if($cand['tp_estatus']>=4 AND $cand['dt_eval_aplica']!=1 ){ ?>
+                  <td class="text-center"><br><br>
+                    <!---->
+                    <a href="eliminar_candidato.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
+                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar </button>
+                    <!----->
+              <!--BOTON PARA PODER ELIMINAR LOS REGISTROS DE CANDIDATOS -->
+              
+              <!---->
+              <?php if($cand['tp_estatus']>=4 AND $cand['dt_eval_aplica']!=1 ) { ?>
                     <a href="validar_cand.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
                   
-                  <?php if($cand['dt_status_validacion']==0 ){ ?>
+                  <?php if($cand['dt_status_validacion']==0 ){ ?>                     
                   <button type="button" class="btn btn-warning"><i class='glyphicon glyphicon-star-empty'></i> Valida</button>
                   <?php } elseif($cand['dt_status_validacion']==1 ){ ?>
                     <button type="button" class="btn btn-danger"><i class='glyphicon glyphicon-star-empty'></i> En actualización</button>
@@ -109,7 +149,9 @@
                       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#dataUpdate" data-nombre="<?php echo $cand['dt_nombres']. " ".$cand['dt_apaterno']. " ".$cand['dt_amaterno']; ?>" data-id="<?php echo $cand['id_usuario']?>"  data-empresa="<?php echo $cand['dt_razon_social']; ?>"><i class='glyphicon glyphicon-edit'></i>Postular</button>
                 <?php }elseif ($cand['tp_estatus']<4) { ?>
                    <h1></h1>
-                <?php } ?>                  
+                <?php } ?>
+                
+                <td><?php echo $cand['dt_avance_registro'].'%'; ?></td>
 
                     
 
@@ -143,5 +185,9 @@ $(document).ready(function() {
 
 </script>
 <script src="../js/app.js"></script>
+
+
+
+
 </body>
 </html>

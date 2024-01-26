@@ -221,9 +221,31 @@ function apoyo_vacantes_anterior(){
   $result = $mysqli->query($sql);
   return $result->fetch_assoc();
 }
+/*********************************************************************************/
+function eliminar_candidato()
+{
+    
+  window.location.href = "../view/pruebas_paquito.php";
+
+  /*global $mysqli;
+
+    $sql = "UPDATE `beneficiario` 
+            SET beneficiario.tp_status_beneficiario = '-1' 
+            WHERE id_usuario = '$id'";  // Usar el valor de la variable $id
+    
+    if ($mysqli->query($sql) === TRUE) 
+    {
+        echo "Consulta ejecutada con éxito";
+    } else 
+    {
+        echo "Error al ejecutar la consulta: " . $mysqli->error;
+    }*/
+}
 
 
-function run_candidato()
+/******************************************************************************/
+
+function run_candidato()   
 {
   global $mysqli, $result;
   $sql ="SELECT empresa.dt_razon_social, beneficiario.id_usuario,`dt_nombres`,`dt_apaterno`,`dt_amaterno`,`dt_curp`,`dt_nombre_carrera`,`dt_nombre_ies`,beneficiario.tp_status_beneficiario, vacante.dt_inicio, vacante.dt_termino, vacante.dt_apoyo, dt_eval_curp, dt_eval_acta, dt_eval_domicilio, dt_eval_identificacion, dt_eval_estudios, dt_eval_seguro, dt_eval_bancario, dt_eval_aplica, dt_eval_comentario, dt_status_validacion, usuario.dt_correo, usuario.dt_password, tp_estatus,

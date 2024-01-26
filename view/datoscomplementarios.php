@@ -2,6 +2,12 @@
 include_once('../model/databases_beneficiario.php');
 mysqli_set_charset( $mysqli, 'utf8'); 
 session_start();
+// Verificar si la sesión está iniciada
+if (!isset($_SESSION['id'])) {
+  // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+  header('Location: ../index.php');
+  exit(); // Asegurarse de que el script se detenga después de la redirección
+}
 $id=$_SESSION["id"];
 $beneficiario =acces_beneficiario($id);
 ?>
@@ -15,6 +21,11 @@ $beneficiario =acces_beneficiario($id);
      <title>Empresarial</title>
      <link href="../css/bootstrap.css" rel="stylesheet">
      <link href="../css/style.css" rel="stylesheet"> 
+     
+     <?php
+        actualizarBeneficiarios40($id); // se manda a llmar esta funcion para actualizar el avance al 40 %     
+     ?>
+
    </head>
    <body>
 <div class="container-fluid" style="background-color: #f5f5f5">
@@ -74,7 +85,7 @@ $beneficiario =acces_beneficiario($id);
                 <div class="col-md-4">
                       <div class="form-group">  
                               <label class="control-label">Idioma</label>
-                                 <?php if($beneficiario['dt_idioma']!=NULL){?>
+                                 <?php if(isset ($beneficiario['dt_idioma'])!=NULL){?>
                               <select class="form-control" name="idioma" required>
                               <?php 
                                  echo '<option value="'.$beneficiario['dt_idioma'].'" selected="">'.$beneficiario['dt_idioma'].'</option>'
@@ -115,7 +126,7 @@ $beneficiario =acces_beneficiario($id);
                 <div class="col-md-4">
                       <div class="form-group">  
                               <label class="control-label">Nivel</label>
-                                 <?php if($beneficiario['dt_idioma_nivel']!=NULL){?>
+                                 <?php if(isset ($beneficiario['dt_idioma_nivel'])!=NULL){?>
                               <select class="form-control" name="nivel" required>
                               <?php 
                                  echo '<option value="'.$beneficiario['dt_idioma_nivel'].'" selected="">'.$beneficiario['dt_idioma_nivel'].'</option>'
@@ -137,7 +148,7 @@ $beneficiario =acces_beneficiario($id);
                 </div> 
                     <div class="col-md-3 col-md-offset-9">
                       <div class="form-group" style="display:flex; gap:10px"><br><br>
-                        <a href="datospersonales.php" class="  btn-primary btn-lg">Anterior</a>    
+                        <!--<a href="datospersonales.php" class="  btn-primary btn-lg">Anterior</a>    -->
                         <button type="submit" class="btn btn-block btn-primary btn-lg">Guardar</button><br><br>
                       </div>
                     </div>           
