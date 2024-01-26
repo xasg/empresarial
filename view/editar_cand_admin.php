@@ -1,6 +1,7 @@
 <?php   
    include_once('../model/databases_beneficiario.php');
    session_start();
+  //  error_reporting(0);
    mysqli_set_charset( $mysqli, 'utf8');
    // Verificar si la sesión está iniciada
     if (!isset($_SESSION['id'])) {
@@ -229,16 +230,18 @@
                         if (valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']) !== null) {
                           $validacion_nombre = valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']);
                       } else {
-                          $validacion_nombre = '';
+                          $validacion_nombre = 'falso';
                       }
 
-                        if ($validacion == null ) {
+                        if ($validacion == null && $validacion_nombre == 'falso' ) {
+
                           ?>
                           <input type="text" class="form-control"  style=" border:1px solid red" value="Sin registro" disabled>
                           <?php
-                        }
+                          
+                      }
 
-                        elseif ($validacion == 0 ) {
+                        elseif ($validacion === 0 ) {
                             echo "Agregada en la entidad ".$validacion_nombre['nombre_entidad']." esta IES se puede agregar a esta entidad";
                             ?>
 
