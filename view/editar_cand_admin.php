@@ -223,12 +223,22 @@
                       <?php
 
                         $id_valida_ies = buscar_ies_final($beneficiario['id_ies_relacion'], $beneficiario['dt_nombre_ies']);
-                        $id_valida_carrera = buscar_carrera_final($beneficiario['id_cat_carrera'], $beneficiario['dt_nombre_carrera']);
-                        $validacion_carrera = valida_carrera($id_valida_ies, $beneficiario['id_cat_entidad']);
+                        // $id_valida_carrera = buscar_carrera_final($beneficiario['id_cat_carrera'], $beneficiario['dt_nombre_carrera']);
                         $validacion = valida_ies($id_valida_ies, $beneficiario['id_cat_entidad']);
-                        $validacion_nombre = valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']);
+                        // $validacion_nombre = valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']) ?? '' ;
+                        if (valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']) !== null) {
+                          $validacion_nombre = valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']);
+                      } else {
+                          $validacion_nombre = '';
+                      }
 
-                        if ($validacion === 0 || $validacion == null) {
+                        if ($validacion == null ) {
+                          ?>
+                          <input type="text" class="form-control"  style=" border:1px solid red" value="Sin registro" disabled>
+                          <?php
+                        }
+
+                        elseif ($validacion == 0 ) {
                             echo "Agregada en la entidad ".$validacion_nombre['nombre_entidad']." esta IES se puede agregar a esta entidad";
                             ?>
 
@@ -241,13 +251,15 @@
                               <button type="button" data-toggle="modal" href="#mi_modal" name="accion" value="ies" class="btn btn-primary p-2 ">Agregar al catalogo de IES</button>
                             <!-- </form> -->
                             <?php
-                        }else{
+                        } elseif ($validacion_nombre['nombre_entidad'] != null){
                       ?>
                       <h5>Ubicada en la <b>Entidad de: </b> <?php echo $validacion_nombre['nombre_entidad'];?></h5>
                       <input type="text" class="form-control " id="id_ies" style="display:none;" name="id_ies"  value="<?php echo $id_valida_ies; ?>"  >
-                      <input type="text" class="form-control" id="nombre_ies" name="nombre_ies"  value="<?php echo $beneficiario['dt_nombre_ies']?>" required>
+                      <input type="text" class="form-control" id="nombre_ies" name="nombre_ies"  value="<?php echo $beneficiario['dt_nombre_ies'];?>" required>
                       <p>Si se edita este campo se editara en la base de datos, y asi es como les aparecera a los candidatos</p>
-                    <?php }?>
+                    <?php }else{ ?>
+                      <input type="text" class="form-control"  style=" border:1px solid red" value="Sin registro" disabled>
+                      <?php } ?>
                     </div>
                   </div>
                   <div class="col-md-12">

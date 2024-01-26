@@ -1,9 +1,6 @@
 <?php
 require_once('../controller/conec.php');
-$servername = "localhost";
-$dbname = "empresarial";
-$username = "root";
-$password = "";
+
 $mysqli = new mysqli($servername, $username, $password, $dbname);
 $result ='';
 if( $mysqli->connect_errno )
@@ -303,24 +300,6 @@ function valida_ies($id_cat_ies, $id_entidad) {
       return 0; // o cualquier otro valor predeterminado que desees devolver en caso de que no haya resultados
   }
 }
-// Funcion para validar la carrera
-function valida_ies($id_cat_carrera, $id_entidad) {
-  global $mysqli;
-  // $sql = "SELECT * FROM cat_ies LEFT JOIN relacion USING(id_cat_ies) LEFT JOIN cat_entidad USING (id_cat_entidad) WHERE cat_ies.id_cat_ies = '{$id_cat_ies}' and relacion.id_cat_entidad = '{$id_entidad}'";
-  $sql = "SELECT * 
-  FROM cat_carrera  
-  LEFT JOIN relacion USING(id_cat_ies) 
-  WHERE cat_carrera.id_cat_carrera = '{$id_cat_ies}' AND relacion.id_cat_entidad = '{$id_entidad}';
-  ";
-  $result = $mysqli->query($sql);
-
-  if ($result && $result->num_rows > 0) {
-      $id_general = $result->fetch_assoc();
-      return $id_general['id'];
-  } else {
-      return 0; // o cualquier otro valor predeterminado que desees devolver en caso de que no haya resultados
-  }
-}
 
 // La siguiente funcion valida el nombre de la entidad con que se registro
 function valida_ies_nombre($id_cat_ies,$id_entidad){
@@ -373,7 +352,6 @@ function buscar_ies_final($id_ies,$nombreescuela){
   $id_general = $result->fetch_assoc();
   return $id_final = $id_general['id'];
 }
-
 // carrera agregada correctamente al catalogo tanto campo id como id_cat_carrera
 function buscar_carrera_final($id_carrera,$nombrecarrera){
   global $mysqli;
