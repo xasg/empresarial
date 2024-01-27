@@ -301,6 +301,25 @@ function valida_ies($id_cat_ies, $id_entidad) {
   }
 }
 
+function valida_carrera($id_cat_carrera, $id_entidad) {
+  global $mysqli;
+  // $sql = "SELECT * FROM cat_ies LEFT JOIN relacion USING(id_cat_ies) LEFT JOIN cat_entidad USING (id_cat_entidad) WHERE cat_ies.id_cat_ies = '{$id_cat_ies}' and relacion.id_cat_entidad = '{$id_entidad}'";
+  $sql = "SELECT * 
+  FROM cat_carrera 
+  -- LEFT JOIN cat_entidad USING (id_cat_entidad) 
+  LEFT JOIN relacion USING(id_cat_ies) 
+  WHERE cat_carrea.id_cat_carrera = '{$id_cat_ies}' AND relacion.id_cat_entidad = '{$id_entidad}';
+  ";
+  $result = $mysqli->query($sql);
+
+  if ($result && $result->num_rows > 0) {
+      $id_general = $result->fetch_assoc();
+      return $id_general['id'];
+  } else {
+      return 0; // o cualquier otro valor predeterminado que desees devolver en caso de que no haya resultados
+  }
+}
+
 // La siguiente funcion valida el nombre de la entidad con que se registro
 function valida_ies_nombre($id_cat_ies,$id_entidad){
   global $mysqli;
@@ -329,6 +348,50 @@ function buscar_carrera($nombrecarrera){
   $id_general = $result->fetch_assoc();
   return $id_final = $id_general['id'];
 }
+
+// Encuentra la carrera primero se valida si ya se encuentra en el catalogo antes de crearla
+function encuentra_carrera($nombrecarrera){
+  global $mysqli;
+
+  $sql = "SELECT id_cat_carrera FROM cat_carrera WHERE dt_nombre_carrera LIKE '{$nombrecarrera}' LIMIT 1";
+  $result = $mysqli->query($sql);
+
+  // Verificar el número de filas en el conjunto de resultados
+  $numRows = $result->num_rows;
+
+  // Devolver el ID de la carrera si hay registros, 0 si no hay registros
+  if ($numRows > 0) {
+      $row = $result->fetch_assoc();
+      return $row['id_cat_carrera'];
+  } else {
+      return 0;
+  }
+}
+
+// Validamos ahora con esta query que si existe tanto en el catalogo de ies como en la relacion es decir que ya esta en la misma escuela y entidad
+function valida_carrera_ben($id_cat_carrera, $id_cat_ies, $id_cat_entidad) {
+  global $mysqli;
+
+  $sql = "SELECT id_relacion FROM relacion r
+          WHERE r.id_cat_entidad = '{$id_cat_entidad}' 
+          AND r.id_cat_ies = '{$id_cat_ies}'
+          AND r.id_cat_carrera = '{$id_cat_carrera}'
+          LIMIT 1";
+
+  $result = $mysqli->query($sql);
+
+  // Verificar el número de filas en el conjunto de resultados
+  $numRows = $result->num_rows;
+
+  // Devolver el ID de la relación si hay registros, 0 si no hay registros
+  if ($numRows > 0) {
+      $row = $result->fetch_assoc();
+      return $row['id_relacion'];
+  } else {
+      return 0;
+  }
+}
+
 
 // Actualizar el catalogo
 function update_ies($id_escuela){
