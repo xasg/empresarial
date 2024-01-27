@@ -15,7 +15,7 @@
       // Valida primero que ya existe la IES en la misma entidad para evitar duplicar los registros
       if ($validacion != null && $validacion > 0) {
          header("Location: ../view/datosacademicos.php?existeies");
-         die();
+         // die();
      } else {
       // En caso de que no exista se inserta en la tabla cat_ies con el id y el nombre seguido de la entidad
          insert_ies($ies_nombre,$_POST['entidad']);
@@ -40,18 +40,18 @@
          $id_cat_carrera = $bandera;
 
          // Despues validamos que esta carrera no este vinculada con la escuena y la entidad de lo contrario ya existe
-         $bandera_dos valida_carrera_ben($id_cat_carrera, $ies, $_POST['entidad']);
+         $bandera_dos = valida_carrera_ben($id_cat_carrera, $ies, $_POST['entidad']);
          if ($bandera_dos > 0) {
             // obtenemos el id de qe si existe tambien la seleccion de la carrera para esa universidad sino si se define la variable $carrera
-            print_r("retorna si existe en la lista para esa carrera")
-            print_r($bandera_dos)
+            print_r("retorna si existe en la lista para esa carrera");
+            print_r($bandera_dos);
          }else {
-            # code...
             print_r("define la variable y se le asigba el valor de id_cat_carrera a carrera");
+            $carrera = $bandera;
          }
 
-         print_r($bandera);
-         die();
+         // print_r($bandera);
+         // die();
       }else {
          // print_r("No existe");
          insert_carrera($carrera_nombre);
@@ -60,7 +60,7 @@
          $carrera = buscar_carrera_final($id_busqueda,$carrera_nombre);
          // print_r($carrera);
       }
-      die();
+      // die();
       
       // print_r($carrera);
       // die();

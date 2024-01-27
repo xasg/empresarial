@@ -109,7 +109,13 @@ $(document).ready(function(){
 
 
     </script>
-    <script language="JavaScript"> 
+
+
+
+
+
+
+<script language="JavaScript"> 
            $(document).ready(function () {
             // Selecciona todos los inputs de tipo texto y añade un controlador de eventos
             $("input[type='text']").on('input', function () {
@@ -194,10 +200,19 @@ $(document).ready(function(){
         <label>Institución de Educación Superior</label>
         <select class="form-control" name="ies" id="ies" required>
           <option selected disabled>Selecciona la IES</option>
-          <!-- SELECT DE IES CON OPCION DE OTROS -->
+          <!-- Opciones de IES -->
         </select>
+        <!-- <select class="form-control" name="ies" id="ies" required>
+          <option selected disabled>Selecciona la IES</option>
+          
+        </select> -->
+        
         <br>
-        <input class="form-control" type="text" id="nombre_ies_input" name="nombre_ies_input" style="display: none;" placeholder="Ingrese el nombre de la IES">
+        <!-- Campo de entrada para el nombre de la IES -->
+<input class="form-control" type="text" id="nombre_ies_input" name="nombre_ies_input" style="display: none;" placeholder="Ingrese el nombre de la IES">
+
+        
+        <!-- <input class="form-control" type="text" id="nombre_ies_input" name="nombre_ies_input" style="display: none;" placeholder="Ingrese el nombre de la IES"> -->
       </div>
     </div>
     <div class="col-md-4">

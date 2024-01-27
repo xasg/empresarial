@@ -130,6 +130,46 @@ function vacantes($id_empresa)
     $sql = "INSERT INTO relacion(id_cat_entidad,id_cat_ies) VALUES('{$id_entidad}','{$id_ies}')";
     return $mysqli->query($sql);
   }
+  // relacion de carrera
+  function insertar_relacion_carrera($id_entidad,$id_ies,$carrera){
+    global $mysqli;
+    $sql = "INSERT INTO relacion(id_cat_entidad,id_cat_ies,id_cat_carrera) VALUES('{$id_entidad}','{$id_ies}','{$carrera}')";
+    return $mysqli->query($sql);
+  }
+// Buscar la relacion
+function buscar_relacion($entidad, $ies, $carrera) {
+  global $mysqli;
+
+  // Escapar las variables para prevenir inyecciones de SQL
+  $entidad = $mysqli->real_escape_string($entidad);
+  $ies = $mysqli->real_escape_string($ies);
+
+  // Construir la consulta
+  $sql = "SELECT id FROM `relacion` WHERE id_cat_entidad = '$entidad' AND id_cat_ies = '$ies' AND id_cat_carrera = '{$carrera}'";
+
+  // Ejecutar la consulta
+  $result = $mysqli->query($sql);
+
+  // Verificar si se obtuvieron resultados
+  if ($result && $result->num_rows > 0) {
+      // Obtener la fila
+      $row = $result->fetch_assoc();
+
+      // Retornar el ID
+      return $row['id'];
+  } else {
+      // No se encontraron resultados, retornar 0
+      return 0;
+  }
+}
+
+// Insertar la carrera en la relacion solo realizar un update a relacion
+  function update_relacion_carrera($idcarrera,$id_relacion){
+    global $mysqli;
+    $sql = "UPDATE relacion SET id_cat_carrera = '{$idcarrera}' WHERE id = '{$id_relacion}' ";
+    return $mysqli->query($sql);
+  }
+
 
   function update_ies($nombre_ies , $id){
     global $mysqli;

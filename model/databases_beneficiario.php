@@ -15,7 +15,7 @@ if( $mysqli->connect_errno )
 function acces_beneficiario($id)
 {
   global $mysqli;
-  $sql = "SELECT *, cat_ies.id_cat_ies as id_ies_relacion FROM beneficiario 
+  $sql = "SELECT *, cat_ies.id_cat_ies as id_ies_relacion, cat_carrera.id as idcarrera FROM beneficiario 
           LEFT JOIN usuario USING(id_usuario) 
           LEFT JOIN cat_entidad ON(beneficiario.id_cat_entidad=cat_entidad.id_cat_entidad)
           LEFT JOIN digital_beneficiario ON(beneficiario.id_usuario=digital_beneficiario.id_usuario)
@@ -372,7 +372,7 @@ function encuentra_carrera($nombrecarrera){
 function valida_carrera_ben($id_cat_carrera, $id_cat_ies, $id_cat_entidad) {
   global $mysqli;
 
-  $sql = "SELECT id_relacion FROM relacion r
+  $sql = "SELECT id FROM relacion r
           WHERE r.id_cat_entidad = '{$id_cat_entidad}' 
           AND r.id_cat_ies = '{$id_cat_ies}'
           AND r.id_cat_carrera = '{$id_cat_carrera}'
@@ -386,7 +386,7 @@ function valida_carrera_ben($id_cat_carrera, $id_cat_ies, $id_cat_entidad) {
   // Devolver el ID de la relación si hay registros, 0 si no hay registros
   if ($numRows > 0) {
       $row = $result->fetch_assoc();
-      return $row['id_relacion'];
+      return $row['id'];
   } else {
       return 0;
   }
