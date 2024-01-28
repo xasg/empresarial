@@ -245,7 +245,7 @@
     </div>
 
   <?php
-// ... (tu código PHP anterior)
+
 
 if (isset($_GET['eliminado']) && $_GET['eliminado'] === 'si') {
     echo "<script>

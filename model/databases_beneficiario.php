@@ -273,9 +273,9 @@ function actualizarBeneficiarios40($id)
     return $mysqli->query($sql);
   }
 //  Buscar primero si la ies existe en el catalogo
-function buscar_primero_ies($nombreescuela){
+function buscar_primero_ies($nombreescuela,$entidad){
   global $mysqli;
-  $sql = "SELECT * FROM cat_ies WHERE dt_nombre_ies = '{$nombreescuela}'";
+  $sql = "SELECT * FROM cat_ies WHERE dt_nombre_ies LIKE '{$nombreescuela}' AND id_cat_entidad = '{$entidad}'";
   $result = $mysqli->query($sql);  // Corregido el nombre de la variable
   $id_general = $result->fetch_assoc();
   return $id_final = $id_general['id'];

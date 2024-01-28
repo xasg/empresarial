@@ -3,7 +3,8 @@
 	mysqli_set_charset( $mysqli, 'utf8');	
 	$id_cat_ies = $_POST['id_cat_ies'];	
 	if ($id_cat_ies == 0) {
-		$queryM = "SELECT id_cat_carrera, dt_nombre_carrera FROM cat_carrera GROUP BY id_cat_carrera ORDER BY id_cat_carrera";
+		// $queryM = "SELECT id_cat_carrera, dt_nombre_carrera FROM cat_carrera GROUP BY id_cat_carrera ORDER BY id_cat_carrera";
+		$queryM = "SELECT id_cat_carrera, dt_nombre_carrera FROM cat_carrera inner JOIN relacion USING (id_cat_carrera) GROUP BY id_cat_carrera ORDER BY id_cat_carrera;";
 		$resultadoM = $mysqli->query($queryM);	
 		$html= "<option value='0'>Seleccionar Carrera</option>";	
 		while($rowM = $resultadoM->fetch_assoc())

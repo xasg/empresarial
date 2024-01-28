@@ -5,17 +5,30 @@
    if( $_POST )
    {  
    $id=$_SESSION["id"];
+   if (empty($_POST['carrera']) && empty($_POST['nombre_carrera_input'])) {
+      print_r($_POST['carrera']);
+      print_r($_POST['nombre_carrera_input']);
+      header("Location: ../view/datosacademicos.php?faltacarrera=si");
+      die();
+  }
+  
+   if ($_POST['carrera']) {
+      # code...
+   }
+
    if ($_POST['nombre_ies_input']) {
       $ies_nombre = isset( $_POST['nombre_ies_input']) ? $_POST['nombre_ies_input'] : '';
-      $id_busqueda = buscar_primero_ies($ies_nombre);
+      $id_busqueda = buscar_primero_ies($ies_nombre,$_POST['entidad']);
       $validacion = valida_ies($id_busqueda,$_POST['entidad']);
       print_r($id_busqueda);
       echo "<br>";
       print_r($validacion);
+      // die();
       // Valida primero que ya existe la IES en la misma entidad para evitar duplicar los registros
       if ($validacion != null && $validacion > 0) {
-         header("Location: ../view/datosacademicos.php?existeies");
-         // die();
+         header("Location: ../view/datosacademicos.php?existeies=si");
+         die();
+         exit();
      } else {
       // En caso de que no exista se inserta en la tabla cat_ies con el id y el nombre seguido de la entidad
          insert_ies($ies_nombre,$_POST['entidad']);

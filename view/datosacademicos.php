@@ -82,9 +82,23 @@ $(document).ready(function(){
     if (selectedOption === 'otros') {
       // Mostrar un input adicional
       $(`#nombre_${elementId}_input`).show();
+      // Hacer que el input sea requerido
+      $(`#nombre_${elementId}_input`).prop('required', true);
+
+      // Si el elemento es "carrera", hacer que el campo de carrera también sea requerido
+      if (elementId === 'carrera') {
+        $("#carrera").prop('required', true);
+      }
     } else {
       // Ocultar el input si la opción no es 'otros'
       $(`#nombre_${elementId}_input`).hide();
+      // Hacer que el input no sea requerido
+      $(`#nombre_${elementId}_input`).prop('required', false);
+
+      // Si el elemento es "carrera", hacer que el campo de carrera no sea requerido
+      if (elementId === 'carrera') {
+        $("#carrera").prop('required', false);
+      }
     }
   }
 
@@ -209,7 +223,7 @@ $(document).ready(function(){
         
         <br>
         <!-- Campo de entrada para el nombre de la IES -->
-<input class="form-control" type="text" id="nombre_ies_input" name="nombre_ies_input" style="display: none;" placeholder="Ingrese el nombre de la IES">
+        <input class="form-control" type="text" id="nombre_ies_input" name="nombre_ies_input" style="display: none;" placeholder="Ingrese el nombre de la IES" required>
 
         
         <!-- <input class="form-control" type="text" id="nombre_ies_input" name="nombre_ies_input" style="display: none;" placeholder="Ingrese el nombre de la IES"> -->
@@ -220,7 +234,7 @@ $(document).ready(function(){
         <label>Carrera</label>
         <select class="form-control" name="carrera" id="carrera" required></select>
         <br>
-        <input class="form-control" type="text" id="nombre_carrera_input" name="nombre_carrera_input" style="display: none;" placeholder="Ingrese la carrera">
+        <input class="form-control" type="text" id="nombre_carrera_input" name="nombre_carrera_input" style="display: none;" placeholder="Ingrese la carrera" required>
       </div>
     </div>                             
   </div>
@@ -330,5 +344,63 @@ $(document).ready(function(){
 </div>
 </div>
 </section> 
+
+    <!-- Mensaje de confirmacion de existe ies -->
+    <div id="miModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <h5 class="modal-title"></h5> -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-warning text-center">
+            ¡La Institución que intentas registrar ya se encuentra en la base de datos, verifica nuevamente tu selección!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Mensaje de confirmacion de falta carrera -->
+    <div id="miModalcarrera" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <h5 class="modal-title"></h5> -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body bg-warning text-center">
+          ¡Por favor, completa todos los campos! Parece que no has seleccionado una carrera. <br> ¡Verifica tu selección e inténtalo nuevamente!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<?php
+
+
+if (isset($_GET['existeies']) && $_GET['existeies'] === 'si') {
+    echo "<script>
+            $(document).ready(function(){
+                $('#miModal').modal('show');
+            });
+          </script>";
+}
+if (isset($_GET['faltacarrera']) && $_GET['faltacarrera'] === 'si') {
+    echo "<script>
+            $(document).ready(function(){
+                $('#miModalcarrera').modal('show');
+            });
+          </script>";
+}
+?>
 </body>
 </html>
