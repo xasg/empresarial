@@ -174,7 +174,7 @@
                           if ($emp['estatus'] == -1 ) {
                           ?>
                           <br>
-                          <a style="margin:3px;" href="../controller/valida_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-primary" ><i class='glyphicon glyphicon-pencil'></i>validar</button></a>
+                          <a style="margin:3px;" href="../controller/valida_empresa_admin.php?vac=<?php echo $emp['id_usuario']; ?>" class="colora"><br><button type="button" class="btn btn-success" ><i class='glyphicon glyphicon-star-empty'></i> Restaurar</button></a>
                           <br>
                           <div class="container-fluid">
                             <br>
