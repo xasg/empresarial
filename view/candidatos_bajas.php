@@ -13,7 +13,7 @@
    
    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_candidato'])) {
     // Llama a la función cuando se presiona el botón
-    eli_candidato(22);
+    
 }
    
     
