@@ -82,7 +82,8 @@
                     <label for="año">Año:</label>
                     <input type="number" class="form-control" name="año" id="año" min="1900" max="2099" required>
                 </div>
-                <input type="hidden" name="id" value= $id>
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
         </div>
