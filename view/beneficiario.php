@@ -21,6 +21,8 @@
        exit(); // Asegurarse de que el script se detenga después de la redirección
    }
     $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y');
+    $fecha3 = date("Y-m-d"); // esta se ocupa para poder sacar la diferencia de el fin de la cavanate al dia actual 
+
     $beneficiarios = run_beneficiario($fecha_actual);
    ?>
 <!DOCTYPE html>
@@ -110,7 +112,7 @@
               ?>
           </select>
               <button class="btn btn-md " type="submit">Seleccionar</button>
-              <div class="container">
+          <div class="container">
             <div class="row">
                 <div class="col-md-12">
                   <div class="panel-heading">
@@ -162,22 +164,46 @@
                   $fecha1 = strtoupper($ben['dt_inicio']);
                   $fecha2 = strtoupper($ben['dt_termino']);
                   
+                  
                   $datetime1 = new DateTime($fecha1);
                   $datetime2 = new DateTime($fecha2);
+                  $datetime3 = new DateTime($fecha3); // Variable corregida
                   
-                  $interval = $datetime1->diff($datetime2);
+                  $interval = $datetime3->diff($datetime2);
                   $diferenciaEnDias = $interval->days;
+
+                  if ($datetime2 < $datetime3) 
+                  {
+                    //echo "La fecha 2 es anterior a la fecha 3, la diferencia es negativa.";
+                    $diferenciaEnDias = -$diferenciaEnDias;
+                  } /*
+                  elseif ($datetime2 > $datetime3) 
+                  {
+                    echo "La fecha 2 es posterior a la fecha 3, la diferencia es negativa.";
+                  } else 
+                  {
+                    echo "Las fechas son iguales.";
+                  }*/
+
+                  
+                  /*
+                  $interval = $datetime1->diff($datetime2);
+                  $diferenciaEnDias = $interval->days;*/
                   
                   //echo "La diferencia en días entre las fechas es: " . $diferenciaEnDias . " días";
                   ?>
                   <!--------------------------------------------------->
                   <td>
                       
-                      <?php echo strtoupper($ben['dt_termino']); //echo "diferencia de dias ". $diferenciaEnDias?> 
-                      <?php  if (($diferenciaEnDias < 14)   )
+                      <?php
+                         echo strtoupper($ben['dt_termino']);
+                        /*<!-- echo "La diferencia en días entre las fechas es: " . $diferenciaEnDias . " días";*/
+                       ?> 
+                      <?php if (($diferenciaEnDias < 14)   )
                       {
                         ?>
-                        <br><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-calendar"></span> Extender</button>
+                        <a href="beneficiario_extecion_fecha.php?ben=<?php echo $ben['id_usuario']; ?>">
+                        <br><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-calendar"></span> Extender</button></a>
                       <?php 
                       }
                       ?> 
