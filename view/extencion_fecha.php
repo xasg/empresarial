@@ -15,6 +15,8 @@
     $año = $_POST["año"];
     $id = $_POST["id"]; // Obtener el valor del campo oculto
 
+    
+
     echo "el dia es ".$dia." el mes es ".$mes. " el año es ".$año." el id es ".$id;
 
     function procesarFecha($dia, $mes, $año, $id) 
