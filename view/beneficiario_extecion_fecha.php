@@ -1,16 +1,50 @@
 <?php   
-   include_once('../model/databases_admin.php');
-   session_start();
-   mysqli_set_charset($mysqli, 'utf8');
-   // Verificar si la sesión está iniciada
-    if (!isset($_SESSION['id'])) {
-      // La sesión no está iniciada, redireccionar a la página de inicio de sesión
-      header('Location: ../index.php');
-      exit(); // Asegurarse de que el script se detenga después de la redirección
+
+include_once('../model/databases_beneficiario.php');
+      session_start();
+      mysqli_set_charset( $mysqli, 'utf8');
+      // Verificar si la sesión está iniciada
+       if (!isset($_SESSION['id'])) {
+         // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+         header('Location: ../index.php');
+         exit(); // Asegurarse de que el script se detenga después de la redirección
+       }
+
+$id = $_GET['ben'];
+//echo "el id es " . $id;
+
+$sql = "SELECT `id_empresa` 
+        FROM `rel_beneficiario_vacante` 
+        WHERE `id_usuario` = '$id'";
+
+$result = $mysqli->query($sql);
+
+if ($result) 
+{
+    if ($result->num_rows > 0) 
+    {
+        $row = $result->fetch_assoc();
+        $id_empresa = $row['id_empresa'];
+       // echo "la empresa es " . $id_empresa;
+    } 
+    else 
+    {
+        echo "No se encontraron resultados para el usuario con ID " . $id;
     }
-    
-    $id=$_GET['ben'];
-   echo "el id es ".$id; 
+} 
+else 
+{
+    echo "Error al ejecutar la consulta: " . $mysqli->error;
+}
+
+// Liberar el resultado
+$result->free();
+
+
+
+
+//////////////////////////////////////*
+
    ?>
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -83,6 +117,7 @@
                     <input type="number" class="form-control" name="año" id="año" min="1900" max="2099" required>
                 </div>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <input type="hidden" name="idempresa" value="<?php echo $id_empresa; ?>">
 
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>

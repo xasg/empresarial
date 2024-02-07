@@ -306,7 +306,7 @@
 
                 <div class="col-md-5">
                   <div class="form-group">
-                    <label>CLABE INTERBANCARIA de 18 dígitos</label>
+                    <label>CLABE INTERBANCARIA (de 18 dígitos)</label>
                     <input type="text" name="clabe" maxlength="18" class="form-control" value="<?php echo isset ($beneficiario['dt_clabe']);?>" required>
                   </div>
                 </div>
