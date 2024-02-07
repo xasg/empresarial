@@ -4,11 +4,24 @@
   //  error_reporting(0);
    mysqli_set_charset( $mysqli, 'utf8');
    // Verificar si la sesión está iniciada
-    if (!isset($_SESSION['id'])) {
-      // La sesión no está iniciada, redireccionar a la página de inicio de sesión
-      header('Location: ../index.php');
-      exit(); // Asegurarse de que el script se detenga después de la redirección
-    }
+   mysqli_set_charset($mysqli, 'utf8');
+   if (!isset($_SESSION['tp_user']) == 3) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       die();
+   }
+   
+   // Verificar si la sesión está iniciada
+   if (!isset($_SESSION['id'])) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       
+           // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       exit(); // Asegurarse de que el script se detenga después de la redirección
+   }
    $id=$_GET['ben'];
    $_SESSION['beneficiarop'] = $id;
    $beneficiario = acces_beneficiario($id);
@@ -32,9 +45,6 @@
       <script type="text/javascript" src="../js/bootstrap.min.js"></script>
       <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
       <script language="javascript" src="../js/jquery-2.1.3.min.js"></script>   
-      <!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
-      <!-- Initialize the plugin: -->
-<!-- Initialize the plugin: -->
 
 
 
@@ -242,17 +252,14 @@
                       }
 
                         elseif ($validacion === 0 ) {
-                            echo "Agregada en la entidad ".$validacion_nombre['nombre_entidad']." esta IES se puede agregar a esta entidad";
+                            echo "Agregada en la entidad ".isset($validacion_nombre['nombre_entidad']) ? $validacion_nombre['nombre_entidad'] : 'Sin registro'." esta IES se puede agregar a esta entidad";
                             ?>
-
-                            <!-- <form action="../controller/agregar_ies_al_catalogo.php" method="POST"> -->
                               <input type="text" class="form-control " id="id_ies" style="display:none;" name="id_ies"  value="<?php echo $id_valida_ies; ?>"  >
                               <input type="text" class="form-control " id="id_entidad" style="display:none;" name="id_entidad"  value="<?php echo $beneficiario['id_cat_entidad']; ?>" >
                               <input type="text" class="form-control" id="nueva_ies" name="nueva_ies" style="color:#fff; background:red; border:1px solid red" value="<?php echo $beneficiario['dt_nombre_ies'] ?>" required>
                               <br>
                               <!-- <button type="submit" class="btn btn-primary p-2 ">Agregar al catalogo de IES</button> -->
                               <button type="button" data-toggle="modal" href="#mi_modal" name="accion" value="ies" class="btn btn-primary p-2 ">Agregar al catalogo de IES</button>
-                            <!-- </form> -->
                             <?php
                         } elseif ($validacion_nombre['nombre_entidad'] != null){
                       ?>
@@ -270,6 +277,13 @@
                       <label>Carrera</label>
                       <?php  
                         $validacion_carrera = valida_carrera_ben($beneficiario['idcarrera'], $id_valida_ies, $beneficiario['id_cat_entidad']);
+                        
+                        if ($validacion_carrera == null && $validacion_nombre == 'falso') {
+                          ?>
+                               <input type="text" class="form-control"  style=" border:1px solid red" value="Sin registro" disabled>
+                          <?php
+                          }else 
+
                         if ($validacion_carrera == 0) {
                           ?>
                           <h4 class="btn-danger"> Desea Agregar esta carrera a la IES en esta entidad ?</h4>

@@ -2,12 +2,24 @@
    include_once('../model/databases_admin.php');
    session_start();
    mysqli_set_charset($mysqli, 'utf8');
+   mysqli_set_charset($mysqli, 'utf8');
+   if (!isset($_SESSION['tp_user']) == 3) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       die();
+   }
+   
    // Verificar si la sesión está iniciada
-    if (!isset($_SESSION['id'])) {
-      // La sesión no está iniciada, redireccionar a la página de inicio de sesión
-      header('Location: ../index.php');
-      exit(); // Asegurarse de que el script se detenga después de la redirección
-    }
+   if (!isset($_SESSION['id'])) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       
+           // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       exit(); // Asegurarse de que el script se detenga después de la redirección
+   }
     $fecha_actual = isset($_POST['year']) ? $_POST['year'] : date('Y');
     $fecha3 = date("Y-m-d"); // esta se ocupa para poder sacar la diferencia de el fin de la cavanate al dia actual 
 
