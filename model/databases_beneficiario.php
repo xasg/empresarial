@@ -159,6 +159,28 @@ function update_valida($id, $valida)
   $mysqli->query($sql); 
 }
 
+function actualizarFechaFinRegistro($id)
+{
+  global $mysqli;  
+  echo "entro la funcion ";
+  $fecha_actual = date("Y-m-d H:i:s");
+
+  
+  $sql = "UPDATE beneficiario 
+  SET dt_fin_registro =  '{$fecha_actual}'  
+  WHERE id_usuario = '{$id }'";  // Usar el valor de la variable $id
+  if ($mysqli->query($sql) === TRUE) 
+    {
+      // echo "Consulta ejecutada con éxito";
+    }
+    else 
+      {
+        // echo "Error al ejecutar la consulta: " . $mysqli->error;
+      }
+      
+    //header("Location: beneficiario.php");            
+}
+
 function actualizarBeneficiarios20($id) 
 {
   global $mysqli;

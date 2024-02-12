@@ -29,7 +29,7 @@ if ($result)
     } 
     else 
     {
-        echo "No se encontraron resultados para el usuario con ID " . $id;
+        // echo "No se encontraron resultados para el usuario con ID " . $id;
     }
 } 
 else 
