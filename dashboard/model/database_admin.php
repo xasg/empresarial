@@ -266,9 +266,11 @@ function run_candidato()
 }
 
 
-function run_benefiaciario()
+function run_beneficiario($fecha)
 {
   global $mysqli, $result;
+  // Se comento la linea debido a que falta agregarse el campo de nueva fecha de termino en la tabla de rel_beneficiario_vacante
+  // $sql ="SELECT rel_beneficiario_vacante.dt_nueva_fecha_termino,rel_beneficiario_vacante.dt_nueva_fecha_termino, empresa.dt_razon_social, beneficiario.id_usuario, dt_correo, `dt_nombres`,`dt_apaterno`,`dt_amaterno`,`dt_curp`,`dt_nombre_carrera`,`dt_nombre_ies`,`tp_status_beneficiario`, vacante.dt_nombre, vacante.dt_inicio, vacante.dt_termino, vacante.dt_apoyo, dt_clabe, SUBSTRING(dt_clabe, 1, 3) AS banco, url_cuenta, url_convenio1, url_convenio2, dt_paqueteria, usuario.dt_password, dt_guia,(SELECT dt_nombre FROM cat_banco WHERE id_banco=banco) AS banco ,(SELECT dt_clave_tranf FROM cat_banco WHERE id_banco=banco) AS trans , CAST(beneficiario.dt_fh_registro AS DATE) AS fecha FROM beneficiario
   $sql ="SELECT empresa.dt_razon_social, beneficiario.id_usuario, dt_correo, `dt_nombres`,`dt_apaterno`,`dt_amaterno`,`dt_curp`,`dt_nombre_carrera`,`dt_nombre_ies`,`tp_status_beneficiario`, vacante.dt_nombre, vacante.dt_inicio, vacante.dt_termino, vacante.dt_apoyo, dt_clabe, SUBSTRING(dt_clabe, 1, 3) AS banco, url_cuenta, url_convenio1, url_convenio2, dt_paqueteria, usuario.dt_password, dt_guia,(SELECT dt_nombre FROM cat_banco WHERE id_banco=banco) AS banco ,(SELECT dt_clave_tranf FROM cat_banco WHERE id_banco=banco) AS trans , CAST(beneficiario.dt_fh_registro AS DATE) AS fecha FROM beneficiario
          LEFT JOIN usuario ON(beneficiario.id_usuario=usuario.id_usuario)
         LEFT JOIN cat_ies ON(beneficiario.dt_ies=cat_ies.id_cat_ies)
@@ -277,10 +279,9 @@ function run_benefiaciario()
         LEFT JOIN empresa ON(rel_beneficiario_vacante.id_empresa=empresa.id_usuario)
         LEFT JOIN vacante ON(rel_beneficiario_vacante.id_vacante=vacante.id_vacante)
         LEFT JOIN digital_beneficiario ON(beneficiario.id_usuario=digital_beneficiario.id_usuario)
-        WHERE `tp_status_beneficiario`=1 AND beneficiario.`dt_fh_registro` LIKE '%2022%'";
+        WHERE `tp_status_beneficiario`=1 AND year(beneficiario.`dt_fh_registro`) =  '{$fecha}'";
         return $mysqli->query($sql);
 }
-
 
 
 function run_benefiaciario2020()
