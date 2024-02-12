@@ -162,7 +162,7 @@ function update_valida($id, $valida)
 function actualizarFechaFinRegistro($id)
 {
   global $mysqli;  
-  echo "entro la funcion ";
+  // echo "entro la funcion ";
   $fecha_actual = date("Y-m-d H:i:s");
 
   
