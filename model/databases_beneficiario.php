@@ -25,6 +25,33 @@ function acces_beneficiario($id)
   $result = $mysqli->query($sql);
    return $result->fetch_assoc();
 }
+function procesarFecha($dia, $mes, $año, $id, $id_empresa) 
+{   
+  
+  global $mysqli;
+ 
+  
+  echo "entro la funcion "; 
+  if ($dia >= 1 && $dia <= 31 && $mes >= 1 && $mes <= 12 && $año >= 1900 && $año <= 2099) 
+  {
+    $nuevaFecha = $año . '-' . $mes . '-' . $dia;
+    $sql = "UPDATE rel_beneficiario_vacante 
+    SET dt_nueva_fecha_termino =  '{$nuevaFecha}'  
+    WHERE id_empresa = '{$id_empresa}' 
+    AND id_usuario = '{$id }'";  // Usar el valor de la variable $id
+    if ($mysqli->query($sql) === TRUE) 
+      {
+        echo "Consulta ejecutada con éxito";
+      }
+      else 
+        {
+          echo "Error al ejecutar la consulta: " . $mysqli->error;
+        }
+      //header("Location: beneficiario.php");
+
+            
+  }
+}
 
 function valida($id)
 {
