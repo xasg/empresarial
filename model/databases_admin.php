@@ -406,10 +406,12 @@ function update_datosbancarios($id, $clabe)
 }
 
 
-function update_validacion($id, $valida, $curp, $acta, $domicilio, $identificacion, $estudios, $seguro, $bancario, $aplica, $comentario)
+// function update_validacion($id, $valida, $curp, $acta, $domicilio, $identificacion, $estudios, $seguro, $bancario, $aplica, $comentario)
+function update_validacion($id, $curp, $acta, $domicilio, $identificacion, $estudios, $seguro, $bancario, $aplica, $comentario)
 {
   global $mysqli;
-  $sql = "UPDATE validacion_ben SET  dt_eval_curp = '{$curp}', dt_eval_acta = '{$acta}', dt_eval_domicilio = '{$domicilio}', dt_eval_identificacion = '{$identificacion}', dt_eval_estudios = '{$estudios}', dt_eval_seguro = '{$seguro}', dt_eval_bancario = '{$bancario}' , dt_eval_aplica = '{$aplica}', dt_eval_comentario = '{$comentario}', dt_status_validacion = '{$valida}' WHERE id_usuario ='{$id}' ";
+  // $sql = "UPDATE validacion_ben SET  dt_eval_curp = '{$curp}', dt_eval_acta = '{$acta}', dt_eval_domicilio = '{$domicilio}', dt_eval_identificacion = '{$identificacion}', dt_eval_estudios = '{$estudios}', dt_eval_seguro = '{$seguro}', dt_eval_bancario = '{$bancario}' , dt_eval_aplica = '{$aplica}', dt_eval_comentario = '{$comentario}', dt_status_validacion = '{$valida}' WHERE id_usuario ='{$id}' ";
+  $sql = "UPDATE validacion_ben SET  dt_eval_curp = '{$curp}', dt_eval_acta = '{$acta}', dt_eval_domicilio = '{$domicilio}', dt_eval_identificacion = '{$identificacion}', dt_eval_estudios = '{$estudios}', dt_eval_seguro = '{$seguro}', dt_eval_bancario = '{$bancario}' , dt_eval_aplica = '{$aplica}', dt_eval_comentario = '{$comentario}' WHERE id_usuario ='{$id}' ";
   $mysqli->query($sql); 
 }
 

@@ -15,7 +15,8 @@
    $bancario = isset( $_POST['bancario']) ? $_POST['bancario'] : '';
    $aplica = isset( $_POST['aplica']) ? $_POST['aplica'] : '';
    $comentario = isset( $_POST['comentario']) ? $_POST['comentario'] : '';
-   update_validacion($id, $valida, $curp, $acta, $domicilio, $identificacion, $estudios, $seguro, $bancario, $aplica, $comentario);
+   // update_validacion($id, $valida, $curp, $acta, $domicilio, $identificacion, $estudios, $seguro, $bancario, $aplica, $comentario);
+   update_validacion($id, $curp, $acta, $domicilio, $identificacion, $estudios, $seguro, $bancario, $aplica, $comentario);
 ?>
     <script>
        window.location="../view/candidato.php"
