@@ -197,7 +197,7 @@ $(document).ready(function(){
 </div>
 
 <form action="../controller/update_datosacademicos.php" method="POST">
-  <div class="row"><br><h2>Datos Academicos</h2><br>
+  <div class="row"><br><h2>Datos Académicos</h2><br>
 
     <div class="col-md-4">
       <label>Entidad </label>
