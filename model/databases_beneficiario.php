@@ -31,7 +31,7 @@ function procesarFecha($dia, $mes, $año, $id, $id_empresa)
   global $mysqli;
  
   
-  echo "entro la funcion "; 
+  //echo "entro la funcion "; 
   if ($dia >= 1 && $dia <= 31 && $mes >= 1 && $mes <= 12 && $año >= 1900 && $año <= 2099) 
   {
     $nuevaFecha = $año . '-' . $mes . '-' . $dia;
@@ -47,7 +47,7 @@ function procesarFecha($dia, $mes, $año, $id, $id_empresa)
         {
           echo "Error al ejecutar la consulta: " . $mysqli->error;
         }
-      //header("Location: beneficiario.php");
+      header("Location: beneficiario.php");
 
             
   }
