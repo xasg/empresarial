@@ -136,6 +136,7 @@
                   <th>VACANTE</th>
                   <th>INICIO ACTIVIDADES</th>
                   <th>FIN ACTIVIDADES</th>
+                  <th>FECHA EXTENCION </th>
                   <th>PAGO</th>
                   <th>PERFIL</th>
                   <th>CONVENIO</th>
@@ -199,7 +200,7 @@
                          echo strtoupper($ben['dt_termino']);
                         /*<!-- echo "La diferencia en días entre las fechas es: " . $diferenciaEnDias . " días";*/
                        ?> 
-                      <?php if (($diferenciaEnDias < 14)   )
+                      <?php if (($diferenciaEnDias < 14)  && ($ben['dt_nueva_fecha_termino'] == NULL)   )  //cuando el usuario se acerque a la fecha de fin de actividades 14 dias y no tenga fecha de extencion se mostrara el boton de extener
                       {
                         ?>
                         <a href="beneficiario_extecion_fecha.php?ben=<?php echo $ben['id_usuario']; ?>">
@@ -208,6 +209,25 @@
                       }
                       ?> 
                   </td>
+                  <!---------------------------------AQUI VAMOS AGREGAR SI EL USUARIO TIENE FECHA DE EXTENCION -------------->
+                  <?php
+                    if ($ben['dt_nueva_fecha_termino'] == NULL)
+                    {
+                      ?>
+                        <td><?php echo "N/A"?></td> 
+                      <?php   
+                    }
+                    else
+                    {
+                      ?>
+                        <td><?php echo " ".$ben['dt_nueva_fecha_termino']; ?></td>
+                    <?php
+                    } 
+
+                  ?>
+                  
+                  <!--------------------------------------------------------------------------------------------------------->
+
                   <td><?php echo "$ ".$ben['dt_apoyo']; ?></td>
                   <td class="text-center"><br><a href="beneficiario_juridico.php?ben=<?php echo $ben['id_usuario']; ?>">
                     <button type="button" class="btn btn-warning" ><i class='glyphicon glyphicon-search'></i>&nbsp;&nbsp;Ver</button>

@@ -33,7 +33,7 @@
    crear_estatus($id_user);
    $empresa=view_empresa($id_user);  
 
-   $emailCliente = 'malfatapia1@gmail.com';
+   $emailCliente = 'aramirez@fese.mx';
    $destinatario = trim($emailCliente); // Quitamos algún espacio en blanco
    $asunto       = "Empresarial - REGISTRO DE EMPRESA";
    $cuerpo = '

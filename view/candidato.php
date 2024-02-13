@@ -181,6 +181,7 @@
                     <!---->
                     <a href="eliminar_candidato.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
                     <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Baja </button>
+                    </a>
                     <!----->
               <!--BOTON PARA PODER ELIMINAR LOS REGISTROS DE CANDIDATOS -->
               
@@ -202,7 +203,7 @@
                       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#dataUpdate" data-nombre="<?php echo $cand['dt_nombres']. " ".$cand['dt_apaterno']. " ".$cand['dt_amaterno']; ?>" data-id="<?php echo $cand['id_usuario']?>"  data-empresa="<?php echo $cand['dt_razon_social']; ?>"><i class='glyphicon glyphicon-edit'></i>Postular</button>
                 <?php }elseif ($cand['tp_estatus']<4) { ?>
                    <h1></h1>
-                <?php } ?>
+                <?php } ?> 
                 
                 <td><?php echo $cand['dt_avance_registro'].'%'; ?></td>
 

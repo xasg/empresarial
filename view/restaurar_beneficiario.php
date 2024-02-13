@@ -19,5 +19,5 @@
     {
         echo "Error al ejecutar la consulta: " . $mysqli->error;
     }
-    header("Location: beneficiario.php");
+    header("Location: beneficiario_bajas.php");
    ?>

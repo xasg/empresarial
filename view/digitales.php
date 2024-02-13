@@ -65,7 +65,7 @@
                             <a href="datospersonales.php"><h5>Datos</h5> <span>Personales</span></a>
                           </li>
                           <li class="finalizado">
-                             <a href="datosacademicos.php"><h5>Datos</h5> <span>Academicos</span></a>
+                             <a href="datosacademicos.php"><h5>Datos</h5> <span>Académicos</span></a>
                           </li>
                           <li class="finalizado">
                             <a href="datoscomplementarios.php"><h5>Datos</h5> <span>Complementarios</span></a>
@@ -306,7 +306,7 @@
 
                 <div class="col-md-5">
                   <div class="form-group">
-                    <label>CLABE INTERBANCARIA de 18 dígitos</label>
+                    <label>CLABE INTERBANCARIA (de 18 dígitos)</label>
                     <input type="text" name="clabe" maxlength="18" class="form-control" value="<?php echo isset ($beneficiario['dt_clabe']);?>" required>
                   </div>
                 </div>

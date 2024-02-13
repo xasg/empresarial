@@ -106,7 +106,7 @@ function curpValida(curp) {
                             <a href="datospersonales.php"><h5>Datos</h5> <span>Personales</span></a>
                           </li>
                           <li>
-                            <a href="#"><h5>Datos</h5> <span>Academicos</span></a>
+                            <a href="#"><h5>Datos</h5> <span>Académicos</span></a>
                           </li>
                           <li>
                             <a href="#"><h5>Datos</h5> <span>Complementarios</span></a>

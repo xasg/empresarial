@@ -65,7 +65,7 @@ $beneficiario =acces_beneficiario($id);
                             <a href="datospersonales.php"><h5>Datos</h5> <span>Personales</span></a>
                           </li>
                           <li class="finalizado">
-                            <a href="datosacademicos.php"><h5>Datos</h5> <span>Academicos</span></a>
+                            <a href="datosacademicos.php"><h5>Datos</h5> <span>Académicos</span></a>
                           </li>
                           <li class="completed">
                             <a href="#"><h5>Datos</h5> <span>Complementarios</span></a>
