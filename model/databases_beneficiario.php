@@ -162,7 +162,8 @@ function update_valida($id, $valida)
 function actualizarFechaFinRegistro($id)
 {
   global $mysqli;  
-  // echo "entro la funcion ";git 
+  // echo "entro la funcion ";
+  date_default_timezone_set('America/Mexico_City');
   $fecha_actual = date("Y-m-d H:i:s");
 
   
