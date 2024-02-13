@@ -1,7 +1,7 @@
 <?php
 
 $servername = "localhost";
-$dbname = "empresarial";
-$username = "root";
-$password = "";
+$dbname = "feseor5_staging";
+$username = "feseor5_empresarial";
+$password = "HeVr104321";
 ?>
