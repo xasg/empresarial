@@ -1,10 +1,7 @@
 <?php
-	include 'conec.php';
-// 	$servername = "localhost";
-// $dbname = "empresarial";
-// $username = "root";
-// $password = "";
-	$mysqli = new mysqli($servername,$username,"",$dbname); 
+// Se incluye la direccion de la instancia de las variables de la base de datos
+include 'conec.php';
+	$mysqli = new mysqli($servername,$username,$password,$dbname); 
 	
 	if(mysqli_connect_errno()){
 		echo 'Conexion Fallida : ', mysqli_connect_error();
