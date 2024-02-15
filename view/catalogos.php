@@ -1,7 +1,24 @@
 <?php   
    include_once('../model/databases_admin.php');
    session_start();
-   mysqli_set_charset( $mysqli, 'utf8');
+   mysqli_set_charset($mysqli, 'utf8');
+   if (!isset($_SESSION['tp_user']) == 3) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       die();
+   }
+   
+   // Verificar si la sesión está iniciada
+   if (!isset($_SESSION['id'])) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       
+           // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       exit(); // Asegurarse de que el script se detenga después de la redirección
+   }
    $fecha = run_actividades();   
    ?>
 <!DOCTYPE html>

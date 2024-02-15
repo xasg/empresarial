@@ -2,9 +2,31 @@
    include_once('../model/databases_empresa.php');
    session_start();
    mysqli_set_charset( $mysqli, 'utf8');
+   mysqli_set_charset($mysqli, 'utf8');
+   if (!isset($_SESSION['tp_user']) == 3) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       die();
+   }
+   
+   // Verificar si la sesión está iniciada
+   if (!isset($_SESSION['id'])) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       
+           // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       exit(); // Asegurarse de que el script se detenga después de la redirección
+   }
    $id=$_GET['vac'];
    $vac = run_vacanteinfo($id);
-
+   $nom = run_vacante_info($id);
+   $nom_comercial = "nom";
+   foreach ($nom as $key => $value) {
+      $nom_comercial = $value['dt_nombre_comercial'];
+   }
    ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -75,6 +97,7 @@
                             <li class="active"><a class="colora" href="empresarial.php" >Empresas</a></li>
                             <li class=""><a class="colora" href="candidato.php" >Candidatos</a></li>
                             <li class=""><a class="colora" href="beneficiario.php" >Beneficiarios</a></li>
+                            <li class=""><a class="colora" href="new_vacante_admin_view.php" >vacantes</a></li>
                         </ul>
                 </div>
                </div>
@@ -86,6 +109,10 @@
                         <h2>Datos de la Vacante<br><br></h2>
                       </div>                  
 
+                      <div class="col-md-12">
+                        <h3>Empresa:</h3>
+                        <h4 style="border-bottom:2px solid #ccc; font-size:22px;" ><?php echo $nom_comercial; ?></h4> 
+                     </div>
 
                         <div class="col-md-12">
                            <div class="form-group">

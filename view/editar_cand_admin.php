@@ -1,8 +1,29 @@
 <?php   
    include_once('../model/databases_beneficiario.php');
    session_start();
+  //  error_reporting(0);
    mysqli_set_charset( $mysqli, 'utf8');
+   // Verificar si la sesión está iniciada
+   mysqli_set_charset($mysqli, 'utf8');
+   if (!isset($_SESSION['tp_user']) == 3) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       die();
+   }
+   
+   // Verificar si la sesión está iniciada
+   if (!isset($_SESSION['id'])) {
+       // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+       
+           // Si no está logueado lo redireccion a la página de login.
+       header("HTTP/1.1 302 Moved Temporarily"); 
+       header("Location: ../"); 
+       exit(); // Asegurarse de que el script se detenga después de la redirección
+   }
    $id=$_GET['ben'];
+   $_SESSION['beneficiarop'] = $id;
    $beneficiario = acces_beneficiario($id);
    $result = run_entidad();
    $empresas=view_empresas();
@@ -24,9 +45,6 @@
       <script type="text/javascript" src="../js/bootstrap.min.js"></script>
       <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
       <script language="javascript" src="../js/jquery-2.1.3.min.js"></script>   
-      <!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
-      <!-- Initialize the plugin: -->
-<!-- Initialize the plugin: -->
 
 
 
@@ -213,13 +231,76 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>IES</label>
-                      <input type="text" class="form-control"  value="<?php echo $beneficiario['dt_nombre_ies']?>" required>
+                      <?php
+
+                        $id_valida_ies = buscar_ies_final($beneficiario['id_ies_relacion'], $beneficiario['dt_nombre_ies']);
+                        // $id_valida_carrera = buscar_carrera_final($beneficiario['id_cat_carrera'], $beneficiario['dt_nombre_carrera']);
+                        $validacion = valida_ies($id_valida_ies, $beneficiario['id_cat_entidad']);
+                        // $validacion_nombre = valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']) ?? '' ;
+                        if (valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']) !== null) {
+                          $validacion_nombre = valida_ies_nombre($id_valida_ies, $beneficiario['id_cat_entidad']);
+                      } else {
+                          $validacion_nombre = 'falso';
+                      }
+
+                        if ($validacion == null && $validacion_nombre == 'falso' ) {
+
+                          ?>
+                          <input type="text" class="form-control"  style=" border:1px solid red" value="Sin registro" disabled>
+                          <?php
+                          
+                      }
+
+                        elseif ($validacion === 0 ) {
+                            echo "Agregada en la entidad ".isset($validacion_nombre['nombre_entidad']) ? $validacion_nombre['nombre_entidad'] : 'Sin registro'." esta IES se puede agregar a esta entidad";
+                            ?>
+                              <input type="text" class="form-control " id="id_ies" style="display:none;" name="id_ies"  value="<?php echo $id_valida_ies; ?>"  >
+                              <input type="text" class="form-control " id="id_entidad" style="display:none;" name="id_entidad"  value="<?php echo $beneficiario['id_cat_entidad']; ?>" >
+                              <input type="text" class="form-control" id="nueva_ies" name="nueva_ies" style="color:#fff; background:red; border:1px solid red" value="<?php echo $beneficiario['dt_nombre_ies'] ?>" required>
+                              <br>
+                              <!-- <button type="submit" class="btn btn-primary p-2 ">Agregar al catalogo de IES</button> -->
+                              <button type="button" data-toggle="modal" href="#mi_modal" name="accion" value="ies" class="btn btn-primary p-2 ">Agregar al catalogo de IES</button>
+                            <?php
+                        } elseif ($validacion_nombre['nombre_entidad'] != null){
+                      ?>
+                      <h5>Ubicada en la <b>Entidad de: </b> <?php echo $validacion_nombre['nombre_entidad'];?></h5>
+                      <input type="text" class="form-control " id="id_ies" style="display:none;" name="id_ies"  value="<?php echo $id_valida_ies; ?>"  >
+                      <input type="text" class="form-control" id="nombre_ies" name="nombre_ies"  value="<?php echo $beneficiario['dt_nombre_ies'];?>" required>
+                      <p>Si se edita este campo se editara en la base de datos, y asi es como les aparecera a los candidatos</p>
+                    <?php }else{ ?>
+                      <input type="text" class="form-control"  style=" border:1px solid red" value="Sin registro" disabled>
+                      <?php } ?>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Carrera</label>
+                      <?php  
+                        $validacion_carrera = valida_carrera_ben($beneficiario['idcarrera'], $id_valida_ies, $beneficiario['id_cat_entidad']);
+                        
+                        if ($validacion_carrera == null && $validacion_nombre == 'falso') {
+                          ?>
+                               <input type="text" class="form-control"  style=" border:1px solid red" value="Sin registro" disabled>
+                          <?php
+                          }else 
+
+                        if ($validacion_carrera == 0) {
+                          ?>
+                          <h4 class="btn-danger"> Desea Agregar esta carrera a la IES en esta entidad ?</h4>
+                          <input type="text" class="form-control " id="id_ies" style="display:none;" name="id_ies"  value="<?php echo $id_valida_ies; ?>"  >
+                              <input type="text" class="form-control " id="id_entidad" style="display:none;" name="id_entidad"  value="<?php echo $beneficiario['id_cat_entidad']; ?>" >
+                              <input type="text" class="form-control " id="id_carrera" style="display:none;" name="id_carrera"  value="<?php echo $beneficiario['idcarrera']; ?>" >
+                          <input type="text" class="form-control" id="nueva_carrera" name="nueva_carrera" style="color:#fff; background:red; border:1px solid red" value="<?php echo $beneficiario['dt_nombre_carrera']?>" required>     
+                          <p>Si se edita este campo se editara en la base de datos, y asi es como les aparecera a los candidatos</p>
+                          
+                          <button type="button" data-toggle="modal" href="#mi_modal3"  class="btn btn-primary p-2 ">Agregar al catalogo de Carreras</button>
+                          <?php
+                        }else{
+                      ?>
                      <input type="text" class="form-control" value="<?php echo $beneficiario['dt_nombre_carrera']?>" required>
+                    <?php
+                        }
+                    ?>
                     </div>
                   </div>
 
@@ -275,9 +356,83 @@
     <div class="col-md-4">
                 <div class="form-group">  
                    <input type="hidden" name="id" value="<?php echo $beneficiario['id_usuario']?>" />
-                  <button type="submit" class="btn btn-block btn-primary btn-lg">Actualizar</button><br><br>
+                    <button type="button" data-toggle="modal" href="#mi_modal2" name="accion" value="datos" class="btn btn-block btn-primary btn-lg">Actualizar</button><br><br>
                   </div>
                 </div>
+
+                            <div class="modal fade" id="mi_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                      <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Estas Seguro de Actualizar los datos?</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row" style="padding:15px">
+                                      Se agregara la IES al catalogo.
+                                      <br>
+                                      <!-- <a class="btn btn-default" href="../controller/elimina_empresa.php?vac=<?php echo $emp['id_empresa']; ?>">Eliminar</a> -->
+                                      <button type="submit"  name="accion" value="ies" class="btn  btn-default ">Actualizar</button>
+                                      <button type="button" class="btn btn-danger " data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="modal fade" id="mi_modal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                      <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Estas Seguro de Agregar la carrera?</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row" style="padding:15px">
+                                      Si actualizaste el campo de la CARRERA, le aparecera a los demas candidatos el mismo nombre.
+                                      <br>
+                                      <!-- <a class="btn btn-default" href="../controller/elimina_empresa.php?vac=<?php echo $emp['id_empresa']; ?>">Eliminar</a> -->
+                                      <button type="submit"  name="accion" value="carrera" class="btn  btn-default ">Actualizar</button>
+                                      <button type="button" class="btn btn-danger " data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal fade" id="mi_modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                      <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Estas Seguro de Actualizar los datos?</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row" style="padding:15px">
+                                      Si actualizaste el campo de la IES o CARRERA, le aparecera a los demas candidatos el mismo nombre.
+                                      <br>
+                                      <!-- <a class="btn btn-default" href="../controller/elimina_empresa.php?vac=<?php echo $emp['id_empresa']; ?>">Eliminar</a> -->
+                                      <button type="submit"  name="accion" value="datos" class="btn  btn-default ">Actualizar</button>
+                                      <button type="button" class="btn btn-danger " data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
   </form>
 
     <hr>
@@ -295,9 +450,11 @@
                   <div class="col-md-4">
                 <div class="form-group">  
                   <input type="hidden" name="id" value="<?php echo $beneficiario['id_usuario']?>" />
-                  <button type="submit" class="btn btn-block btn-primary btn-lg">Actualizar</button><br><br>
+                  <button type="submit"  class="btn btn-block btn-primary btn-lg">Actualizar</button><br><br>
                   </div>
                 </div>
+
+
             </form>
 
                   <br><br><br>

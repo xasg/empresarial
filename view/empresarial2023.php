@@ -2,6 +2,23 @@
    include_once('../model/databases_admin.php');
    session_start();
    mysqli_set_charset( $mysqli, 'utf8');
+   if (!isset($_SESSION['tp_user']) == 3) {
+    // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+    // Si no está logueado lo redireccion a la página de login.
+    header("HTTP/1.1 302 Moved Temporarily"); 
+    header("Location: ../"); 
+    die();
+}
+
+// Verificar si la sesión está iniciada
+if (!isset($_SESSION['id'])) {
+    // La sesión no está iniciada, redireccionar a la página de inicio de sesión
+    
+        // Si no está logueado lo redireccion a la página de login.
+    header("HTTP/1.1 302 Moved Temporarily"); 
+    header("Location: ../"); 
+    exit(); // Asegurarse de que el script se detenga después de la redirección
+}
    $id=$_SESSION["id"];
    $beneficiarios = run_benefiaciario2023();
    ?>
@@ -55,7 +72,7 @@
                <div class="col-md-12">
                  <div class="panel-heading">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a class="colora" href="#" >Empresas</a></li>
+                            <li class=""><a class="colora" href="#" >Empresas</a></li>
                             <li class=""><a class="colora" href="candidato.php" >Candidatos</a></li>
                             <li class="dropdown active">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="beneficiario.php">Beneficiarios
@@ -69,6 +86,7 @@
 							</ul>
 						    </li>
                             <li class=""><a class="colora" href="noaplica.php" >No aplica</a></li>
+                            <li class=""><a class="colora" href="new_vacante_admin.php" >Vacantes</a></li>
                         </ul>
                 </div>
                </div>
