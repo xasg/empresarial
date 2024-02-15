@@ -52,13 +52,13 @@
   overflow: auto;
   border: 1px solid;
   margin-left: 2%;
-  max-width:500px !important;
+  /* max-width:500px !important; */
   }
   table thead,
   table th,
   table td {
     width: 99%;
-    max-width: 200px !important;
+    /* max-width: 200px !important; */
     overflow: auto;
     border: 1px solid;
   }
@@ -146,16 +146,13 @@
       <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>  
-                  <th class="text-center">ID</th>
-                  <th class="text-center">NOMBRE</th>
-                  <th class="text-center">CURP</th>
+                  <th class="text-center">NOMBRE/CURP</th>
                   <th class="text-center">IES</th>
                   <th class="text-center">EMPRESA</th>
-                  <th class="text-center">FECHA DE REGISTRO</th>
-                  <th class="text-center">FECHA FIN DE REGISTRO</th>
                   <th class="text-center">ACCESOS</th>
                   <th class="text-center">ACCIONES</th>    
                   <th class="text-center">AVANCE</th>
+                  <th class="text-center">FECHAS</th>
             </tr>
         </thead>
               <tbody>
@@ -166,30 +163,20 @@
                 
                 ?>
                 <tr>
-                  <td class="text-center"><?php echo $cand['id_usuario']; ?></td>
                   <td><a href="editar_cand_admin.php?ben=<?php echo $cand['id_usuario']; ?>">                    
-                    <span class="glyphicon glyphicon-edit" style="color: #ff5733"></span></a><?php echo " ".$cand['dt_nombres']. "<br>".$cand['dt_apaterno']. " ".$cand['dt_amaterno']; ?></td>
-                  <td><?php echo $cand['dt_curp']; ?></td>
+                    <span class="glyphicon glyphicon-edit" style="color: #ff5733"></span></a><?php echo " ".$cand['dt_nombres']. "<br>".$cand['dt_apaterno']. " ".$cand['dt_amaterno']; ?> <br> <b>CURP</b> <?php echo $cand['dt_curp']; ?></td>
                   <td><?php echo $cand['dt_nombre_ies']. "<br> <strong>".$cand['dt_nombre_carrera']."</strong>" ?></td>
                   <td><?php echo $cand['dt_razon_social']; ?></td>
-                  <td class="text-center"><?php echo $cand['fecha']; ?></td>
-                  <!-----> 
-                  <td class="text-center"><?php echo $cand['dt_fin_registro']; ?></td>
-                  
                   <td><?php echo "usuario:".$cand['dt_correo']."<br>"."contraseña:".$cand['dt_password'] ?></td>
-                  <td class="text-center"><br><br>
-                    <!---->
-                    <a href="eliminar_candidato.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
-                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Baja </button>
+                  <td class="text-center row">                    <!---->
+                    <a class="col-md-2 "  href="eliminar_candidato.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
+                    <button type="button" class="btn btn-sm btn-danger" title="baja"><span class="glyphicon glyphicon-minus"></span> </button>
                     </a>
-                    <!----->
-              <!--BOTON PARA PODER ELIMINAR LOS REGISTROS DE CANDIDATOS -->
-              
-              <!---->
+
               <?php if($cand['tp_estatus']>=4 AND $cand['dt_eval_aplica']!=1 ) { ?>
-                    <a href="validar_cand.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
+                    <a class="col-2"   href="validar_cand.php?ben=<?php echo $cand['id_usuario']; ?>" style="margin-left:20px !important;">
                     <?php if($cand['dt_status_validacion']==0  && ($cand['dt_avance_registro']== 100)){ ?>
-                  <button type="button" class="btn btn-warning"><i class='glyphicon glyphicon-star-empty'></i> Valida</button>
+                  <button type="button" class="btn btn-sm btn-warning" title="validar"><i class='glyphicon glyphicon-pencil'></i></button>
                   <?php } elseif($cand['dt_status_validacion']==1 ){ ?>
                     <button type="button" class="btn btn-danger"><i class='glyphicon glyphicon-star-empty'></i> En actualización</button>
                   <?php } elseif($cand['dt_status_validacion']==2 ){ ?>
@@ -209,6 +196,11 @@
                     
 
               </td> 
+              <?php $dateString1 = date('d/m/y', strtotime($cand['fecha'])); ?>
+              <?php $dateString2 = date('d/m/y', strtotime($cand['dt_fin_registro'])); ?>
+              <td class="text-center"><b>Inicio</b> <?php echo $dateString1; ?> <br> <b>fin</b> <?php echo $dateString2; ?></td>
+
+                  
 
                 </tr> 
                 <?php
