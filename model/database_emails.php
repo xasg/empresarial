@@ -31,7 +31,7 @@ function actualiza_status($cliente){
 
 function insert_candidato($nombre,$correo,$idvac){
     global $mysqli;
-    $query = "INSERT INTO candidatos_correos(id,nombre,correo,notificacion,id_vacante) values(null,'{$nombre}','{$correo}',0,'{$idvac}')";
+    $query = "INSERT INTO candidatos_correos(nombre,correo,notificacion,id_vacante) values('{$nombre}','{$correo}',0,'{$idvac}')";
     $mysqli->query($query);
 }
 
@@ -64,7 +64,7 @@ function insert_data($nombre,$correo,$idvacante)
 {
  global $mysqli;
 
-$sql = "INSERT INTO candidatos_correos(id,nombre,correo,notificacion,id_vacante) VALUES(null,'{$nombre}','{$correo}',0,'{$idvacante}')";
+$sql = "INSERT INTO candidatos_correos(nombre,correo,notificacion,id_vacante) VALUES('{$nombre}','{$correo}',0,'{$idvacante}')";
   $mysqli->query($sql);
 }
 // Si existe se actualiza solo si tiene el id de la vacante

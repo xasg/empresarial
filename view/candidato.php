@@ -154,7 +154,7 @@
                   <th class="text-center">FECHA DE REGISTRO</th>
                   <th class="text-center">FECHA FIN DE REGISTRO</th>
                   <th class="text-center">ACCESOS</th>
-                  <th class="text-center">ESTATUS</th>    
+                  <th class="text-center">ACCIONES</th>    
                   <th class="text-center">AVANCE</th>
             </tr>
         </thead>
@@ -224,18 +224,7 @@
 
 
 <script>
-  $(document).ready(function() {
-    $('#example').DataTable( {
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-        }
-    } );
-} );
 
-
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
 
 </script>
 <script src="../js/app.js"></script>

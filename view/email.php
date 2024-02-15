@@ -205,18 +205,24 @@ if (isset($_REQUEST['enviarform'])) {
             try {
                 $mail->CharSet = 'UTF-8';
                 $mail->isSMTP();
-                $mail->Host       = 'mail.fese.org.mx';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'inaes@fese.org.mx';
-                $mail->Password   = 'HeVr1043D';
-                $mail->SMTPSecure = 'ssl';
-                $mail->Port       = 465;
+                // $mail->Host       = 'mail.fese.org.mx';
+                // $mail->SMTPAuth   = true;
+                // $mail->Username   = 'inaes@fese.org.mx';
+                // $mail->Password   = 'HeVr1043D';
+                // $mail->SMTPSecure = 'ssl';
+                // $mail->Port       = 465;
+                $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'info@avivamientointernacional.website';                     //SMTP username
+                $mail->Password   = 'Avivamiento#2023';                               //SMTP password
+                $mail->SMTPSecure = 'ssl';            //Enable implicit TLS encryption
+                $mail->Port       = 465;                    
 
                 // Destinatario
                 $mail->addAddress($destinatario);
 
                 // Cabecera Obligatoria
-                $mail->setFrom('aramirez@fese.mx', 'EMPRESARIAL FESE.');
+                $mail->setFrom('info@avivamientointernacional.website', 'EMPRESARIAL FESE.');
                 $mail->setFrom('aramirez@fese.mx', 'EMPRESARIAL FESE.');
                 $mail->isHTML(true);
                 $mail->Subject = $asunto;
