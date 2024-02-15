@@ -188,8 +188,7 @@
               <!---->
               <?php if($cand['tp_estatus']>=4 AND $cand['dt_eval_aplica']!=1 ) { ?>
                     <a href="validar_cand.php?ben=<?php echo $cand['id_usuario']; ?>" class="colora">
-                  
-                  <?php if($cand['dt_status_validacion']==0 ){ ?>                     
+                    <?php if($cand['dt_status_validacion']==0  && ($cand['dt_avance_registro']== 100)){ ?>
                   <button type="button" class="btn btn-warning"><i class='glyphicon glyphicon-star-empty'></i> Valida</button>
                   <?php } elseif($cand['dt_status_validacion']==1 ){ ?>
                     <button type="button" class="btn btn-danger"><i class='glyphicon glyphicon-star-empty'></i> En actualización</button>
