@@ -31,7 +31,7 @@ function procesarFecha($dia, $mes, $año, $id, $id_empresa)
   global $mysqli;
  
   
-  echo "entro la funcion "; 
+  //echo "entro la funcion "; 
   if ($dia >= 1 && $dia <= 31 && $mes >= 1 && $mes <= 12 && $año >= 1900 && $año <= 2099) 
   {
     $nuevaFecha = $año . '-' . $mes . '-' . $dia;
@@ -47,7 +47,7 @@ function procesarFecha($dia, $mes, $año, $id, $id_empresa)
         {
           echo "Error al ejecutar la consulta: " . $mysqli->error;
         }
-      //header("Location: beneficiario.php");
+      header("Location: beneficiario.php");
 
             
   }
@@ -157,6 +157,29 @@ function update_valida($id, $valida)
   global $mysqli;
   $sql = "UPDATE validacion_ben SET dt_status_validacion = '{$valida}' WHERE id_usuario ='{$id}' ";
   $mysqli->query($sql); 
+}
+
+function actualizarFechaFinRegistro($id)
+{
+  global $mysqli;  
+  // echo "entro la funcion ";
+  date_default_timezone_set('America/Mexico_City');
+  $fecha_actual = date("Y-m-d H:i:s");
+
+  
+  $sql = "UPDATE beneficiario 
+  SET dt_fin_registro =  '{$fecha_actual}'  
+  WHERE id_usuario = '{$id }'";  // Usar el valor de la variable $id
+  if ($mysqli->query($sql) === TRUE) 
+    {
+      // echo "Consulta ejecutada con éxito";
+    }
+    else 
+      {
+        // echo "Error al ejecutar la consulta: " . $mysqli->error;
+      }
+      
+    //header("Location: beneficiario.php");            
 }
 
 function actualizarBeneficiarios20($id) 
